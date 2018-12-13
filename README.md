@@ -1,5 +1,8 @@
 # SmartScheduleBackend
 
+This is SmartSchedule application.
+
+
 # Common Layer
 
 This will contain all cross-cutting concerns.
