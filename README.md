@@ -21,10 +21,10 @@ For testing, use an InMemory provider such as InMemory or SqlLite.
 This layer contains classes for accessing external resources such as file systems, web services, smtp, and so on.
 These classes should be based on interfaces defined within the application layer.
 
-#Persistence Layer
+# Persistence Layer
 
 This layer contains all configuration to databases.
 
-#Presentation Layer
+# Presentation Layer
 
 This layer contains API(controllers .etc)
