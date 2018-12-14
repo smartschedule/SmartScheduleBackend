@@ -7,11 +7,11 @@ using SmartSchedule.Domain.Entities;
 
 namespace SmartSchedule.Persistence.Configurations
 {
-    public class EventConfiguration : IEntityTypeConfiguration<Event>
-    {
-        public void Configure(EntityTypeBuilder<Event> builder)
-        {
-            throw new NotImplementedException();
-        }
-    }
+    //public class EventConfiguration : IEntityTypeConfiguration<Event>
+    //{
+    //    public void Configure(EntityTypeBuilder<Event> builder)
+    //    {
+    //        builder.Property(e => e.Id).HasColumnName("ID");
+    //    }
+    //}
 }

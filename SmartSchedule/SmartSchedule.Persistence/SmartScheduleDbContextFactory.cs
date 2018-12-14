@@ -1,11 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.EntityFrameworkCore;
+using SmartSchedule.Persistence.Infrastructure;
 
 namespace SmartSchedule.Persistence
 {
-    public class SmartScheduleDbContextFactory
+    public class SmartScheduleDbContextFactory : DesignTimeDbContextFactoryBase<SmartScheduleDbContext>
     {
-        //TODO
+        protected override SmartScheduleDbContext CreateNewInstance(DbContextOptions<SmartScheduleDbContext> options)
+        {
+            return new SmartScheduleDbContext(options);
+        }
     }
 }
