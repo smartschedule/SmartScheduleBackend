@@ -11,5 +11,6 @@ namespace SmartSchedule.Domain.Entities
 
         public ICollection<UserEvents> UserEvents { get; set; }
         public ICollection<UserCalendar> UserCalendars { get; set; }
+        public ICollection<User> Friends { get; set; }
     }
 }
