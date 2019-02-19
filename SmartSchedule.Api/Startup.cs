@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FluentValidation.AspNetCore;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -10,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using SmartSchedule.Api.Filters;
+using SmartSchedule.Application.User.Commands.CreateUser;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SmartSchedule.Api
@@ -26,7 +29,12 @@ namespace SmartSchedule.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+
+            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
+            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info

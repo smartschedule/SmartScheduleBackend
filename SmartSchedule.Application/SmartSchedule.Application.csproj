@@ -6,15 +6,20 @@
 
   <ItemGroup>
     <Folder Include="Event\" />
+    <Folder Include="User\Commands\DeleteUser\" />
+    <Folder Include="User\Commands\UpdateUser\" />
+    <Folder Include="User\Queries\GetUserList\" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.3" />
     <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="6.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SmartSchedule.Domain\SmartSchedule.Domain.csproj" />
+    <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
