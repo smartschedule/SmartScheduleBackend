@@ -8,7 +8,6 @@
     <Folder Include="Event\" />
     <Folder Include="User\Commands\DeleteUser\" />
     <Folder Include="User\Commands\UpdateUser\" />
-    <Folder Include="User\Queries\GetUserList\" />
   </ItemGroup>
 
   <ItemGroup>
