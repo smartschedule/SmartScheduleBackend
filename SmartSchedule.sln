@@ -11,17 +11,21 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{0FD08227-AF94-4905-84CB-1A2F57A974E5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Common", "SmartSchedule.Common\SmartSchedule.Common.csproj", "{0AFAB640-75A5-4A9B-BE7F-5A6FB5E31320}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Common", "SmartSchedule.Common\SmartSchedule.Common.csproj", "{0AFAB640-75A5-4A9B-BE7F-5A6FB5E31320}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Domain", "SmartSchedule.Domain\SmartSchedule.Domain.csproj", "{159C8981-1577-483B-BE8D-EB5E188500E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Domain", "SmartSchedule.Domain\SmartSchedule.Domain.csproj", "{159C8981-1577-483B-BE8D-EB5E188500E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Application", "SmartSchedule.Application\SmartSchedule.Application.csproj", "{816F8BD0-2912-4D06-9586-40D9625DB73A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Application", "SmartSchedule.Application\SmartSchedule.Application.csproj", "{816F8BD0-2912-4D06-9586-40D9625DB73A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Infrastucture", "SmartSchedule.Infrastucture\SmartSchedule.Infrastucture.csproj", "{7D8F374B-42A4-4FFE-A13B-D3F919AB8EF4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Infrastucture", "SmartSchedule.Infrastucture\SmartSchedule.Infrastucture.csproj", "{7D8F374B-42A4-4FFE-A13B-D3F919AB8EF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Persistence", "SmartSchedule.Persistence\SmartSchedule.Persistence.csproj", "{308E0BA7-74F7-4872-A7D5-4D9F32266312}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Persistence", "SmartSchedule.Persistence\SmartSchedule.Persistence.csproj", "{308E0BA7-74F7-4872-A7D5-4D9F32266312}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Api", "SmartSchedule.Api\SmartSchedule.Api.csproj", "{71EC5C7D-2822-4D14-AF12-64056BA2C309}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Api", "SmartSchedule.Api\SmartSchedule.Api.csproj", "{71EC5C7D-2822-4D14-AF12-64056BA2C309}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4F90F73F-0030-43EC-86C3-B522402F71AA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Test", "SmartSchedule.Test\SmartSchedule.Test.csproj", "{1D5A0C37-1F6B-445B-870C-606864703D0D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +57,10 @@ Global
 		{71EC5C7D-2822-4D14-AF12-64056BA2C309}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{71EC5C7D-2822-4D14-AF12-64056BA2C309}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{71EC5C7D-2822-4D14-AF12-64056BA2C309}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D5A0C37-1F6B-445B-870C-606864703D0D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D5A0C37-1F6B-445B-870C-606864703D0D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D5A0C37-1F6B-445B-870C-606864703D0D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D5A0C37-1F6B-445B-870C-606864703D0D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,6 +72,7 @@ Global
 		{7D8F374B-42A4-4FFE-A13B-D3F919AB8EF4} = {574CD7DC-33E9-4F06-8A9E-B1290CEA6C7E}
 		{308E0BA7-74F7-4872-A7D5-4D9F32266312} = {574CD7DC-33E9-4F06-8A9E-B1290CEA6C7E}
 		{71EC5C7D-2822-4D14-AF12-64056BA2C309} = {0FD08227-AF94-4905-84CB-1A2F57A974E5}
+		{1D5A0C37-1F6B-445B-870C-606864703D0D} = {4F90F73F-0030-43EC-86C3-B522402F71AA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {FEE34079-159B-49A1-87E6-C94969EE6487}
