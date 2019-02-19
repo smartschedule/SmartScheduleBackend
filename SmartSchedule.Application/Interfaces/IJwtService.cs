@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Infrastructure
+﻿namespace SmartSchedule.Application.Interfaces
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;

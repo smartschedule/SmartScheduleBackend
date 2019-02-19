@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.Infrastructure;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.Models;
     using SmartSchedule.Persistence;
 
