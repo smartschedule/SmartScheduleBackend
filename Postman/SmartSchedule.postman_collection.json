@@ -1,0 +1,124 @@
+{
+	"info": {
+		"_postman_id": "c179869f-ba88-4588-b7d6-177026088ca0",
+		"name": "SmartSchedule",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"id": "3a8514e4-b188-408a-a1f7-7ab03e9cd228",
+								"exec": [
+									"var data = JSON.parse(responseBody);",
+									"postman.setEnvironmentVariable(\"token\", \"Bearer \" + data.token)"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"email\": \"zdzichu@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/login",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Registration",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userName\": \"test\",\r\n  \"email\": \"test1@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/register",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserDetails",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"name": "Content-Type",
+								"value": "application/json",
+								"type": "text",
+								"disabled": true
+							},
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/user/details",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"user",
+								"details"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

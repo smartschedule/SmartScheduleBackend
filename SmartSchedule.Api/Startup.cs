@@ -2,6 +2,8 @@
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using MediatR;
+using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -15,6 +17,7 @@ using SmartSchedule.Application.Infrastructure.AutoMapper;
 using SmartSchedule.Application.Interfaces;
 using SmartSchedule.Application.Models;
 using SmartSchedule.Application.User.Commands.CreateUser;
+using SmartSchedule.Application.User.Queries.GetUserDetails;
 using SmartSchedule.Infrastucture.Authentication;
 using SmartSchedule.Persistence;
 using Swashbuckle.AspNetCore.Swagger;
@@ -34,6 +37,9 @@ namespace SmartSchedule.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
+
+
+            services.AddMediatR(typeof(GetUserDetailQueryHandler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
@@ -107,6 +113,7 @@ namespace SmartSchedule.Api
             }
 
             app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
