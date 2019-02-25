@@ -2,6 +2,7 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
+    using FluentValidation;
     using MediatR;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
@@ -23,6 +24,12 @@
             {
                 //TODO: User model Validation
                 var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
+                var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request,cancellationToken);
+                if(!vResult.IsValid)
+                {
+                    throw new ValidationException(vResult.Errors);
+                }
+
                 var entity = new Domain.Entities.User
                 {
                     Email = request.Email,

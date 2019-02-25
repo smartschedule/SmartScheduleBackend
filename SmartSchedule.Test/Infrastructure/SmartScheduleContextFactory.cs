@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using SmartSchedule.Persistence;
 using SmartSchedule.Domain.Entities;
+using SmartSchedule.Application.Helpers;
 
 namespace SmartSchedule.Test.Infrastructure
 {
@@ -14,11 +15,13 @@ namespace SmartSchedule.Test.Infrastructure
                 .Options;
 
             var context = new SmartScheduleDbContext(options);
+            var saltedPassword1 = new HashedPassword(PasswordHelper.CreateHash("test1234")).ToSaltedPassword();
+            var saltedPassword2 = new HashedPassword(PasswordHelper.CreateHash("test4321")).ToSaltedPassword();
 
             context.Users.AddRange(new[]
             {
-                new User {Id = 2, Email = "test1@test.com", Name = "test1", Password = "asdjhskdfgsdjfhlaKSDFHKASDJHFKASDJHFASD"},
-                new User {Id = 3, Email = "test2@test.com", Name = "test2", Password = "asd223ads33gsdasdsdfasdasdadasdasdwasdd"}
+                new User {Id = 2, Email = "test1@test.com", Name = "test1", Password = saltedPassword1},
+                new User {Id = 3, Email = "test2@test.com", Name = "test2", Password = saltedPassword2}
             });
 
             context.SaveChanges();

@@ -1,14 +1,22 @@
 ﻿using System.Reflection;
+using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 using SmartSchedule.Api.Filters;
 using SmartSchedule.Application.Infrastructure.AutoMapper;
+using SmartSchedule.Application.Interfaces;
+using SmartSchedule.Application.Models;
 using SmartSchedule.Application.User.Commands.CreateUser;
+using SmartSchedule.Infrastucture.Authentication;
+using SmartSchedule.Persistence;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace SmartSchedule.Api
@@ -31,6 +39,48 @@ namespace SmartSchedule.Api
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
             .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
 
+            var jwtSettingsSection = Configuration.GetSection("JwtSettings");
+            services.Configure<JwtSettings>(jwtSettingsSection);
+
+            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+            var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
+            services.AddAuthentication(x =>
+            {
+                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            })
+            .AddJwtBearer(x =>
+            {
+                x.RequireHttpsMetadata = false;
+                x.SaveToken = true;
+                x.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(key),
+                    ValidateIssuer = false,
+                    ValidateAudience = false
+
+                };
+            });
+
+            services.AddDbContext<SmartScheduleDbContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
+
+            services.AddTransient<IJwtService, JwtService>();
+
+            services.AddCors(options => //TODO: Change cors only to our server
+            {
+                options.AddPolicy("AllowAll",
+                    builder =>
+                    {
+                        builder
+                        .AllowAnyOrigin()
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
@@ -46,6 +96,7 @@ namespace SmartSchedule.Api
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseCors("AllowAll");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

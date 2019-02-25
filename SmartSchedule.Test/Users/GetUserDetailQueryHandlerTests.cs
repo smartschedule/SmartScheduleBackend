@@ -8,7 +8,7 @@ using Xunit;
 
 namespace SmartSchedule.Test.Users
 {
-    [Collection("QueryCollection")]
+    [Collection("TestCollection")]
     public class GetUserDetailQueryHandlerTests
     {
         private readonly SmartScheduleDbContext _context;
