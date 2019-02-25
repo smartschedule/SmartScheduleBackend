@@ -13,6 +13,8 @@ using SmartSchedule.Application.Interfaces;
 using SmartSchedule.Infrastucture.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using SmartSchedule.Application.Exceptions;
+using SmartSchedule.Application.User.Commands.DeleteUser;
+using SmartSchedule.Application.User.Commands.UpdateUser;
 
 namespace SmartSchedule.Test.Users
 {
@@ -26,100 +28,89 @@ namespace SmartSchedule.Test.Users
         {
             _context = fixture.Context;
             _jwtSettings = fixture.JwtSettings;
-        }
+        }     
 
         [Fact]
-        public async Task CreateUserShouldAddUserToDbContext()
+        public async Task DeleteUserWithValidIdShouldDeleteUser()
         {
-            var command = new CreateUserCommand
+            var command = new DeleteUserCommand
             {
-                UserName = "Zdzichu",
-                Email = "janusz73@gmail.com",
-                Password = "test123"
+                Id = 2
             };
+            var deletedUser = await _context.Users.FindAsync(2);
+            deletedUser.ShouldNotBeNull();
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
+            var commandHandler = new DeleteUserCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var user = await _context.Users.FindAsync(3);
-            user.ShouldNotBeNull();
+            deletedUser = await _context.Users.FindAsync(2);
+
+            deletedUser.ShouldBeNull();
         }
 
         [Fact]
-        public async Task CreateUserShouldThrowExceptionAfterProvidingWrongData()
+        public async Task DeleteUserWithInvalidIdShouldThrowNotFoundException()
         {
-            var command = new CreateUserCommand
+            var command = new DeleteUserCommand
             {
-                UserName = "Zdzichu",
-                Email = "janusz73@gmail.com",
-                Password = "test"
-            };
+                Id = 66
+            };           
+            var commandHandler = new DeleteUserCommand.Handler(_context);
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
-
-            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
 
         [Fact]
-        public async Task CreateUserShouldThrowExceptionAfterProvidingSameEmail()
+        public async Task UpdateUserWithValidDataShouldUpdateUser()
         {
-            var command = new CreateUserCommand
+            var command = new UpdateUserCommand
             {
+                Id = 3,
                 UserName = "Zdzichu",
-                Email = "test1@test.com",
+                Email = "test2@test.com",
                 Password = "test123"
             };
+            var commandHandler = new UpdateUserCommand.Handler(_context);
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
+            await commandHandler.Handle(command, CancellationToken.None);
+
+            var updatedUser = await _context.Users.FindAsync(3);
+
+            updatedUser.Name.ShouldBe(command.UserName);
+            updatedUser.Password.ShouldNotBe(command.Password);
+            updatedUser.Email.ShouldBe(command.Email);
+            updatedUser.Id.ShouldBe(command.Id);
+        }
+
+        [Fact]
+        public async Task UpdateUserWithInValidPasswordShouldThrowException()
+        {
+            var command = new UpdateUserCommand
+            {
+                Id = 3,
+                UserName = "Zdzichu",
+                Email = "test2@test.com",
+                Password = "123"
+            };
+            var commandHandler = new UpdateUserCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
 
         [Fact]
-        public async Task SignInUserWithValidCredentialsShouldReturnToken()
+        public async Task UpdateUserWithExistingEmailShouldThrowException()
         {
-            var credentials = new EmailSignInModel
+            var command = new UpdateUserCommand
             {
-                Email = "test1@test.com",
-                Password = "test1234"
+                Id = 3,
+                UserName = "Zdzichu",
+                Email = "test3@test.com",
+                Password = "123123123"
             };
+            var commandHandler = new UpdateUserCommand.Handler(_context);
 
-            IJwtService jwtService = new JwtService(_context, _jwtSettings);
-
-            var result = await jwtService.Login(credentials);
-
-            result.ShouldNotBeNull();
-        }
-
-        [Fact]
-        public async Task SignInUserWithInvalidPasswordShouldReturnUnauthorizedResult()
-        {
-            var credentials = new EmailSignInModel
-            {
-                Email = "test1@test.com",
-                Password = "asdasfsdgsd"
-            };
-
-            IJwtService jwtService = new JwtService(_context, _jwtSettings);
-
-            var result = await jwtService.Login(credentials);
-
-            result.ShouldBeOfType<UnauthorizedResult>();
-        }
-
-        [Fact]
-        public async Task SignInUserWithNotExistingEmailShouldThrowNotFoundException()
-        {
-            var credentials = new EmailSignInModel
-            {
-                Email = "test22@test.com",
-                Password = "whatever"
-            };
-
-            IJwtService jwtService = new JwtService(_context, _jwtSettings);
-
-            await jwtService.Login(credentials).ShouldThrowAsync<NotFoundException>();
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
     }
 }

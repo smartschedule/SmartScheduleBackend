@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using AutoMapper;
 using Shouldly;
@@ -29,9 +30,6 @@ namespace SmartSchedule.Test.Users
             var result = await sut.Handle(new GetUsersListQuery(), CancellationToken.None);
 
             result.ShouldBeOfType<UserListViewModel>();
-
-            result.Users.Count.ShouldBe(2);
-
         }
     }
 }

@@ -21,7 +21,8 @@ namespace SmartSchedule.Test.Infrastructure
             context.Users.AddRange(new[]
             {
                 new User {Id = 2, Email = "test1@test.com", Name = "test1", Password = saltedPassword1},
-                new User {Id = 3, Email = "test2@test.com", Name = "test2", Password = saltedPassword2}
+                new User {Id = 3, Email = "test2@test.com", Name = "test2", Password = saltedPassword2},
+                new User {Id = 4, Email = "test3@test.com", Name = "test3", Password = saltedPassword2}
             });
 
             context.SaveChanges();

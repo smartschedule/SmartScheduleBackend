@@ -21,8 +21,7 @@
                 _context = context;
             }
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-            {
-                //TODO: User model Validation
+            {               
                 var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
                 var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request,cancellationToken);
                 if(!vResult.IsValid)
