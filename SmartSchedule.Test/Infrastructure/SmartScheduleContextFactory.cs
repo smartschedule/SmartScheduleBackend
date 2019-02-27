@@ -25,6 +25,11 @@ namespace SmartSchedule.Test.Infrastructure
                 new User {Id = 4, Email = "test3@test.com", Name = "test3", Password = saltedPassword2}
             });
 
+            context.Calendars.AddRange(new[]
+            {
+                new Calendar{Id=2,Name="kalendarz",ColorHex="kolor"}
+            });
+
             context.SaveChanges();
 
             return context;
