@@ -14,7 +14,7 @@ namespace SmartSchedule.Test.Infrastructure
         {
             var basePath = Path.GetFullPath(Path.Combine(AppContext.BaseDirectory, "..\\..\\..\\.."))
                 + string.Format("{0}SmartSchedule.Api", Path.DirectorySeparatorChar);
-           
+            Console.WriteLine(basePath);
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
                 .AddJsonFile("appsettings.json")    
