@@ -25,7 +25,7 @@ namespace SmartSchedule.Test.Calendars
             var command = new AddFriendToCalendarCommand
             {
                 CalendarId=2,
-                UserId = 1
+                UserId = 3
             };
 
             var commandHandler = new AddFriendToCalendarCommand.Handler(_context);

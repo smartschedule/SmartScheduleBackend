@@ -26,7 +26,7 @@ namespace SmartSchedule.Test.Calendars
             var command = new DeleteFriendFromCalendarCommand
             {
                 CalendarId = 2,
-                UserId = 1
+                UserId = 3
             };
 
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);

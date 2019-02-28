@@ -30,6 +30,11 @@ namespace SmartSchedule.Test.Infrastructure
                 new Calendar{Id=2,Name="kalendarz",ColorHex="kolor"}
             });
 
+            context.UserCalendars.AddRange(new[]
+            {
+                new UserCalendar{CalendarId=2,UserId=1}
+            });
+
             context.SaveChanges();
 
             return context;

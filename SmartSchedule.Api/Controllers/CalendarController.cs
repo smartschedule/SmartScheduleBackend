@@ -7,6 +7,7 @@ using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
 using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
 using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
 using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
+using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
 
 namespace SmartSchedule.Api.Controllers
 {
@@ -40,6 +41,12 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarCommand calendar)
         {
             return Ok(await Mediator.Send(calendar));
+        }
+
+        [HttpGet("/api/calendars")]
+        public async Task<IActionResult> GetCalendarsList()
+        {
+            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
         }
     }
 }
