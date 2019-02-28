@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using FluentValidation;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
@@ -29,7 +28,7 @@
                 }
 
                 var friend = await _context.Users.FindAsync(request.FriendId);
-                if(friend == null)
+                if (friend == null)
                 {
                     throw new NotFoundException("User", request.FriendId);
                 }
