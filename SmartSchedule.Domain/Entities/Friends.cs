@@ -3,7 +3,7 @@
     using SmartSchedule.Domain.Entities.Base;
     using SmartSchedule.Domain.Enums;
 
-    public class Friends
+    public class Friends : BaseEntity<int>
     {
         public int FirstUserId { get; set; }
         public int SecoundUserId { get; set; }
