@@ -28,4 +28,7 @@ namespace SmartSchedule.Test.Infrastructure
 
     [CollectionDefinition("TestCollection")]
     public class QueryCollection : ICollectionFixture<TestFixture> { }
+
+    [CollectionDefinition("FriendsTestCollection")]
+    public class FriendsTestCollection : ICollectionFixture<TestFixture> { }
 }

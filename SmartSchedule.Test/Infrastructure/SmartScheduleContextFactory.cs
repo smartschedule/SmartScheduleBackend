@@ -25,6 +25,11 @@ namespace SmartSchedule.Test.Infrastructure
                 new User {Id = 4, Email = "test3@test.com", Name = "test3", Password = saltedPassword2}
             });
 
+            context.Friends.AddRange(new[]
+            {
+                new Domain.Entities.Friends {FirstUserId = 3, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.pending_first_secound}
+            });
+
             context.SaveChanges();
 
             return context;

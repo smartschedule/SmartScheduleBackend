@@ -6,6 +6,10 @@
 
   <ItemGroup>
     <Folder Include="Event\" />
+    <Folder Include="Friends\Queries\GetPendingUserFriendRequests\" />
+    <Folder Include="Friends\Queries\GetFriends\" />
+    <Folder Include="Friends\Queries\GetUserFriendRequests\" />
+    <Folder Include="Friends\Queries\GetBlockedUsers\" />
   </ItemGroup>
 
   <ItemGroup>
