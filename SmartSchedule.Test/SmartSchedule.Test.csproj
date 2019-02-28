@@ -24,4 +24,8 @@
     <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Include="..\SmartSchedule.Api\appsettings.json" CopyToPublishDirectory="Always" CopyToOutputDirectory="Always" />
+  </ItemGroup>
+
 </Project>
