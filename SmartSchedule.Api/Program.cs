@@ -20,6 +20,6 @@ namespace SmartSchedule.Api
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-            .UseUrls("http://localhost:2137","https://localhost:2138");
+            .UseUrls("http://localhost:2137","http://localhost:2138");
     }
 }
