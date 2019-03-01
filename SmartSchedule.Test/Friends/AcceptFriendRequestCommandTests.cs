@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using FluentValidation;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Friends.Commands.AcceptFriendRequest;
@@ -51,7 +50,8 @@
 
             var commandHandler = new AcceptFriendRequestCommand.Handler(_context);
 
-            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<ValidationException>();
+            await commandHandler.Handle(command, CancellationToken.None)
+                .ShouldThrowAsync<FluentValidation.ValidationException>();
         }
     }
 }

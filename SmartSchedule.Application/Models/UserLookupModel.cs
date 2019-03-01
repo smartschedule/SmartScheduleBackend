@@ -1,8 +1,7 @@
-﻿using AutoMapper;
-using SmartSchedule.Application.Interfaces.Mapping;
-
-namespace SmartSchedule.Application.User.Queries.GetUserList
+﻿namespace SmartSchedule.Application.Models
 {
+    using AutoMapper;
+    using SmartSchedule.Application.Interfaces.Mapping;
 
     public class UserLookupModel : IHaveCustomMapping
     {

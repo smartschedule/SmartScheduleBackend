@@ -1,13 +1,14 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using MediatR;
-using Microsoft.EntityFrameworkCore;
-using SmartSchedule.Persistence;
-
-namespace SmartSchedule.Application.User.Queries.GetUserList
+﻿namespace SmartSchedule.Application.User.Queries.GetUserList
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Models;
+    using SmartSchedule.Persistence;
+
     public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, UserListViewModel>
     {
         private readonly SmartScheduleDbContext _context;
