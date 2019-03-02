@@ -34,9 +34,18 @@
                     throw new NotFoundException("User", request.FriendId);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(request.UserId)
-                                                                                && x.SecoundUserId.Equals(request.FriendId));
-                if (friendRequest != null)
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.UserId)
+                                                                                && x.SecoundUserId.Equals(request.FriendId))
+                                                                                || (x.FirstUserId.Equals(request.FriendId)
+                                                                                && x.SecoundUserId.Equals(request.UserId)));
+                if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
+                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
+                {
+                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_both;
+                    _context.Friends.Update(friendRequest);
+                }
+                else if(friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
+                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_secound;
                     _context.Friends.Update(friendRequest);

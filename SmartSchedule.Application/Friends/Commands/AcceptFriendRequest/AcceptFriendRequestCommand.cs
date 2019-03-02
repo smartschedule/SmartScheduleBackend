@@ -21,7 +21,7 @@
             public async Task<Unit> Handle(AcceptFriendRequestCommand request, CancellationToken cancellationToken)
             {
                 var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(request.RequestingUserId)
-                                                                                && x.SecoundUserId.Equals(request.RequestedUserId));
+                                                                                && x.SecoundUserId.Equals(request.RequestedUserId), cancellationToken);
 
                 var vResult = new AcceptFriendRequestCommandValidator(friendRequest).Validate(request);
                 if (!vResult.IsValid)

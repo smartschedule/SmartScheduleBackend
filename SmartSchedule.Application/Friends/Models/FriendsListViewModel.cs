@@ -4,6 +4,6 @@
     using SmartSchedule.Application.Models;
     public class FriendsListViewModel
     {
-        public IList<UserLookupModel> Users { get; set; }
+        public List<UserLookupModel> Users { get; set; }
     }
 }
