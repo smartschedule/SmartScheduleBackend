@@ -8,7 +8,7 @@ using Xunit;
 using SmartSchedule.Application.Event.Commands.UpdateEvent;
 using System;
 
-namespace SmartSchedule.Test.Calendars
+namespace SmartSchedule.Test.Events
 {
     [Collection("TestCollection")]
     public class UpdateEventCommandTests
