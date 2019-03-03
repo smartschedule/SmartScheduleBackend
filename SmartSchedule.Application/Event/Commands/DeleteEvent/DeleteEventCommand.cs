@@ -28,7 +28,7 @@
                 }
 
                 _context.Events.Remove(eventE);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

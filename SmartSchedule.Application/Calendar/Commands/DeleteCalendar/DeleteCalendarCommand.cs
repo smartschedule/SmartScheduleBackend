@@ -28,7 +28,7 @@
                 }
 
                 _context.Calendars.Remove(calendar);
-                await _context.SaveChangesAsync();
+                await _context.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
 using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
 using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
+using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
 using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
 using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
 using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
@@ -39,6 +40,12 @@ namespace SmartSchedule.Api.Controllers
 
         [HttpPost("/api/DeleteFriendFromCalendar")]
         public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarCommand calendar)
+        {
+            return Ok(await Mediator.Send(calendar));
+        }
+
+        [HttpPost("/api/DeleteEventsFromCalendar")]
+        public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]DeleteEventsFromCalendarCommand calendar)
         {
             return Ok(await Mediator.Send(calendar));
         }

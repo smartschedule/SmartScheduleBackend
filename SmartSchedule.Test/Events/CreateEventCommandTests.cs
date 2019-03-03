@@ -43,6 +43,10 @@ namespace SmartSchedule.Test.Events
 
             Event.ShouldNotBeNull();
             Location.ShouldNotBeNull();
+
+            var calendar = await _context.Calendars.FindAsync(2);
+
+            calendar.Events.ShouldNotBeEmpty();
         }
 
         [Fact]
