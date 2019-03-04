@@ -2,6 +2,7 @@
 using System.Net;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using SmartSchedule.Api.Models;
 using SmartSchedule.Application.Exceptions;
 
 namespace SmartSchedule.Api.Filters
@@ -17,6 +18,14 @@ namespace SmartSchedule.Api.Filters
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Result = new JsonResult(
                     ((ValidationException)context.Exception).Failures);
+
+                return;
+            }
+            else if (context.Exception is FluentValidation.ValidationException)
+            {
+                var exception = context.Exception as FluentValidation.ValidationException;
+                context.HttpContext.Response.StatusCode = 400;
+                context.Result = new JsonResult(new ValidationResultModel(exception));
 
                 return;
             }

@@ -26,7 +26,7 @@
             var command = new BlockUserCommand
             {
                 UserId = 4,
-                FriendId = 2
+                UserToBlock = 2
             };
 
             var commandHandler = new BlockUserCommand.Handler(_context);
@@ -34,7 +34,7 @@
             await commandHandler.Handle(command, CancellationToken.None);
 
             var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(command.UserId)
-                                                                                && x.SecoundUserId.Equals(command.FriendId));
+                                                                                && x.SecoundUserId.Equals(command.UserToBlock));
 
             friendRequest.ShouldNotBeNull();
             friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.block_first_secound);
@@ -46,7 +46,7 @@
             var command = new BlockUserCommand
             {
                 UserId = 4,
-                FriendId = 2342
+                UserToBlock = 2342
             };
 
             var commandHandler = new BlockUserCommand.Handler(_context);

@@ -27,6 +27,8 @@
             var friendsList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
                                                          || x.SecoundUserId.Equals(request.UserId))
                                                          && x.Type.Equals(Domain.Enums.FriendshipTypes.friends))
+                                                         .Include(x => x.FirstUser)
+                                                         .Include(x => x.SecoundUser)
                                                          .ToListAsync(cancellationToken);
             var friendsViewModel = new FriendsListViewModel
             {

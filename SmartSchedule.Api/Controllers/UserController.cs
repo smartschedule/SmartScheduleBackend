@@ -48,18 +48,5 @@ namespace SmartSchedule.Api.Controllers
         {
             return Ok(await Mediator.Send(new GetUsersListQuery()));
         }
-
-        [Authorize]
-        [HttpPost("/api/friendRequest")]
-        public async Task<IActionResult> CreateFriendRequest([FromBody]int friendId)
-        {
-            var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new SendFriendRequestCommand
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                FriendId = friendId
-            };
-            return Ok(await Mediator.Send(command));
-        }
     }
 }

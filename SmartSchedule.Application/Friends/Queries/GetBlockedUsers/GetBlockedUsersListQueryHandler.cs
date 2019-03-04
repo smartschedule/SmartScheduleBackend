@@ -29,6 +29,8 @@
                                                          || (x.SecoundUserId.Equals(request.UserId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))))
+                                                         .Include(x => x.FirstUser)
+                                                         .Include(x => x.SecoundUser)
                                                          .ToListAsync(cancellationToken);
             var friendsViewModel = new FriendsListViewModel
             {

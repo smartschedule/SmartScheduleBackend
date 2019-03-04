@@ -24,9 +24,11 @@
         public async Task<FriendsListViewModel> Handle(GetUserFriendRequestsQuery request, CancellationToken cancellationToken)
         {
             var friendRequestList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
-                                                         && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))
+                                                         && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
                                                          || (x.SecoundUserId.Equals(request.UserId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))))
+                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))))
+                                                         .Include(x => x.FirstUser)
+                                                         .Include(x => x.SecoundUser)
                                                          .ToListAsync(cancellationToken);
             var friendsViewModel = new FriendsListViewModel
             {
@@ -35,7 +37,7 @@
 
             foreach (var item in friendRequestList)
             {
-                var user = item.Type == Domain.Enums.FriendshipTypes.pending_secound_first ?
+                var user = item.Type == Domain.Enums.FriendshipTypes.pending_first_secound ?
                     item.SecoundUser : item.FirstUser;
 
                 friendsViewModel.Users.Add(_mapper.Map<UserLookupModel>(user));

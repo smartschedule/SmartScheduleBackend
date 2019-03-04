@@ -30,7 +30,7 @@
             var result = await sut.Handle(new GetPendingUserFriendRequestsQuery { UserId = 7 }, CancellationToken.None);
 
             result.ShouldBeOfType<FriendsListViewModel>();
-            result.Users.Count.ShouldBe(3);
+            result.Users.Count.ShouldBe(2);
         }
     }
 }

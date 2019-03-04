@@ -10,7 +10,7 @@
 
     public class BlockUserCommand : IRequest
     {
-        public int FriendId { get; set; }
+        public int UserToBlock { get; set; }
         public int UserId { get; set; }
         public class Handler : IRequestHandler<BlockUserCommand, Unit>
         {
@@ -28,15 +28,15 @@
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friend = await _context.Users.FindAsync(request.FriendId);
+                var friend = await _context.Users.FindAsync(request.UserToBlock);
                 if (friend == null)
                 {
-                    throw new NotFoundException("User", request.FriendId);
+                    throw new NotFoundException("User", request.UserToBlock);
                 }
 
                 var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.UserId)
-                                                                                && x.SecoundUserId.Equals(request.FriendId))
-                                                                                || (x.FirstUserId.Equals(request.FriendId)
+                                                                                && x.SecoundUserId.Equals(request.UserToBlock))
+                                                                                || (x.FirstUserId.Equals(request.UserToBlock)
                                                                                 && x.SecoundUserId.Equals(request.UserId)));
                 if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
@@ -55,7 +55,7 @@
                     var entity = new Domain.Entities.Friends
                     {
                         FirstUserId = request.UserId,
-                        SecoundUserId = request.FriendId,
+                        SecoundUserId = request.UserToBlock,
                         Type = Domain.Enums.FriendshipTypes.block_scound_first
                     };
                 }

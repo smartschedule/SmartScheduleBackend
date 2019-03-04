@@ -40,6 +40,7 @@
 
             var user = await _context.Users.FindAsync(1);
             user.ShouldNotBeNull();
+            user.Name.ShouldBe(command.UserName);
         }
 
         [Fact]

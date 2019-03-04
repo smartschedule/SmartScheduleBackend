@@ -51,9 +51,7 @@ namespace SmartSchedule.Api
             services.AddMediatR(typeof(GetUserDetailQueryHandler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
-
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             //jwt authentication configuration
             var jwtSettingsSection = Configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
