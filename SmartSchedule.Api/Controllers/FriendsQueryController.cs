@@ -51,7 +51,7 @@
         }
 
         [Authorize]
-        [HttpGet("/api/user/getUserFriendRequests")]
+        [HttpGet("/api/user/getUsersFriendRequests")]
         public async Task<IActionResult> GetUserFriendRequests()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;

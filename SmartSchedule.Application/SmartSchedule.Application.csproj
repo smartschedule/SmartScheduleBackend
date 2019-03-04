@@ -6,7 +6,6 @@
 
   <ItemGroup>
     <Folder Include="Event\" />
-    <Folder Include="Friends\Commands\UnblockUser\" />
   </ItemGroup>
 
   <ItemGroup>

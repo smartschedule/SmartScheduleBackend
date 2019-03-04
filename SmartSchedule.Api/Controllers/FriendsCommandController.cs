@@ -9,6 +9,7 @@
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
     using SmartSchedule.Application.Friends.Commands.RemoveFriendRequest;
     using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.UnblockUser;
 
     public class FriendsCommandController : BaseController
     {
@@ -22,6 +23,7 @@
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 FriendId = friendId
             };
+
             return Ok(await Mediator.Send(command));
         }
 
@@ -35,6 +37,7 @@
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 RequestingUserId = requestingUserId
             };
+
             return Ok(await Mediator.Send(command));
         }
 
@@ -48,6 +51,7 @@
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 RequestingUserId = requestingUserId
             };
+
             return Ok(await Mediator.Send(command));
         }
 
@@ -61,6 +65,7 @@
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 FriendId = friendId
             };
+
             return Ok(await Mediator.Send(command));
         }
 
@@ -74,6 +79,21 @@
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 UserToBlock = userId
             };
+
+            return Ok(await Mediator.Send(command));
+        }
+
+        [Authorize]
+        [HttpPost("/api/user/unblockUser")]
+        public async Task<IActionResult> UnblockUser([FromBody]int userId)
+        {
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var command = new UnblockUserCommand
+            {
+                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
+                UserToUnblockId = userId
+            };
+
             return Ok(await Mediator.Send(command));
         }
     }
