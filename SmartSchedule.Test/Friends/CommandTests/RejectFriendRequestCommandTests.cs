@@ -24,8 +24,8 @@
         {
             var command = new RejectFriendRequestCommand
             {
-                RequestingUserId = 2,
-                RequestedUserId = 3
+                RequestingUserId = 3,
+                RequestedUserId = 2
             };
 
             var commandHandler = new RejectFriendRequestCommand.Handler(_context);

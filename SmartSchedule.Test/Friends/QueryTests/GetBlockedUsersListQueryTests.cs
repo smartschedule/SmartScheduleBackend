@@ -31,6 +31,7 @@
             var result = await sut.Handle(new GetBlockedUsersListQuery { UserId = 6 }, CancellationToken.None);
 
             result.ShouldBeOfType<FriendsListViewModel>();
+            result.Users.Count.ShouldBe(3);
         }
     }
 }

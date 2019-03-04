@@ -20,6 +20,21 @@
         }
 
         [Fact]
+        public async Task Trying_To_Accept_Friend_Request_Which_Does_Not_Exists_Should_Throw_ValidationException()
+        {
+            var command = new AcceptFriendRequestCommand
+            {
+                RequestingUserId = 22,
+                RequestedUserId = 2
+            };
+
+            var commandHandler = new AcceptFriendRequestCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None)
+                .ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
+
+        [Fact]
         public async Task Accept_Valid_Friend_Request_Should_Change_Type_In_DB_Context()
         {
             var command = new AcceptFriendRequestCommand
@@ -37,21 +52,6 @@
 
             friendRequest.ShouldNotBeNull();
             friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.friends);
-        }
-
-        [Fact]
-        public async Task Trying_To_Accept_Friend_Request_Which_Does_Not_Exists_Should_Throw_ValidationException()
-        {
-            var command = new AcceptFriendRequestCommand
-            {
-                RequestingUserId = 22,
-                RequestedUserId = 2
-            };
-
-            var commandHandler = new AcceptFriendRequestCommand.Handler(_context);
-
-            await commandHandler.Handle(command, CancellationToken.None)
-                .ShouldThrowAsync<FluentValidation.ValidationException>();
         }
     }
 }

@@ -1,11 +1,16 @@
 ﻿namespace SmartSchedule.Test.Friends.QueryTests
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using AutoMapper;
+    using Shouldly;
+    using SmartSchedule.Application.Friends.Models;
+    using SmartSchedule.Application.Friends.Queries.GetUserFriendRequests;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
-    [Collection("FriendsTestQueryCollection")]
+    [Collection("FriendsTestCollection")]
     public class GetUserFriendRequestsQueryTests
     {
         private readonly SmartScheduleDbContext _context;
@@ -15,6 +20,17 @@
         {
             _context = fixture.Context;
             _mapper = fixture.Mapper;
+        }
+
+        [Fact]
+        public async Task GetPendingUserFriendRequests()
+        {
+            var sut = new GetUserFriendRequestsQueryHandler(_context, _mapper);
+
+            var result = await sut.Handle(new GetUserFriendRequestsQuery { UserId = 7 }, CancellationToken.None);
+
+            result.ShouldBeOfType<FriendsListViewModel>();
+            result.Users.Count.ShouldBe(2);
         }
     }
 }

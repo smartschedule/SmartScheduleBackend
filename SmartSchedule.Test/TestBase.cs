@@ -6,12 +6,24 @@ namespace SmartSchedule.Test
 {
     public class TestBase
     {
-        public SmartScheduleDbContext GetDbContext()
+        public SmartScheduleDbContext GetDbContext(bool useSqlLite = false)
         {
             var builder = new DbContextOptionsBuilder<SmartScheduleDbContext>();
-            builder.UseInMemoryDatabase(Guid.NewGuid().ToString());
+            if (useSqlLite)
+            {
+                builder.UseSqlite("DataSource=:memory:", x => { });
+            }
+            else
+            {
+                builder.UseInMemoryDatabase(Guid.NewGuid().ToString());
+            }
 
             var dbContext = new SmartScheduleDbContext(builder.Options);
+            if (useSqlLite)
+            {
+                dbContext.Database.OpenConnection();
+            }
+
             dbContext.Database.EnsureCreated();
 
             return dbContext;

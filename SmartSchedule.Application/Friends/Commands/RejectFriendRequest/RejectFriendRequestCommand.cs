@@ -26,8 +26,12 @@
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(request.RequestingUserId)
-                                                                                && x.SecoundUserId.Equals(request.RequestedUserId));
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(request.RequestingUserId)
+                                                                                && x.SecoundUserId.Equals(request.RequestedUserId)
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
+                                                                                || (x.FirstUserId.Equals(request.RequestedUserId)
+                                                                                && x.SecoundUserId.Equals(request.RequestingUserId))
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first)));
                 _context.Remove(friendRequest);
                 await _context.SaveChangesAsync();
 
