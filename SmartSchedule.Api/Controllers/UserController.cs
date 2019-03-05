@@ -2,13 +2,14 @@
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
 using SmartSchedule.Application.User.Commands.CreateUser;
 using SmartSchedule.Application.User.Queries.GetUserDetails;
 using SmartSchedule.Application.User.Queries.GetUserList;
 
 namespace SmartSchedule.Api.Controllers
 {
-  
+
     public class UserController : BaseController
     {
         [HttpPost("/api/register")]
@@ -30,9 +31,21 @@ namespace SmartSchedule.Api.Controllers
             return Ok(await Mediator.Send(query));
         }
 
+        [Authorize]
+        [HttpGet("/api/friend/details/{id}")]
+        public async Task<IActionResult> GetFriendDetails(int id)
+        {
+            var query = new GetUserDetailQuery
+            {
+                Id = id
+            };
+
+            return Ok(await Mediator.Send(query));
+        }
+
         [HttpGet("/api/users")]
         public async Task<IActionResult> GetUsersList()
-        {          
+        {
             return Ok(await Mediator.Send(new GetUsersListQuery()));
         }
     }

@@ -9,6 +9,373 @@
 			"name": "User",
 			"item": [
 				{
+					"name": "Friends",
+					"item": [
+						{
+							"name": "CreateFriendRequest",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "2"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/friendRequest",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"friendRequest"
+									]
+								},
+								"description": "In body put user Id whose you want to invite"
+							},
+							"response": []
+						},
+						{
+							"name": "AcceptFriendRequest",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "2"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/acceptFriendRequest",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"acceptFriendRequest"
+									]
+								},
+								"description": "In body put Id of requesting user"
+							},
+							"response": []
+						},
+						{
+							"name": "RejectFriendRequest",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "2"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/rejectFriendRequest",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"rejectFriendRequest"
+									]
+								},
+								"description": "In body put Id of requesting user"
+							},
+							"response": []
+						},
+						{
+							"name": "RemoveFriend",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									},
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "3"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/removeFriend",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"removeFriend"
+									]
+								},
+								"description": "In body put friend Id whose you want to remove form your friendList"
+							},
+							"response": []
+						},
+						{
+							"name": "BlockUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "2"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/blockUser",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"blockUser"
+									]
+								},
+								"description": "In body put user Id whose you want to block."
+							},
+							"response": []
+						},
+						{
+							"name": "UnblockUser",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									},
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"value": "application/json",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "2"
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/unblockUser",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"unblockUser"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFriendDetails",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/friend/details/2",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"friend",
+										"details",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetFriendsList",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"value": "{{token}}",
+										"type": "text"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/getFriendsList",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getFriendsList"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetBlockedUsers",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/getBlockedUsers",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getBlockedUsers"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetPendingUserFriendRequests",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/getPendingUserFriendRequests",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getPendingUserFriendRequests"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "GetUsersFriendRequests",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Authorization",
+										"type": "text",
+										"value": "{{token}}"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": ""
+								},
+								"url": {
+									"raw": "{{protocol}}{{host}}/api/user/getUsersFriendRequests",
+									"host": [
+										"{{protocol}}{{host}}"
+									],
+									"path": [
+										"api",
+										"user",
+										"getUsersFriendRequests"
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"_postman_isSubFolder": true
+				},
+				{
 					"name": "Login",
 					"event": [
 						{
@@ -35,7 +402,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"zdzichu@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
+							"raw": "{\r\n  \"email\": \"test1@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{host}}/api/login",
@@ -64,7 +431,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"userName\": \"test\",\r\n  \"email\": \"test1@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
+							"raw": "{\r\n  \"userName\": \"test3\",\r\n  \"email\": \"test3@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
 						},
 						"url": {
 							"raw": "{{protocol}}{{host}}/api/register",
@@ -88,13 +455,6 @@
 						"method": "GET",
 						"header": [
 							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text",
-								"disabled": true
-							},
-							{
 								"key": "Authorization",
 								"value": "{{token}}",
 								"type": "text"
@@ -113,6 +473,28 @@
 								"api",
 								"user",
 								"details"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{protocol}}{{host}}/api/users",
+							"host": [
+								"{{protocol}}{{host}}"
+							],
+							"path": [
+								"api",
+								"users"
 							]
 						}
 					},

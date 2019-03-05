@@ -1,4 +1,5 @@
-﻿using System.Reflection;
+﻿using System.Net;
+using System.Reflection;
 using System.Text;
 using AutoMapper;
 using FluentValidation.AspNetCore;
@@ -7,6 +8,7 @@ using MediatR.Pipeline;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -36,15 +38,21 @@ namespace SmartSchedule.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //Automapper
             services.AddAutoMapper(new Assembly[] { typeof(AutoMapperProfile).GetTypeInfo().Assembly });
 
+            //ReverseProxy configuration
+            services.Configure<ForwardedHeadersOptions>(options =>
+            {
+                options.KnownProxies.Add(IPAddress.Parse("13.80.110.174"));
+            });
 
+            //Mediator
             services.AddMediatR(typeof(GetUserDetailQueryHandler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1)
-            .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<CreateUserCommandValidator>());
-
+            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            //jwt authentication configuration
             var jwtSettingsSection = Configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
 
@@ -69,11 +77,13 @@ namespace SmartSchedule.Api
                 };
             });
 
+            //Database connection
             services.AddDbContext<SmartScheduleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
             services.AddTransient<IJwtService, JwtService>();
 
+            //Cors
             services.AddCors(options => //TODO: Change cors only to our server
             {
                 options.AddPolicy("AllowAll",
@@ -111,8 +121,11 @@ namespace SmartSchedule.Api
             {
                 app.UseHsts();
             }
-
-            app.UseHttpsRedirection();
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
+            });
+            //app.UseHttpsRedirection();
             app.UseAuthentication();
             app.UseMvc();
             app.UseSwagger();

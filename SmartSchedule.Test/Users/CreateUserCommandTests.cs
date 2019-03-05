@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Options;
-using Shouldly;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Application.Interfaces;
-using SmartSchedule.Application.Models;
-using SmartSchedule.Application.User.Commands.CreateUser;
-using SmartSchedule.Infrastucture.Authentication;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-
-namespace SmartSchedule.Test.Users
+﻿namespace SmartSchedule.Test.Users
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.Options;
+    using Shouldly;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.User.Commands.CreateUser;
+    using SmartSchedule.Infrastucture.Authentication;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
     [Collection("TestCollection")]
     public class CreateUserCommandTests
     {
@@ -44,6 +40,7 @@ namespace SmartSchedule.Test.Users
 
             var user = await _context.Users.FindAsync(1);
             user.ShouldNotBeNull();
+            user.Name.ShouldBe(command.UserName);
         }
 
         [Fact]
