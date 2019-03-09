@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using SmartSchedule.Application.Event.Commands.CreateEvent;
 using SmartSchedule.Application.Event.Commands.DeleteEvent;
 using SmartSchedule.Application.Event.Commands.UpdateEvent;
+using SmartSchedule.Application.Event.Queries.GetEventDetails;
 using SmartSchedule.Application.Event.Queries.GetEventList;
 
 namespace SmartSchedule.Api.Controllers
@@ -31,6 +32,17 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> GetCalendarsList()
         {
             return Ok(await Mediator.Send(new GetEventListQuery()));
+        }
+
+        [HttpGet("/api/event/details/{id}")]
+        public async Task<IActionResult> GetUserDetails(int id)
+        {
+            var query = new GetEventDetailQuery
+            {
+                Id = id
+            };
+
+            return Ok(await Mediator.Send(query));
         }
 
     }
