@@ -1,15 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Shouldly;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-using Microsoft.EntityFrameworkCore;
-
-namespace SmartSchedule.Test.Calendars
+﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Shouldly;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+    using Microsoft.EntityFrameworkCore;
+
     [Collection("TestCollection")]
     public class DeleteCalendarCommandTests
     {

@@ -1,14 +1,14 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Shouldly;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
-
-namespace SmartSchedule.Test.Calendars
+﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Shouldly;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+    using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
+
     [Collection("TestCollection")]
     public class UpdateCalendarCommandTests
     {

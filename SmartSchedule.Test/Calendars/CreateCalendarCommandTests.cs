@@ -1,13 +1,13 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Shouldly;
-using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-
-namespace SmartSchedule.Test.Calendars
+﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Shouldly;
+    using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+
     [Collection("TestCollection")]
     public class CreateCalendarCommandTests
     {

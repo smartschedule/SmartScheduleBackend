@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using Shouldly;
-using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-
-namespace SmartSchedule.Test.Calendars
+﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using Shouldly;
+    using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+
     [Collection("TestCollection")]
     public class GetCalendarsListQueryHandlerTests
     {

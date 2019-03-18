@@ -1,13 +1,13 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Shouldly;
-using SmartSchedule.Application.Event.Queries.GetEventDetails;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-
-namespace SmartSchedule.Test.Events
+﻿namespace SmartSchedule.Test.Events
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Shouldly;
+    using SmartSchedule.Application.Event.Queries.GetEventDetails;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+
     [Collection("TestCollection")]
     public class GetEventDetailQueryHandlerTests
     {

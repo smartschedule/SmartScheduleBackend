@@ -1,15 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Shouldly;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-using SmartSchedule.Application.Event.Commands.UpdateEvent;
-using System;
-
-namespace SmartSchedule.Test.Events
+﻿namespace SmartSchedule.Test.Events
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Shouldly;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+    using SmartSchedule.Application.Event.Commands.UpdateEvent;
+    using System;
+
     [Collection("TestCollection")]
     public class UpdateEventCommandTests
     {
