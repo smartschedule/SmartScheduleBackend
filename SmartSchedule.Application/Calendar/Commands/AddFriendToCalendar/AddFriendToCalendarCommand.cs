@@ -15,6 +15,7 @@
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
