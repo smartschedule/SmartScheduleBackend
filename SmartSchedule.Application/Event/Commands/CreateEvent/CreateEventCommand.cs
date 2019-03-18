@@ -25,6 +25,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
 
@@ -40,21 +41,21 @@
                     Latitude = request.Latitude,
                     Longitude = request.Longitude
                 };
+
                 _context.Locations.Add(entityLocation);
 
                 var entityEvent = new Domain.Entities.Event
                 {
-                    StartDate=request.StartDate,
-                    EndTime=request.EndTime,
-                    ReminderAt=request.ReminderAt,
-                    Name=request.Name,
-                    RepeatsEvery=request.RepeatsEvery,
-                    CalendarId=request.CalendarId,
-                    LocationId=entityLocation.Id
+                    StartDate = request.StartDate,
+                    EndTime = request.EndTime,
+                    ReminderAt = request.ReminderAt,
+                    Name = request.Name,
+                    RepeatsEvery = request.RepeatsEvery,
+                    CalendarId = request.CalendarId,
+                    LocationId = entityLocation.Id
                 };
                 _context.Events.Add(entityEvent);
 
-                
 
                 await _context.SaveChangesAsync(cancellationToken);
 
