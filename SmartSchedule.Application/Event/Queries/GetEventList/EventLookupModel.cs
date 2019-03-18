@@ -3,7 +3,6 @@
     using AutoMapper;
     using SmartSchedule.Application.Interfaces.Mapping;
     using System;
-    using System.Linq;
 
     public class EventLookupModel : IHaveCustomMapping
     {

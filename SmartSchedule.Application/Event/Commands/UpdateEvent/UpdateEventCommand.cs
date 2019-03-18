@@ -3,7 +3,6 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using FluentValidation;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;

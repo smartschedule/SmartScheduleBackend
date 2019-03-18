@@ -7,6 +7,7 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Persistence;
+
     public class GetCalendarsListQueryHandler : IRequestHandler<GetCalendarsListQuery, CalendarListViewModel>
     {
         private readonly SmartScheduleDbContext _context;

@@ -1,5 +1,4 @@
-﻿
-namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
+﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
     using System.Threading;
     using System.Threading.Tasks;

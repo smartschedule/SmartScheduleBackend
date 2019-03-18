@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq.Expressions;
     using System.Linq;
+
     public class CalendarDetailModel
     {
         public int Id { get; set; }

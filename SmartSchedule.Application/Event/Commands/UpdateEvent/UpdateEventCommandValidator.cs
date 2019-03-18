@@ -2,7 +2,6 @@
 {
     using FluentValidation;
     using SmartSchedule.Persistence;
-    using Microsoft.EntityFrameworkCore;
 
     public class UpdateEventCommandValidator : AbstractValidator<UpdateEventCommand>
     {
