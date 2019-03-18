@@ -16,8 +16,8 @@
             configuration.CreateMap<Domain.Entities.Calendar, CalendarLookupModel>()
                 .ForMember(cDTO => cDTO.Id, opt => opt.MapFrom(c => c.Id))
                 .ForMember(cDTO => cDTO.Name, opt => opt.MapFrom(c => c.Name))
-                .ForMember(cDTO => cDTO.ColorHex, opt=> opt.MapFrom(c=>c.ColorHex))
-                .ForMember(cDTO => cDTO.UserId, opt=> opt.MapFrom(c=>c.UsersCalendars.FirstOrDefault(x=>x.CalendarId.Equals(c.Id)).UserId));
+                .ForMember(cDTO => cDTO.ColorHex, opt => opt.MapFrom(c => c.ColorHex))
+                .ForMember(cDTO => cDTO.UserId, opt => opt.MapFrom(c => c.UsersCalendars.FirstOrDefault(x => x.CalendarId.Equals(c.Id)).UserId));
         }
     }
 }
