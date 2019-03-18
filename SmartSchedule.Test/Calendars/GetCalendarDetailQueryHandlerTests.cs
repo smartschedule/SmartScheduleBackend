@@ -7,7 +7,7 @@ using SmartSchedule.Persistence;
 using SmartSchedule.Test.Infrastructure;
 using Xunit;
 
-namespace SmartSchedule.Test.Users
+namespace SmartSchedule.Test.Calendars
 {
     [Collection("TestCollection")]
     public class GetCalendarDetailQueryHandlerTests

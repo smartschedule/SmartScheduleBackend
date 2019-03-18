@@ -1,9 +1,8 @@
-﻿using AutoMapper;
-using SmartSchedule.Application.Interfaces.Mapping;
-using System.Linq;
-
-namespace SmartSchedule.Application.Calendar.Queries.GetCalendarList
+﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarList
 {
+    using AutoMapper;
+    using SmartSchedule.Application.Interfaces.Mapping;
+    using System.Linq;
 
     public class CalendarLookupModel : IHaveCustomMapping
     {
