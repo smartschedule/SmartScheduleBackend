@@ -35,13 +35,13 @@
 
             var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId & x.UserId == command.UserId);
 
-            userCalendar.ShouldBeNull();
-
             var user = await _context.Users.FindAsync(1);
-            user.ShouldNotBeNull();
 
             var calendar = await _context.Calendars.FindAsync(2);
+
             calendar.ShouldNotBeNull();
+            userCalendar.ShouldBeNull();
+            user.ShouldNotBeNull();
         }
 
         [Fact]
@@ -57,7 +57,7 @@
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
-            
+
         }
 
         [Fact]

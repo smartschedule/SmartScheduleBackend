@@ -31,7 +31,7 @@
             var commandHandler = new CreateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
-            
+
             var calendar = await _context.Calendars.FindAsync(1);
             var userCalendar = await _context.UserCalendars.FindAsync(1);
 

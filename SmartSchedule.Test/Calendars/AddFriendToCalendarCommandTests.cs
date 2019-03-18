@@ -8,6 +8,7 @@
     using Xunit;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Domain.Entities;
 
     [Collection("TestCollection")]
     public class AddFriendToCalendarCommandTests
@@ -24,7 +25,7 @@
 
             var command = new AddFriendToCalendarCommand
             {
-                CalendarId=2,
+                CalendarId = 2,
                 UserId = 3
             };
 
@@ -33,8 +34,9 @@
             await commandHandler.Handle(command, CancellationToken.None);
 
             var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId & x.UserId == command.UserId);
-            
+
             userCalendar.ShouldNotBeNull();
+            userCalendar.ShouldBeOfType<UserCalendar>();
         }
 
         [Fact]

@@ -7,6 +7,7 @@
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Persistence;
+
     public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, EventListViewModel>
     {
         private readonly SmartScheduleDbContext _context;
@@ -17,6 +18,7 @@
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<EventListViewModel> Handle(GetEventListQuery request, CancellationToken cancellationToken)
         {
             return new EventListViewModel
