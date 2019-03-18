@@ -1,9 +1,9 @@
 ﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
-    using SmartSchedule.Application.Event.Queries.GetEventList;
     using System;
     using System.Collections.Generic;
     using System.Linq.Expressions;
+    using System.Linq;
     public class CalendarDetailModel
     {
         public int Id { get; set; }
@@ -19,7 +19,18 @@
                 {
                     Id = calendar.Id,
                     Name = calendar.Name,
-                    ColorHex = calendar.ColorHex
+                    ColorHex = calendar.ColorHex,
+                    Events = calendar.Events.Select(y => new EventLookupModel
+                    {
+                        Id = y.Id,
+                        Name = y.Name,
+                        CalendarId = y.CalendarId,
+                        EndTime = y.EndTime,
+                        StartDate = y.StartDate,
+                        Latitude = y.Location.Latitude,
+                        Longitude = y.Location.Longitude
+
+                    }).ToList()
                 };
             }
         }
