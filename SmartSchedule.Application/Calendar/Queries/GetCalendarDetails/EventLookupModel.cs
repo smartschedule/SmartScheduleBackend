@@ -1,9 +1,6 @@
 ﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
-    using AutoMapper;
-    using SmartSchedule.Application.Interfaces.Mapping;
     using System;
-    using System.Collections.Generic;
 
     public class EventLookupModel
     {
