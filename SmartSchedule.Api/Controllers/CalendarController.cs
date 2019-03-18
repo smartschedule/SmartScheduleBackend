@@ -1,18 +1,16 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
-using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
-using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
-using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
-using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
-using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
-using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
-using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
-
-namespace SmartSchedule.Api.Controllers
+﻿namespace SmartSchedule.Api.Controllers
 {
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
+    using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
+    using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
+    using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
+    using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
+    using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
+    using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
+    using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+
     public class CalendarController : BaseController
     {
         [HttpPost("/api/CreateCalendar")]
