@@ -2,6 +2,8 @@
 {
     using System;
     using System.Linq.Expressions;
+    using Domain.Entities;
+
     public class EventDetailModel
     {
         public int Id { get; set; }
@@ -14,7 +16,7 @@
         public string Longitude { get; set; }
         public string Latitude { get; set; }
 
-        public static Expression<Func<Domain.Entities.Event, EventDetailModel>> Projection
+        public static Expression<Func<Event, EventDetailModel>> Projection
         {
             get
             {
@@ -33,7 +35,7 @@
             }
         }
 
-        public static EventDetailModel Create(Domain.Entities.Event evnt)
+        public static EventDetailModel Create(Event evnt)
         {
             return Projection.Compile().Invoke(evnt);
         }
