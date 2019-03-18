@@ -17,6 +17,7 @@
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<CalendarListViewModel> Handle(GetCalendarsListQuery request, CancellationToken cancellationToken)
         {
             return new CalendarListViewModel
