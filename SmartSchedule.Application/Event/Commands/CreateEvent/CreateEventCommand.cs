@@ -43,7 +43,9 @@
                     Longitude = request.Longitude
                 };
 
-                _context.Locations.Add(entityLocation);
+                var location = _context.Locations.Add(entityLocation);
+
+                await _context.SaveChangesAsync(cancellationToken);
 
                 var entityEvent = new Domain.Entities.Event
                 {
@@ -53,10 +55,9 @@
                     Name = request.Name,
                     RepeatsEvery = request.RepeatsEvery,
                     CalendarId = request.CalendarId,
-                    LocationId = entityLocation.Id
+                    LocationId = location.Entity.Id
                 };
                 _context.Events.Add(entityEvent);
-
 
                 await _context.SaveChangesAsync(cancellationToken);
 

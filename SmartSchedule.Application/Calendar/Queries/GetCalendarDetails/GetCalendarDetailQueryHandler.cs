@@ -25,7 +25,6 @@
 
             var result = CalendarDetailModel.Create(entity);
             
-
             return result;
         }
     }
