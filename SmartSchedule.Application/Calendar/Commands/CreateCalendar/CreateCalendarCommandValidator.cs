@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 {
     using FluentValidation;
-    using SmartSchedule.Persistence;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Persistence;
 
     public class CreateCalendarCommandValidator : AbstractValidator<CreateCalendarCommand>
     {

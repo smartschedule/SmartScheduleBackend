@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 {
     using FluentValidation;
-    using SmartSchedule.Persistence;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Persistence;
 
     public class AddFriendToCalendarCommandValidator : AbstractValidator<AddFriendToCalendarCommand>
     {
@@ -31,7 +31,7 @@
 
                 return true;
             }).WithMessage("This calendar does not exist.");
-            
+
         }
     }
 }

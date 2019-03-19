@@ -1,14 +1,14 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using Shouldly;
-    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
+    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
-    using Microsoft.EntityFrameworkCore;
 
     [Collection("TestCollection")]
     public class DeleteCalendarCommandTests
@@ -54,7 +54,7 @@
 
             var commandHandler = new DeleteCalendarCommand.Handler(_context);
 
-            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); 
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
 
     }

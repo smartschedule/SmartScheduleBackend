@@ -1,13 +1,13 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
-    using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
 
     [Collection("TestCollection")]
     public class DeleteEventsFromCalendarCommandTests

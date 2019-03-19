@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateEventCommand : IRequest

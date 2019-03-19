@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class DeleteEventsFromCalendarCommand : IRequest
     {

@@ -1,14 +1,14 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
-    using System.Threading;
-    using System.Threading.Tasks;
+    using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
+    using SmartSchedule.Domain.Entities;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
-    using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
-    using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Domain.Entities;
 
     [Collection("TestCollection")]
     public class AddFriendToCalendarCommandTests

@@ -1,6 +1,5 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
     using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
@@ -10,6 +9,7 @@
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using System.Threading.Tasks;
 
     public class CalendarController : BaseController
     {

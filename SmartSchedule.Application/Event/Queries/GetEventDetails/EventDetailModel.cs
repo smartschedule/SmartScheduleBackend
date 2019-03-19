@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Event.Queries.GetEventDetails
 {
+    using Domain.Entities;
     using System;
     using System.Linq.Expressions;
-    using Domain.Entities;
 
     public class EventDetailModel
     {

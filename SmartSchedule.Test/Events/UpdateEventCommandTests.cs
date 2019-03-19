@@ -1,14 +1,14 @@
 ﻿namespace SmartSchedule.Test.Events
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using Xunit;
-    using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
 
     [Collection("TestCollection")]
     public class UpdateEventCommandTests
@@ -25,7 +25,7 @@
 
             var command = new UpdateEventCommand
             {
-                Id=1,
+                Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
                 EndTime = DateTime.Now.AddDays(-1),
                 ReminderAt = DateTime.Now.AddDays(-2),
@@ -48,7 +48,7 @@
             eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
             eventE.Location.Latitude.ShouldBe(command.Latitude);
         }
-        
+
 
         [Fact]
         public async Task UpdateEventProvidingNotExistingIdShouldNotUpdateEventInDbContext()

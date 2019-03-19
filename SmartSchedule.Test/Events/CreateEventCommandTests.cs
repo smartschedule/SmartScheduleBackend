@@ -1,13 +1,13 @@
 ﻿namespace SmartSchedule.Test.Events
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using Xunit;
     using System;
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Xunit;
 
     [Collection("TestCollection")]
     public class CreateCalendarCommandTests

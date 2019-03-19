@@ -1,13 +1,13 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
-    using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
 
     [Collection("TestCollection")]
     public class UpdateCalendarCommandTests
@@ -24,7 +24,7 @@
 
             var command = new UpdateCalendarCommand
             {
-                Id=2,
+                Id = 2,
                 Name = "kalendarz2",
                 ColorHex = "dziendobrytakikolor2"
             };
@@ -53,7 +53,7 @@
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
-            
+
         }
 
         [Fact]

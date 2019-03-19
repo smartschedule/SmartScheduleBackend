@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Persistence;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class AddFriendToCalendarCommand : IRequest
     {

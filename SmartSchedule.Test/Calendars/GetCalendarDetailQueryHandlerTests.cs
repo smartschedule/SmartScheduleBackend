@@ -1,12 +1,12 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
-    using System.Collections.Generic;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Collections.Generic;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]

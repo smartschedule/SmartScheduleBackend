@@ -1,12 +1,12 @@
 ﻿namespace SmartSchedule.Test.Events
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using Shouldly;
-    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
+    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]

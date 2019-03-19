@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class GetCalendarDetailQueryHandler : IRequestHandler<GetCalendarDetailQuery, CalendarDetailModel>
     {
@@ -24,7 +24,7 @@
             }
 
             var result = CalendarDetailModel.Create(entity);
-            
+
             return result;
         }
     }

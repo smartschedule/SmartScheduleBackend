@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
     using SmartSchedule.Persistence;
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
 
     public class CreateEventCommand : IRequest
     {

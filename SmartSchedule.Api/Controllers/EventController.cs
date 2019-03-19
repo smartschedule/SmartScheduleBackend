@@ -1,12 +1,12 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
-    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Event.Queries.GetEventDetails;
     using SmartSchedule.Application.Event.Queries.GetEventList;
+    using System.Threading.Tasks;
 
     public class EventController : BaseController
     {
