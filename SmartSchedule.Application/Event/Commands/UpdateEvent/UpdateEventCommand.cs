@@ -48,14 +48,16 @@
                     Latitude = request.Latitude,
                     Longitude = request.Longitude
                 };
-                _context.Locations.Add(entityLocation);
+                var location = _context.Locations.Add(entityLocation);
+
+                await _context.SaveChangesAsync(cancellationToken);
 
                 entityEvent.StartDate = request.StartDate;
                 entityEvent.EndTime = request.EndTime;
                 entityEvent.ReminderAt = request.ReminderAt;
                 entityEvent.Name = request.Name;
                 entityEvent.RepeatsEvery = request.RepeatsEvery;
-                entityEvent.LocationId = entityLocation.Id;
+                entityEvent.LocationId = location.Entity.Id;
 
                 _context.Events.Update(entityEvent);
 
