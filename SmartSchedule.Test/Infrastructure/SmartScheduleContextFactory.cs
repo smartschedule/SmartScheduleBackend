@@ -47,6 +47,32 @@ namespace SmartSchedule.Test.Infrastructure
                 new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.pending_secound_first},
             });
 
+            context.Calendars.AddRange(new[]
+            {
+                new Calendar{Id=2,Name="kalendarz",ColorHex="kolor"},
+                new Calendar{Id=4,Name="kalendarz",ColorHex="kolor"}
+            });
+
+            context.UserCalendars.AddRange(new[]
+            {
+                new UserCalendar{CalendarId=2,UserId=1},
+                new UserCalendar{CalendarId=4,UserId=1}
+            });
+
+            context.Locations.AddRange(new[]
+            {
+                new Location{Id=3,Latitude="42.423423", Longitude="34.23424"},
+                new Location{Id=5,Latitude="42.423423", Longitude="34.23424"}
+            });
+
+            context.Events.AddRange(new[]
+            {
+                new Event{Id=2, StartDate=DateTime.Now, EndTime=DateTime.Now.AddDays(+1), ReminderAt = DateTime.Now.AddDays(-1),
+                Name="eventsuper", LocationId = 2, CalendarId = 3, RepeatsEvery = 2},
+                new Event{Id=3, StartDate=DateTime.Now, EndTime=DateTime.Now.AddDays(+1), ReminderAt = DateTime.Now.AddDays(-1),
+                Name="eventsuper2", LocationId = 5, CalendarId = 4, RepeatsEvery = 2}
+            });
+
             context.SaveChanges();
 
             return context;
