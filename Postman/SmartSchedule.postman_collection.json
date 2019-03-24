@@ -1,506 +1,799 @@
 {
-	"info": {
-		"_postman_id": "c179869f-ba88-4588-b7d6-177026088ca0",
-		"name": "SmartSchedule",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
-	},
-	"item": [
+	"id": "88ba68ef-ca93-4fe6-a27e-17ef5f91cc09",
+	"name": "SmartSchedule",
+	"description": null,
+	"auth": null,
+	"events": null,
+	"variables": [],
+	"order": [],
+	"folders_order": [
+		"45c68d94-3570-48b7-8e3d-9edb403c2a47",
+		"84c9529f-7bab-458a-bb88-b5ea74022915",
+		"db30939f-6e92-48f8-aa41-c3ae8523e103"
+	],
+	"folders": [
 		{
+			"id": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"name": "Calendar",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "88ba68ef-ca93-4fe6-a27e-17ef5f91cc09",
+			"folder": null,
+			"order": [
+				"cd49f4a6-c7bc-41ac-8389-d6341a3d01a1",
+				"c9c172ad-cff9-4e29-b971-0b3ae008afac",
+				"737e05a9-fef9-47a0-835b-69ca0a8ac247",
+				"4b9bf0b9-a9dc-47d7-b40d-36d4892ad8d5",
+				"4ca1e042-82f6-40a7-8c4c-a69b02ec2b1b",
+				"2b8a92e6-a38c-4a24-9584-0ea557169fa5",
+				"2c39fd7a-c604-4247-b328-ccb5695f3fb2",
+				"cc7348fa-bd71-4039-a12c-cf2d8fda19e1"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"name": "Event",
+			"description": "",
+			"auth": null,
+			"events": null,
+			"collection": "88ba68ef-ca93-4fe6-a27e-17ef5f91cc09",
+			"folder": null,
+			"order": [
+				"5150280a-e49a-4451-bceb-e848b57dfdd9",
+				"42c679d6-d8c6-4392-867b-c80a8c141614",
+				"6f5c42c9-d4e9-42fd-868d-2e84b152b09d",
+				"f6e66308-12f5-42d7-9d42-497e7590929e",
+				"24ba6058-1c62-4874-a001-e02a71eef85e"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"name": "Friends",
+			"description": null,
+			"auth": null,
+			"events": null,
+			"collection": "88ba68ef-ca93-4fe6-a27e-17ef5f91cc09",
+			"folder": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
+			"order": [
+				"c1f5c8dc-403b-44b6-a0fc-63970c0f31d5",
+				"8634ca7b-3820-4656-b58a-ed3a8b543ec8",
+				"4fa1ec3e-e247-40b1-80e7-d455ba87d90f",
+				"843ab789-88c5-420b-8539-f49cec31d1b3",
+				"44a87896-6739-42d7-8e79-d4cd14b1d29b",
+				"3ddaa247-5c35-4a81-864e-d13895451e53",
+				"515c6322-ecdf-43e4-82f3-05ada243da75",
+				"9ebcc87c-18ff-4b07-abde-b8e285c248ad",
+				"9a27bf60-41e4-4a49-89cd-26497f71c316",
+				"ada44f68-0115-4952-be4f-a329e942f1eb",
+				"929b1686-a49a-4892-96a6-fdd8b1391956"
+			],
+			"folders_order": []
+		},
+		{
+			"id": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
 			"name": "User",
-			"item": [
-				{
-					"name": "Friends",
-					"item": [
-						{
-							"name": "CreateFriendRequest",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "2"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/friendRequest",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"friendRequest"
-									]
-								},
-								"description": "In body put user Id whose you want to invite"
-							},
-							"response": []
-						},
-						{
-							"name": "AcceptFriendRequest",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "2"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/acceptFriendRequest",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"acceptFriendRequest"
-									]
-								},
-								"description": "In body put Id of requesting user"
-							},
-							"response": []
-						},
-						{
-							"name": "RejectFriendRequest",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "2"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/rejectFriendRequest",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"rejectFriendRequest"
-									]
-								},
-								"description": "In body put Id of requesting user"
-							},
-							"response": []
-						},
-						{
-							"name": "RemoveFriend",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									},
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "3"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/removeFriend",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"removeFriend"
-									]
-								},
-								"description": "In body put friend Id whose you want to remove form your friendList"
-							},
-							"response": []
-						},
-						{
-							"name": "BlockUser",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "2"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/blockUser",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"blockUser"
-									]
-								},
-								"description": "In body put user Id whose you want to block."
-							},
-							"response": []
-						},
-						{
-							"name": "UnblockUser",
-							"request": {
-								"method": "POST",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									},
-									{
-										"key": "Content-Type",
-										"name": "Content-Type",
-										"value": "application/json",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": "2"
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/unblockUser",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"unblockUser"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetFriendDetails",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/friend/details/2",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"friend",
-										"details",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetFriendsList",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"value": "{{token}}",
-										"type": "text"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/getFriendsList",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"getFriendsList"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetBlockedUsers",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "{{token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/getBlockedUsers",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"getBlockedUsers"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetPendingUserFriendRequests",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "{{token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/getPendingUserFriendRequests",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"getPendingUserFriendRequests"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "GetUsersFriendRequests",
-							"request": {
-								"method": "GET",
-								"header": [
-									{
-										"key": "Authorization",
-										"type": "text",
-										"value": "{{token}}"
-									}
-								],
-								"body": {
-									"mode": "raw",
-									"raw": ""
-								},
-								"url": {
-									"raw": "{{protocol}}{{host}}/api/user/getUsersFriendRequests",
-									"host": [
-										"{{protocol}}{{host}}"
-									],
-									"path": [
-										"api",
-										"user",
-										"getUsersFriendRequests"
-									]
-								}
-							},
-							"response": []
-						}
-					],
-					"_postman_isSubFolder": true
-				},
-				{
-					"name": "Login",
-					"event": [
-						{
-							"listen": "test",
-							"script": {
-								"id": "3a8514e4-b188-408a-a1f7-7ab03e9cd228",
-								"exec": [
-									"var data = JSON.parse(responseBody);",
-									"postman.setEnvironmentVariable(\"token\", \"Bearer \" + data.token)"
-								],
-								"type": "text/javascript"
-							}
-						}
-					],
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"email\": \"test1@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}{{host}}/api/login",
-							"host": [
-								"{{protocol}}{{host}}"
-							],
-							"path": [
-								"api",
-								"login"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Registration",
-					"request": {
-						"method": "POST",
-						"header": [
-							{
-								"key": "Content-Type",
-								"name": "Content-Type",
-								"value": "application/json",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n  \"userName\": \"test3\",\r\n  \"email\": \"test3@test.com\",\r\n  \"password\": \"test1234\"\r\n}"
-						},
-						"url": {
-							"raw": "{{protocol}}{{host}}/api/register",
-							"host": [
-								"{{protocol}}{{host}}"
-							],
-							"path": [
-								"api",
-								"register"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetUserDetails",
-					"protocolProfileBehavior": {
-						"disableBodyPruning": true
-					},
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}{{host}}/api/user/details",
-							"host": [
-								"{{protocol}}{{host}}"
-							],
-							"path": [
-								"api",
-								"user",
-								"details"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "GetUsers",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": ""
-						},
-						"url": {
-							"raw": "{{protocol}}{{host}}/api/users",
-							"host": [
-								"{{protocol}}{{host}}"
-							],
-							"path": [
-								"api",
-								"users"
-							]
-						}
-					},
-					"response": []
-				}
+			"description": null,
+			"auth": null,
+			"events": null,
+			"collection": "88ba68ef-ca93-4fe6-a27e-17ef5f91cc09",
+			"folder": null,
+			"order": [
+				"f195f636-469b-4b93-9f6e-031253a278df",
+				"0a533eb1-2ea6-45e6-838e-79a49fb5755f",
+				"25253e55-1f83-4a95-b683-e637d12d58c9",
+				"b42ecf2a-cba2-48f5-9063-5ba6ca833582"
+			],
+			"folders_order": [
+				"1e6ba743-cf67-423f-87cb-ccbbadde6827"
 			]
+		}
+	],
+	"requests": [
+		{
+			"id": "0a533eb1-2ea6-45e6-838e-79a49fb5755f",
+			"name": "Registration",
+			"url": "{{protocol}}{{host}}/api/register",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
+			"rawModeData": "{\r\n  \"userName\": \"test3\",\r\n  \"email\": \"test3@test.com\",\r\n  \"password\": \"test1234\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "24ba6058-1c62-4874-a001-e02a71eef85e",
+			"name": "GetEventDetails",
+			"url": "{{protocol}}{{host}}/api/event/details/{id}",
+			"description": "",
+			"data": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "25253e55-1f83-4a95-b683-e637d12d58c9",
+			"name": "GetUserDetails",
+			"url": "{{protocol}}{{host}}/api/user/details",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"rawModeData": "",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "2b8a92e6-a38c-4a24-9584-0ea557169fa5",
+			"name": "DeleteAllEventsFromCalendar",
+			"url": "{{protocol}}{{host}}/api/DeleteEventsFromCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"CalendarId\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "2c39fd7a-c604-4247-b328-ccb5695f3fb2",
+			"name": "GetCalendars",
+			"url": "{{protocol}}{{host}}/api/calendars",
+			"description": "",
+			"data": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "3ddaa247-5c35-4a81-864e-d13895451e53",
+			"name": "UnblockUser",
+			"url": "{{protocol}}{{host}}/api/user/unblockUser",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				},
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "2",
+			"headers": "Authorization: {{token}}\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "42c679d6-d8c6-4392-867b-c80a8c141614",
+			"name": "Update",
+			"url": "{{protocol}}{{host}}/api/UpdateEvent",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"rawModeData": "{\n\t\"Id\" : 1,\n\t\"StartDate\" : \"2019-06-05\",\n\t\"EndTime\" : \"2019-06-06\",\n\t\"ReminderAt\" : \"2019-06-04\",\n\t\"Name\" : \"name\",\n\t\"RepeatsEvery\" : 10,\n\t\"CalendarId\": 1,\n\t\"Longitude\" : \"36.38423\",\n\t\"Latitude\" : \"32.28733\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "44a87896-6739-42d7-8e79-d4cd14b1d29b",
+			"name": "BlockUser",
+			"url": "{{protocol}}{{host}}/api/user/blockUser",
+			"description": "In body put user Id whose you want to block.",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				},
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "2",
+			"headers": "Authorization: {{token}}\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "4b9bf0b9-a9dc-47d7-b40d-36d4892ad8d5",
+			"name": "AddFriendToCalendar",
+			"url": "{{protocol}}{{host}}/api/AddFriendToCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"CalendarId\" : 1,\n\t\"UserId\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "4ca1e042-82f6-40a7-8c4c-a69b02ec2b1b",
+			"name": "DeleteFriendFromCalendar",
+			"url": "{{protocol}}{{host}}/api/DeleteFriendFromCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"description": "",
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"type": "text",
+					"value": "application/json"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"CalendarId\" : 1,\n\t\"UserId\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "4fa1ec3e-e247-40b1-80e7-d455ba87d90f",
+			"name": "RejectFriendRequest",
+			"url": "{{protocol}}{{host}}/api/user/rejectFriendRequest",
+			"description": "In body put Id of requesting user",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				},
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "2",
+			"headers": "Content-Type: application/json\nAuthorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "5150280a-e49a-4451-bceb-e848b57dfdd9",
+			"name": "Create",
+			"url": "{{protocol}}{{host}}/api/CreateEvent",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"rawModeData": "{\n\t\"StartDate\" : \"2019-06-05\",\n\t\"EndTime\" : \"2019-06-06\",\n\t\"ReminderAt\" : \"2019-06-04\",\n\t\"Name\" : \"name\",\n\t\"RepeatsEvery\" : 10,\n\t\"CalendarId\": 1,\n\t\"Longitude\" : \"36.38423\",\n\t\"Latitude\" : \"32.28733\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "515c6322-ecdf-43e4-82f3-05ada243da75",
+			"name": "GetFriendDetails",
+			"url": "{{protocol}}{{host}}/api/friend/details/2",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "6f5c42c9-d4e9-42fd-868d-2e84b152b09d",
+			"name": "Delete",
+			"url": "{{protocol}}{{host}}/api/DeleteEvent",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"rawModeData": "{\n\t\"Id\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "737e05a9-fef9-47a0-835b-69ca0a8ac247",
+			"name": "Update",
+			"url": "{{protocol}}{{host}}/api/UpdateCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"Id\" : 1,\n\t\"Name\" : \"ta\",\n\t\"ColorHex\" : \"nowykolorjakis\"\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "843ab789-88c5-420b-8539-f49cec31d1b3",
+			"name": "RemoveFriend",
+			"url": "{{protocol}}{{host}}/api/user/removeFriend",
+			"description": "In body put friend Id whose you want to remove form your friendList",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				},
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "3",
+			"headers": "Content-Type: application/json\nAuthorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "8634ca7b-3820-4656-b58a-ed3a8b543ec8",
+			"name": "AcceptFriendRequest",
+			"url": "{{protocol}}{{host}}/api/user/acceptFriendRequest",
+			"description": "In body put Id of requesting user",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				},
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "2",
+			"headers": "Content-Type: application/json\nAuthorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "929b1686-a49a-4892-96a6-fdd8b1391956",
+			"name": "GetUsersFriendRequests",
+			"url": "{{protocol}}{{host}}/api/user/getUsersFriendRequests",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Authorization",
+					"type": "text",
+					"value": "{{token}}"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "9a27bf60-41e4-4a49-89cd-26497f71c316",
+			"name": "GetBlockedUsers",
+			"url": "{{protocol}}{{host}}/api/user/getBlockedUsers",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Authorization",
+					"type": "text",
+					"value": "{{token}}"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "9ebcc87c-18ff-4b07-abde-b8e285c248ad",
+			"name": "GetFriendsList",
+			"url": "{{protocol}}{{host}}/api/user/getFriendsList",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "ada44f68-0115-4952-be4f-a329e942f1eb",
+			"name": "GetPendingUserFriendRequests",
+			"url": "{{protocol}}{{host}}/api/user/getPendingUserFriendRequests",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [
+				{
+					"key": "Authorization",
+					"type": "text",
+					"value": "{{token}}"
+				}
+			],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"headers": "Authorization: {{token}}\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "b42ecf2a-cba2-48f5-9063-5ba6ca833582",
+			"name": "GetUsers",
+			"url": "{{protocol}}{{host}}/api/users",
+			"description": null,
+			"data": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "c1f5c8dc-403b-44b6-a0fc-63970c0f31d5",
+			"name": "CreateFriendRequest",
+			"url": "{{protocol}}{{host}}/api/user/friendRequest",
+			"description": "In body put user Id whose you want to invite",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Authorization",
+					"value": "{{token}}",
+					"type": "text"
+				},
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": null,
+			"folder": "1e6ba743-cf67-423f-87cb-ccbbadde6827",
+			"rawModeData": "2",
+			"headers": "Authorization: {{token}}\nContent-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "c9c172ad-cff9-4e29-b971-0b3ae008afac",
+			"name": "Delete",
+			"url": "{{protocol}}{{host}}/api/DeleteCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"Id\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "cc7348fa-bd71-4039-a12c-cf2d8fda19e1",
+			"name": "GetCalendarDetails",
+			"url": "{{protocol}}{{host}}/api/calendar/details/{id}",
+			"description": "Zwraca kalendarz razem z eventami\n",
+			"data": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"headers": "",
+			"pathVariables": {}
+		},
+		{
+			"id": "cd49f4a6-c7bc-41ac-8389-d6341a3d01a1",
+			"name": "Create",
+			"url": "{{protocol}}{{host}}/api/CreateCalendar",
+			"description": "",
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"description": "",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "84c9529f-7bab-458a-bb88-b5ea74022915",
+			"rawModeData": "{\n\t\"Name\" : \"dziendobry\",\n\t\"ColorHex\" : \"kolorek\",\n\t\"UserId\" : 1\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "f195f636-469b-4b93-9f6e-031253a278df",
+			"name": "Login",
+			"url": "{{protocol}}{{host}}/api/login",
+			"description": null,
+			"data": [],
+			"dataMode": "raw",
+			"headerData": [
+				{
+					"key": "Content-Type",
+					"name": "Content-Type",
+					"value": "application/json",
+					"type": "text"
+				}
+			],
+			"method": "POST",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [
+				{
+					"listen": "test",
+					"script": {
+						"id": "3a8514e4-b188-408a-a1f7-7ab03e9cd228",
+						"exec": [
+							"var data = JSON.parse(responseBody);",
+							"postman.setEnvironmentVariable(\"token\", \"Bearer \" + data.token)"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"folder": "45c68d94-3570-48b7-8e3d-9edb403c2a47",
+			"rawModeData": "{\r\n  \"email\": \"test1@test.com\",\r\n  \"password\": \"test1234\"\r\n}",
+			"headers": "Content-Type: application/json\n",
+			"pathVariables": {}
+		},
+		{
+			"id": "f6e66308-12f5-42d7-9d42-497e7590929e",
+			"name": "GetEvents",
+			"url": "{{protocol}}{{host}}/api/events",
+			"description": "",
+			"data": null,
+			"dataMode": null,
+			"headerData": [],
+			"method": "GET",
+			"pathVariableData": [],
+			"queryParams": [],
+			"auth": null,
+			"events": [],
+			"folder": "db30939f-6e92-48f8-aa41-c3ae8523e103",
+			"headers": "",
+			"pathVariables": {}
 		}
 	]
 }
