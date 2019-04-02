@@ -1,7 +1,5 @@
 # SmartScheduleBackend
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/b97c272c362d4a2293967d621e74e931)](https://app.codacy.com/app/adambajguz/SmartScheduleBackend?utm_source=github.com&utm_medium=referral&utm_content=adambajguz/SmartScheduleBackend&utm_campaign=Badge_Grade_Dashboard)
-
 This is SmartSchedule application.
 
 
