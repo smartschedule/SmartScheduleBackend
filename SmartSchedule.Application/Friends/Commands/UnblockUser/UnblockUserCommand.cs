@@ -41,12 +41,6 @@
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;
                     _context.Friends.Update(friendRequest);
                 }
-                else if (friendRequest != null && friendRequest.FirstUserId.Equals(request.UserId)
-                    && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
-                {
-                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_secound;
-                    _context.Friends.Update(friendRequest);
-                }
                 else
                 {
                     _context.Friends.Remove(friendRequest);

@@ -1,25 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
-
-namespace SmartSchedule.Api
+﻿namespace SmartSchedule.Api
 {
-    public class Program
-    {
-        public static void Main(string[] args)
-        {
-            CreateWebHostBuilder(args).Build().Run();
-        }
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
 
-        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+    internal static class Program
+    {
+        private static void Main(string[] args) => CreateWebHostBuilder(args).Build().Run();
+
+        private static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
                 .UseStartup<Startup>()
-            .UseUrls("http://localhost:2137","http://localhost:2138");
+            .UseUrls("http://localhost:2137", "http://localhost:2138");
     }
 }
