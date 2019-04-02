@@ -32,16 +32,14 @@ namespace SmartSchedule.Application.Friends.Commands.RemoveFriendRequest
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.UserId)
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(request.UserId)
                                                                                 && x.SecoundUserId.Equals(request.FriendId))
                                                                                 || (x.FirstUserId.Equals(request.FriendId)
-                                                                                && x.SecoundUserId.Equals(request.UserId)));
+                                                                                && x.SecoundUserId.Equals(request.UserId)))
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.friends));
                 if (friendRequest == null)
                 {
-                    if (!friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.friends))
-                    {
-                        throw new NotFoundException("FriendRequest", request.FriendId);
-                    }
+                        throw new NotFoundException("FriendRequest", request.FriendId);                 
                 }
                 else
                 {
