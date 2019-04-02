@@ -33,7 +33,7 @@
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId & x.UserId == command.UserId);
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId && x.UserId == command.UserId);
 
             userCalendar.ShouldNotBeNull();
             userCalendar.ShouldBeOfType<UserCalendar>();

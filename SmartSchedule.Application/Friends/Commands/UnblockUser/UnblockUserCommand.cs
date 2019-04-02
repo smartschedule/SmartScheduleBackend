@@ -34,8 +34,7 @@
                 {
                     throw new NotFoundException("BlockedUser", request.UserToUnblockId);
                 }
-
-                if (friendRequest != null && friendRequest.FirstUserId.Equals(request.UserId)
+                else if (friendRequest.FirstUserId.Equals(request.UserId)
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;

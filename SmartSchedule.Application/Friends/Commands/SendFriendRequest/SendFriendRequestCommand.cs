@@ -39,7 +39,7 @@
                                                          .ToListAsync(cancellationToken);
                 if(blockedList.Count != 0)
                 {
-                    throw new FluentValidation.ValidationException("The User whose you want to invite to friends is blocked" +                                                                    " or you are blocked by him!");
+                    throw new FluentValidation.ValidationException("The User whose you want to invite to friends is blocked or you are blocked by him!");
                 }
 
                 var vResult = await new SendFriendRequestCommandValidator(_context).ValidateAsync(request, cancellationToken);

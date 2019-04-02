@@ -36,15 +36,18 @@ namespace SmartSchedule.Application.Friends.Commands.RemoveFriendRequest
                                                                                 && x.SecoundUserId.Equals(request.FriendId))
                                                                                 || (x.FirstUserId.Equals(request.FriendId)
                                                                                 && x.SecoundUserId.Equals(request.UserId)));
-
-                if (friendRequest == null || !friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.friends))
+                if (friendRequest == null)
                 {
-                    throw new NotFoundException("FriendRequest", request.FriendId);
+                    if (!friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.friends))
+                    {
+                        throw new NotFoundException("FriendRequest", request.FriendId);
+                    }
                 }
-                if (friendRequest != null)
+                else
                 {
                     _context.Friends.Remove(friendRequest);
                 }
+
                 await _context.SaveChangesAsync();
 
                 return await Unit.Task;

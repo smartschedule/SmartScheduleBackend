@@ -6,7 +6,7 @@ using SmartSchedule.Persistence;
 
 namespace SmartSchedule.Test.Infrastructure
 {
-    public class SmartScheduleContextFactory
+    public static class SmartScheduleContextFactory
     {
         public static SmartScheduleDbContext Create()
         {
