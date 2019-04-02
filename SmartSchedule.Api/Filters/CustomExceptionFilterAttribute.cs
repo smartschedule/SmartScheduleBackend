@@ -12,12 +12,11 @@ namespace SmartSchedule.Api.Filters
     {
         public override void OnException(ExceptionContext context)
         {
-            if (context.Exception is ValidationException)
+            if (context.Exception is ValidationException ex)
             {
                 context.HttpContext.Response.ContentType = "application/json";
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
-                context.Result = new JsonResult(
-                    ((ValidationException)context.Exception).Failures);
+                context.Result = new JsonResult(ex.Failures);
 
                 return;
             }

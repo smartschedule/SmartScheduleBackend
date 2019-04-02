@@ -8,7 +8,7 @@ using SmartSchedule.Application.Models;
 
 namespace SmartSchedule.Test.Infrastructure
 {
-    public class JwtSettingFactory
+    public static class JwtSettingFactory
     {
         public static IOptions<JwtSettings> Create()
         {

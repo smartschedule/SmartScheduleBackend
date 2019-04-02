@@ -1,6 +1,5 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.BlockUser
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -38,13 +37,14 @@
                                                                                 && x.SecoundUserId.Equals(request.UserToBlock))
                                                                                 || (x.FirstUserId.Equals(request.UserToBlock)
                                                                                 && x.SecoundUserId.Equals(request.UserId)));
+
                 if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_both;
                     _context.Friends.Update(friendRequest);
                 }
-                else if(friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
+                else if (friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_secound;
@@ -52,14 +52,14 @@
                 }
                 else
                 {
-                    var entity = new Domain.Entities.Friends
+                    new Domain.Entities.Friends
                     {
                         FirstUserId = request.UserId,
                         SecoundUserId = request.UserToBlock,
                         Type = Domain.Enums.FriendshipTypes.block_scound_first
                     };
                 }
-                
+
                 await _context.SaveChangesAsync();
 
                 return await Unit.Task;

@@ -1,11 +1,12 @@
 ﻿namespace SmartSchedule.Application.Helpers
 {
     using System.Security.Cryptography;
+
     public static class PasswordHelper
     {
-        private static readonly int SALT_BYTE_SIZE = 16;
-        private static readonly int HASH_BYTE_SIZE = 16;
-        private static readonly int PBKDF2_ITERATIONS = 40000;
+        private const int SALT_BYTE_SIZE = 16;
+        private const int HASH_BYTE_SIZE = 16;
+        private const int PBKDF2_ITERATIONS = 40000;
 
         public static string CreateHash(string password)
         {
