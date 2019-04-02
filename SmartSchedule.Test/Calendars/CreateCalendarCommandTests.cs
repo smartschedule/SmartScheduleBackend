@@ -25,7 +25,7 @@
             {
                 Name = "kalendarz1",
                 ColorHex = "dziendobrytakikolor",
-                UserId = 1
+                UserId = 8
             };
 
             var commandHandler = new CreateCalendarCommand.Handler(_context);
