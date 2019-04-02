@@ -1,16 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using FluentValidation.Results;
-
-namespace SmartSchedule.Application.Exceptions
+﻿namespace SmartSchedule.Application.Exceptions
 {
+    using FluentValidation.Results;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Runtime.Serialization;
+
+    [Serializable]
     public class ValidationException : Exception
     {
+
+        public IDictionary<string, string[]> Failures { get; }
+
         public ValidationException()
                     : base("One or more validation failures have occurred.")
         {
             Failures = new Dictionary<string, string[]>();
+        }
+
+        protected ValidationException(SerializationInfo info, StreamingContext context) : base(info, context)
+        {
+
+        }
+
+        public override void GetObjectData(SerializationInfo info, StreamingContext context)
+        {
+            base.GetObjectData(info, context);
+            info.AddValue("props", Failures, typeof(IDictionary<string, string[]>));
         }
 
         public ValidationException(List<ValidationFailure> failures)
@@ -30,7 +46,5 @@ namespace SmartSchedule.Application.Exceptions
                 Failures.Add(propertyName, propertyFailures);
             }
         }
-
-        public IDictionary<string, string[]> Failures { get; }
     }
 }

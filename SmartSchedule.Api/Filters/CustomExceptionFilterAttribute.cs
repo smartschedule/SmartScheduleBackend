@@ -17,32 +17,32 @@ namespace SmartSchedule.Api.Filters
                 context.HttpContext.Response.ContentType = "application/json";
                 context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Result = new JsonResult(ex.Failures);
-
-                return;
             }
             else if (context.Exception is FluentValidation.ValidationException)
             {
                 var exception = context.Exception as FluentValidation.ValidationException;
-                context.HttpContext.Response.StatusCode = 400;
+                context.HttpContext.Response.StatusCode = (int)HttpStatusCode.BadRequest;
                 context.Result = new JsonResult(new ValidationResultModel(exception));
+            }
+            else
+            {
 
-                return;
+                var code = HttpStatusCode.InternalServerError;
+
+                if (context.Exception is NotFoundException)
+                {
+                    code = HttpStatusCode.NotFound;
+                }
+
+                context.HttpContext.Response.ContentType = "application/json";
+                context.HttpContext.Response.StatusCode = (int)code;
+                context.Result = new JsonResult(new
+                {
+                    error = new[] { context.Exception.Message },
+                    stackTrace = context.Exception.StackTrace
+                });
             }
 
-            var code = HttpStatusCode.InternalServerError;
-
-            if (context.Exception is NotFoundException)
-            {
-                code = HttpStatusCode.NotFound;
-            }
-
-            context.HttpContext.Response.ContentType = "application/json";
-            context.HttpContext.Response.StatusCode = (int)code;
-            context.Result = new JsonResult(new
-            {
-                error = new[] { context.Exception.Message },
-                stackTrace = context.Exception.StackTrace
-            });
         }
     }
 }

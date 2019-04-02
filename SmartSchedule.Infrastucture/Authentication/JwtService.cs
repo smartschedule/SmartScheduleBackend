@@ -35,8 +35,10 @@
             {
                 return new UnauthorizedResult();
             }
-
-            return new ObjectResult(GenerateJwtToken(model.Email, user.Id, false));
+            else
+            {
+                return new ObjectResult(GenerateJwtToken(model.Email, user.Id, false));
+            }          
         }
 
         private JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)

@@ -9,12 +9,6 @@ namespace SmartSchedule.Application.Infrastructure.AutoMapper
         {
             LoadStandardMappings();
             LoadCustomMappings();
-            LoadConverters();
-        }
-
-        private void LoadConverters()
-        {
-
         }
 
         private void LoadStandardMappings()
@@ -35,6 +29,9 @@ namespace SmartSchedule.Application.Infrastructure.AutoMapper
             {
                 map.CreateMappings(this);
             }
+
         }
     }
+
 }
+

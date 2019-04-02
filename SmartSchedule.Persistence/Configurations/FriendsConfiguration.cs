@@ -13,13 +13,10 @@
             builder.HasOne(x => x.SecoundUser)
                 .WithMany()
                 .OnDelete(DeleteBehavior.Restrict);
-            //builder.HasOne(x => x.FirstUser)
-            //    .WithMany()
-            //    .HasForeignKey(x => x.FirstUserId);
-            //builder.HasOne(x => x.SecoundUser)
-            //    .WithMany()
-            //    .HAs(x => x.SecoundUserId)
-            //    .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
+
+
+
 }

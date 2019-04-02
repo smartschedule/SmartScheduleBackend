@@ -6,6 +6,8 @@
 
     public class CreateUserCommandValidator : AbstractValidator<CreateUserCommand>
     {
+        private const int minPasswordLength = 6;
+
         public CreateUserCommandValidator(SmartScheduleDbContext context)
         {
             RuleFor(x => x.Email).EmailAddress().NotEmpty().MustAsync(async (request, val , token) =>
@@ -19,7 +21,7 @@
 
                 return false;
             }).WithMessage("This email is already in use.");
-            RuleFor(x => x.Password).MinimumLength(6).NotEmpty();
+            RuleFor(x => x.Password).MinimumLength(minPasswordLength).NotEmpty();
         }
     }
 }

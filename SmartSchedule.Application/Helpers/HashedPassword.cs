@@ -4,6 +4,7 @@
 
     public class HashedPassword
     {
+        private const int saltIndex = 24;
 
         public string Salt { get; private set; }
         public string Hash { get; private set; }
@@ -26,8 +27,8 @@
 
         public HashedPassword(string saltedPassword)
         {
-            Salt = saltedPassword.Substring(0, 24);
-            Hash = saltedPassword.Substring(24);
+            Salt = saltedPassword.Substring(0, saltIndex);
+            Hash = saltedPassword.Substring(saltIndex);
         }
         public byte[] SaltToArray()
         {
