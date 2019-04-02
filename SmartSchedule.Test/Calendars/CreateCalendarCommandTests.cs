@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
+    using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
     using SmartSchedule.Persistence;
@@ -32,8 +33,8 @@
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var calendar = await _context.Calendars.FindAsync(1);
-            var userCalendar = await _context.UserCalendars.FindAsync(1);
+            var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Name.Equals(command.Name));
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.UserId.Equals(command.UserId));
 
             calendar.ShouldNotBeNull();
             userCalendar.ShouldNotBeNull();
