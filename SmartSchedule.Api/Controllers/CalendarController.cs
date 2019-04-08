@@ -64,6 +64,6 @@
             };
 
             return Ok(await Mediator.Send(query));
-        }
+        } 
     }
 }
