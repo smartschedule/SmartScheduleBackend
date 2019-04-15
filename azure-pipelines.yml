@@ -25,5 +25,7 @@ steps:
   displayName: LS XD
 - script: dotnet test ./SmartSchedule.Test/SmartSchedule.Test.csproj /p:CollectCoverage=true /p:CoverletOutputFormat=\"opencover,lcov\" /p:CoverletOutput=../lcov /p:Exclude="[xunit*]*"
   displayName: 'Run unit tests'
-- script: dotnet sonarscanner end /d:sonar.login="706c2a89d52059f9c0c70ffb2741e9263bcf39a4"
-  displayName: 'Update sonar statistics'
+- script: |
+    pwd
+    LS
+    dotnet sonarscanner end /d:sonar.login="706c2a89d52059f9c0c70ffb2741e9263bcf39a4"
