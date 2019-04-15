@@ -20,12 +20,7 @@
         public async Task<IActionResult> CreateCalendar([FromBody]CreateCalendarCommand calendar)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new CreateCalendarCommand
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                Name = calendar.Name,
-                ColorHex = calendar.ColorHex
-            };
+            calendar.UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value);
 
             return Ok(await Mediator.Send(command));
         }
