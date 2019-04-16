@@ -22,7 +22,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             calendar.UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value);
 
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(calendar));
         }
 
         [Authorize]
