@@ -20,6 +20,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(DeleteFriendFromCalendarCommand request, CancellationToken cancellationToken)
             {
                 var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(request.CalendarId)

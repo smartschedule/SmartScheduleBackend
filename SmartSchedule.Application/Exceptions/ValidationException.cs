@@ -9,7 +9,6 @@
     [Serializable]
     public class ValidationException : Exception
     {
-
         public IDictionary<string, string[]> Failures { get; }
 
         public ValidationException()
@@ -29,8 +28,7 @@
             info.AddValue("props", Failures, typeof(IDictionary<string, string[]>));
         }
 
-        public ValidationException(List<ValidationFailure> failures)
-            : this()
+        public ValidationException(List<ValidationFailure> failures) : this()
         {
             var propertyNames = failures
                 .Select(e => e.PropertyName)

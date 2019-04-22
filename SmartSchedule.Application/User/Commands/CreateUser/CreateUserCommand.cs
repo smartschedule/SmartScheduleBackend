@@ -16,10 +16,12 @@
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));

@@ -14,6 +14,7 @@
         {
             _context = context;
         }
+
         public async Task<EventDetailModel> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Events.FindAsync(request.Id);

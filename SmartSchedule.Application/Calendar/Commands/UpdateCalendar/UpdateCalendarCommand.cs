@@ -21,6 +21,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(UpdateCalendarCommand request, CancellationToken cancellationToken)
             {
                 var calendar = await _context.Calendars.FindAsync(request.Id);

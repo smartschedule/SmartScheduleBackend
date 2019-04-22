@@ -1,5 +1,4 @@
-﻿
-namespace SmartSchedule.Domain.Entities
+﻿namespace SmartSchedule.Domain.Entities
 {
     using SmartSchedule.Domain.Entities.Base;
 

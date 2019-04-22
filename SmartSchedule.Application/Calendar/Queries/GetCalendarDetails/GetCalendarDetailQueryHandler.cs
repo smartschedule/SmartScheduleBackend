@@ -14,6 +14,7 @@
         {
             _context = context;
         }
+
         public async Task<CalendarDetailModel> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Calendars.FindAsync(request.Id);
