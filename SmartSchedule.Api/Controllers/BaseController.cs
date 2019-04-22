@@ -1,9 +1,9 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.DependencyInjection;
-
-namespace SmartSchedule.Api.Controllers
+﻿namespace SmartSchedule.Api.Controllers
 {
+    using MediatR;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.Extensions.DependencyInjection;
+
     [ApiController]
     [Route("api/[controller]/[action]")]
     public class BaseController : Controller

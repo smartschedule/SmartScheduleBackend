@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
-using SmartSchedule.Application.Models;
-
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
+    using System.IO;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.Options;
+    using SmartSchedule.Application.Models;
     public static class JwtSettingFactory
     {
         public static IOptions<JwtSettings> Create()
         {
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json")    
+                .AddJsonFile("appsettings.json")
                 .AddEnvironmentVariables()
                 .Build();
 

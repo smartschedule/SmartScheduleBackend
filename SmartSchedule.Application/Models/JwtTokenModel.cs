@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SmartSchedule.Application.Models
+﻿namespace SmartSchedule.Application.Models
 {
+    using System;
+
     public class JwtTokenModel
     {
         public string Token { get; set; }

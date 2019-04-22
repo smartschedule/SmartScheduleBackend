@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Event.Queries.GetEventList
 {
+    using System;
     using AutoMapper;
     using SmartSchedule.Application.Interfaces.Mapping;
-    using System;
 
     public class EventLookupModel : IHaveCustomMapping
     {

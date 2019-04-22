@@ -1,18 +1,19 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]
     public class DeleteEventsFromCalendarCommandTests
     {
         private readonly SmartScheduleDbContext _context;
+
         public DeleteEventsFromCalendarCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;

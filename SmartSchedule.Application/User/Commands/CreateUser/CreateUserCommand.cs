@@ -21,10 +21,10 @@
                 _context = context;
             }
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-            {               
+            {
                 var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
-                var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request,cancellationToken);
-                if(!vResult.IsValid)
+                var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                if (!vResult.IsValid)
                 {
                     throw new ValidationException(vResult.Errors);
                 }

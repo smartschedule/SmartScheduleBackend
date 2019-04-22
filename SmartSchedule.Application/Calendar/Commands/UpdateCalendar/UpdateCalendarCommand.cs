@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateCalendarCommand : IRequest

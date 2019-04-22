@@ -1,14 +1,12 @@
-﻿using System.Security.Claims;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
-using SmartSchedule.Application.User.Commands.CreateUser;
-using SmartSchedule.Application.User.Queries.GetUserDetails;
-using SmartSchedule.Application.User.Queries.GetUserList;
-
-namespace SmartSchedule.Api.Controllers
+﻿namespace SmartSchedule.Api.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.User.Commands.CreateUser;
+    using SmartSchedule.Application.User.Queries.GetUserDetails;
+    using SmartSchedule.Application.User.Queries.GetUserList;
 
     public class UserController : BaseController
     {

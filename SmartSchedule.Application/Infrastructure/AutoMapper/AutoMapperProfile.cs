@@ -1,8 +1,8 @@
-﻿using System.Reflection;
-using AutoMapper;
-
-namespace SmartSchedule.Application.Infrastructure.AutoMapper
+﻿namespace SmartSchedule.Application.Infrastructure.AutoMapper
 {
+    using System.Reflection;
+    using global::AutoMapper;
+
     public class AutoMapperProfile : Profile
     {
         public AutoMapperProfile()
@@ -29,7 +29,6 @@ namespace SmartSchedule.Application.Infrastructure.AutoMapper
             {
                 map.CreateMappings(this);
             }
-
         }
     }
 

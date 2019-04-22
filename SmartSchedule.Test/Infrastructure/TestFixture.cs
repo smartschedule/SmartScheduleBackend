@@ -1,12 +1,12 @@
-﻿using System;
-using AutoMapper;
-using Microsoft.Extensions.Options;
-using SmartSchedule.Application.Models;
-using SmartSchedule.Persistence;
-using Xunit;
-
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
+    using System;
+    using AutoMapper;
+    using Microsoft.Extensions.Options;
+    using SmartSchedule.Application.Models;
+    using SmartSchedule.Persistence;
+    using Xunit;
+
     public class TestFixture : IDisposable
     {
         public SmartScheduleDbContext Context { get; private set; }
@@ -27,8 +27,14 @@ namespace SmartSchedule.Test.Infrastructure
     }
 
     [CollectionDefinition("TestCollection")]
-    public class QueryCollection : ICollectionFixture<TestFixture> { }
+    public class QueryCollection : ICollectionFixture<TestFixture>
+    {
+
+    }
 
     [CollectionDefinition("FriendsTestCollection")]
-    public class FriendsTestCollection : ICollectionFixture<TestFixture> { }
+    public class FriendsTestCollection : ICollectionFixture<TestFixture>
+    {
+
+    }
 }

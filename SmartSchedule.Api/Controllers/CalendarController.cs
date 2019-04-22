@@ -1,5 +1,7 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
@@ -10,8 +12,6 @@
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
 
     public class CalendarController : BaseController
     {
@@ -62,10 +62,7 @@
 
         [Authorize]
         [HttpGet("/api/calendars")]
-        public async Task<IActionResult> GetCalendarsList()
-        {
-            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
-        }
+        public async Task<IActionResult> GetCalendarsList() => Ok(await Mediator.Send(new GetCalendarsListQuery()));
 
         [Authorize]
         [HttpGet("/api/calendar/details/{id}")]

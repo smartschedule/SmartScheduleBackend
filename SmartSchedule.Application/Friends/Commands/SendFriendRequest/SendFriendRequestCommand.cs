@@ -37,7 +37,7 @@
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))))
                                                          .ToListAsync(cancellationToken);
-                if(blockedList.Count != 0)
+                if (blockedList.Count != 0)
                 {
                     throw new FluentValidation.ValidationException("The User whose you want to invite to friends is blocked or you are blocked by him!");
                 }

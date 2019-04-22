@@ -1,15 +1,14 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using AutoMapper;
-using Shouldly;
-using SmartSchedule.Application.User.Queries.GetUserList;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-
-namespace SmartSchedule.Test.Users
+﻿namespace SmartSchedule.Test.Users
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using AutoMapper;
+    using Shouldly;
+    using SmartSchedule.Application.User.Queries.GetUserList;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+
     [Collection("TestCollection")]
     public class GetCustomersListQueryHandlerTests
     {

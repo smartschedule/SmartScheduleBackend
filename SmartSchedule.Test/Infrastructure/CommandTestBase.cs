@@ -1,8 +1,8 @@
-﻿using System;
-using SmartSchedule.Persistence;
-
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
+    using System;
+    using SmartSchedule.Persistence;
+
     public class CommandTestBase : IDisposable
     {
         protected readonly SmartScheduleDbContext _context;

@@ -1,11 +1,11 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using SmartSchedule.Application.Helpers;
-using SmartSchedule.Domain.Entities;
-using SmartSchedule.Persistence;
-
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
+    using System;
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Helpers;
+    using SmartSchedule.Domain.Entities;
+    using SmartSchedule.Persistence;
+
     public static class SmartScheduleContextFactory
     {
         public static SmartScheduleDbContext Create()

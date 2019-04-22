@@ -14,7 +14,7 @@
             {
                 var userResult = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(request.Id));
 
-                if (userResult == null || userResult.Email.Equals(val)) 
+                if (userResult == null || userResult.Email.Equals(val))
                 {
                     return true;
                 }

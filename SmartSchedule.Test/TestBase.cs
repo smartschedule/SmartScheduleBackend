@@ -1,9 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore;
-using SmartSchedule.Persistence;
-
-namespace SmartSchedule.Test
+﻿namespace SmartSchedule.Test
 {
+    using System;
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Persistence;
+
     public class TestBase
     {
         public SmartScheduleDbContext GetDbContext(bool useSqlLite = false)

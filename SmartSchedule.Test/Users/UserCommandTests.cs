@@ -1,23 +1,17 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
-using SmartSchedule.Application.User.Commands.CreateUser;
-using SmartSchedule.Persistence;
-using SmartSchedule.Test.Infrastructure;
-using Xunit;
-using Shouldly;
-using FluentValidation;
-using Microsoft.Extensions.Options;
-using SmartSchedule.Application.Models;
-using SmartSchedule.Application.Interfaces;
-using SmartSchedule.Infrastucture.Authentication;
-using Microsoft.AspNetCore.Mvc;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Application.User.Commands.DeleteUser;
-using SmartSchedule.Application.User.Commands.UpdateUser;
-
-namespace SmartSchedule.Test.Users
+﻿namespace SmartSchedule.Test.Users
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using Microsoft.Extensions.Options;
+    using Shouldly;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.User.Commands.DeleteUser;
+    using SmartSchedule.Application.User.Commands.UpdateUser;
+    using SmartSchedule.Persistence;
+    using SmartSchedule.Test.Infrastructure;
+    using Xunit;
+
     [Collection("TestCollection")]
     public class UserCommandTests
     {
@@ -28,7 +22,7 @@ namespace SmartSchedule.Test.Users
         {
             _context = fixture.Context;
             _jwtSettings = fixture.JwtSettings;
-        }     
+        }
 
         [Fact]
         public async Task DeleteUserWithValidIdShouldDeleteUser()
@@ -55,7 +49,7 @@ namespace SmartSchedule.Test.Users
             var command = new DeleteUserCommand
             {
                 Id = 66
-            };           
+            };
             var commandHandler = new DeleteUserCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();

@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Exceptions
 {
-    using FluentValidation.Results;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Runtime.Serialization;
+    using FluentValidation.Results;
 
     [Serializable]
     public class ValidationException : Exception

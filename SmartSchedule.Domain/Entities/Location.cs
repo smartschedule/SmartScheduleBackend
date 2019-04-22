@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using SmartSchedule.Domain.Entities.Base;
-
-namespace SmartSchedule.Domain.Entities
+﻿namespace SmartSchedule.Domain.Entities
 {
+    using System.Collections.Generic;
+    using SmartSchedule.Domain.Entities.Base;
+
     public class Location : BaseEntity<int>
     {
         public string Longitude { get; set; }

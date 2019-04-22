@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using SmartSchedule.Application.Interfaces.Mapping;
-
-namespace SmartSchedule.Application.Infrastructure.AutoMapper
+﻿namespace SmartSchedule.Application.Infrastructure.AutoMapper
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Reflection;
+    using SmartSchedule.Application.Interfaces.Mapping;
+
     public sealed class Map
     {
         public Type Source { get; set; }

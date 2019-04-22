@@ -4,5 +4,6 @@
 
     public class UnblockUserCommandValidator : AbstractValidator<UnblockUserCommand>
     {
+
     }
 }

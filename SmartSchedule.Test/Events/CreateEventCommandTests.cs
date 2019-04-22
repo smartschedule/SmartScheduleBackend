@@ -1,18 +1,19 @@
 ﻿namespace SmartSchedule.Test.Events
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]
     public class CreateCalendarCommandTests
     {
         private readonly SmartScheduleDbContext _context;
+
         public CreateCalendarCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;

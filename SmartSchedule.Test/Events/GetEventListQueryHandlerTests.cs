@@ -1,12 +1,12 @@
 ﻿namespace SmartSchedule.Test.Events
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
     using SmartSchedule.Application.Event.Queries.GetEventList;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]

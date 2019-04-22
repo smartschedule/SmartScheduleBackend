@@ -11,7 +11,7 @@
         {
         }
 
-        protected DeleteFailureException(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected DeleteFailureException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
         }

@@ -1,11 +1,11 @@
-﻿using System;
-using System.IO;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Design;
-using Microsoft.Extensions.Configuration;
-
-namespace SmartSchedule.Persistence.Infrastructure
+﻿namespace SmartSchedule.Persistence.Infrastructure
 {
+    using System;
+    using System.IO;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Design;
+    using Microsoft.Extensions.Configuration;
+
     public abstract class DesignTimeDbContextFactoryBase<TContext> :
          IDesignTimeDbContextFactory<TContext> where TContext : DbContext
     {

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq.Expressions;
-using System.Text;
-
-namespace SmartSchedule.Application.User.Queries.GetUserDetails
+﻿namespace SmartSchedule.Application.User.Queries.GetUserDetails
 {
+    using System;
+    using System.Linq.Expressions;
+
     public class UserDetailModel
     {
         public int Id { get; set; }

@@ -1,31 +1,28 @@
-﻿using System.Net;
-using System.Reflection;
-using System.Text;
-using AutoMapper;
-using FluentValidation.AspNetCore;
-using MediatR;
-using MediatR.Pipeline;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpOverrides;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using SmartSchedule.Api.Filters;
-using SmartSchedule.Application.Infrastructure.AutoMapper;
-using SmartSchedule.Application.Interfaces;
-using SmartSchedule.Application.Models;
-using SmartSchedule.Application.User.Commands.CreateUser;
-using SmartSchedule.Application.User.Queries.GetUserDetails;
-using SmartSchedule.Infrastucture.Authentication;
-using SmartSchedule.Persistence;
-using Swashbuckle.AspNetCore.Swagger;
-
-namespace SmartSchedule.Api
+﻿namespace SmartSchedule.Api
 {
+    using System.Net;
+    using System.Reflection;
+    using System.Text;
+    using AutoMapper;
+    using MediatR;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.AspNetCore.HttpOverrides;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.IdentityModel.Tokens;
+    using SmartSchedule.Api.Filters;
+    using SmartSchedule.Application.Infrastructure.AutoMapper;
+    using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.User.Queries.GetUserDetails;
+    using SmartSchedule.Infrastucture.Authentication;
+    using SmartSchedule.Persistence;
+    using Swashbuckle.AspNetCore.Swagger;
+
     public class Startup
     {
         public Startup(IConfiguration configuration)

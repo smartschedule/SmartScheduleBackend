@@ -1,6 +1,5 @@
 ﻿namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
 {
-    using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading;

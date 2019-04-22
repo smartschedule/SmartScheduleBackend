@@ -1,12 +1,12 @@
 ﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarList
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class GetCalendarsListQueryHandler : IRequestHandler<GetCalendarsListQuery, CalendarListViewModel>
     {

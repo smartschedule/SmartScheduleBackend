@@ -1,7 +1,7 @@
-﻿using AutoMapper;
-
-namespace SmartSchedule.Application.Interfaces.Mapping
+﻿namespace SmartSchedule.Application.Interfaces.Mapping
 {
+    using AutoMapper;
+
     public interface IHaveCustomMapping
     {
         void CreateMappings(Profile configuration);

@@ -10,6 +10,7 @@
     {
         public int RequestingUserId { get; set; }
         public int RequestedUserId { get; set; }
+
         public class Handler : IRequestHandler<AcceptFriendRequestCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
