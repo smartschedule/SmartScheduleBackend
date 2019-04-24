@@ -1,7 +1,7 @@
-﻿using System;
-
-namespace SmartSchedule.Domain.Entities.Base
+﻿namespace SmartSchedule.Domain.Entities.Base
 {
+    using System;
+
     public class BaseEntity<T>
     {
         public T Id { get; set; }

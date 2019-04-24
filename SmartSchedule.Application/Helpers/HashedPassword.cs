@@ -30,10 +30,12 @@
             Salt = saltedPassword.Substring(0, saltIndex);
             Hash = saltedPassword.Substring(saltIndex);
         }
+
         public byte[] SaltToArray()
         {
             return Convert.FromBase64String(Salt);
         }
+
         public byte[] HashToArray()
         {
             return Convert.FromBase64String(Hash);

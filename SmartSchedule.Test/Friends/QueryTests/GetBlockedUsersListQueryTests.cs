@@ -6,7 +6,6 @@
     using Shouldly;
     using SmartSchedule.Application.Friends.Models;
     using SmartSchedule.Application.Friends.Queries.GetBlockedUsers;
-    using SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;

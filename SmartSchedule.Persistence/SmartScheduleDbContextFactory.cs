@@ -1,8 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using SmartSchedule.Persistence.Infrastructure;
-
-namespace SmartSchedule.Persistence
+﻿namespace SmartSchedule.Persistence
 {
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Persistence.Infrastructure;
+
     public class SmartScheduleDbContextFactory : DesignTimeDbContextFactoryBase<SmartScheduleDbContext>
     {
         protected override SmartScheduleDbContext CreateNewInstance(DbContextOptions<SmartScheduleDbContext> options)

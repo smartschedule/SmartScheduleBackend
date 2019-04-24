@@ -5,7 +5,6 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Friends.Commands.BlockUser;
     using SmartSchedule.Application.Friends.Commands.UnblockUser;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;

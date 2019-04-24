@@ -1,19 +1,20 @@
 ﻿namespace SmartSchedule.Test.Events
 {
+    using System;
+    using System.Threading;
+    using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]
     public class UpdateEventCommandTests
     {
         private readonly SmartScheduleDbContext _context;
+
         public UpdateEventCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;

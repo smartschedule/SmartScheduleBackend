@@ -1,7 +1,7 @@
-﻿using SmartSchedule.Domain.Entities.Base;
-
-namespace SmartSchedule.Domain.Entities
+﻿namespace SmartSchedule.Domain.Entities
 {
+    using SmartSchedule.Domain.Entities.Base;
+
     public class UserCalendar : BaseEntity<int>
     {
         public int UserId { get; set; }

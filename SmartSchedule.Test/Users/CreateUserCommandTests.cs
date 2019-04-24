@@ -13,6 +13,7 @@
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
+
     [Collection("TestCollection")]
     public class CreateUserCommandTests
     {

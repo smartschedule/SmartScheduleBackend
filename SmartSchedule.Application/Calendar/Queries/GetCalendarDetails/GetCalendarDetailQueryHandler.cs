@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class GetCalendarDetailQueryHandler : IRequestHandler<GetCalendarDetailQuery, CalendarDetailModel>
     {
@@ -14,6 +14,7 @@
         {
             _context = context;
         }
+
         public async Task<CalendarDetailModel> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Calendars.FindAsync(request.Id);

@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class CreateCalendarCommand : IRequest
     {
@@ -20,6 +20,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(CreateCalendarCommand request, CancellationToken cancellationToken)
             {
 

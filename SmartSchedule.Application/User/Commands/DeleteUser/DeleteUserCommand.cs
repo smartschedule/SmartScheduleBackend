@@ -14,10 +14,12 @@
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(request.Id));

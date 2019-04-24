@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace SmartSchedule.Api.Models
+﻿namespace SmartSchedule.Api.Models
 {
     public class ValidationError
     {

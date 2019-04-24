@@ -16,19 +16,17 @@
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
             }
-            public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
-            {               
-                var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
-                var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request,cancellationToken);
-                if(!vResult.IsValid)
-                {
-                    throw new ValidationException(vResult.Errors);
-                }
 
+            public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
+            {
+                var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
+                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: request, cancellationToken: cancellationToken);
+                
                 var entity = new Domain.Entities.User
                 {
                     Email = request.Email,

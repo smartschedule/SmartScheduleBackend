@@ -18,6 +18,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(RejectFriendRequestCommand request, CancellationToken cancellationToken)
             {
                 var vResult = await new RejectFriendRequestCommandValidator(_context).ValidateAsync(request, cancellationToken);

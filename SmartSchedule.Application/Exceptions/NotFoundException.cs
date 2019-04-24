@@ -11,7 +11,7 @@
         {
         }
 
-        protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected NotFoundException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
         }

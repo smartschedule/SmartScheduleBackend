@@ -4,5 +4,6 @@
 
     public class GetEventListQuery : IRequest<EventListViewModel>
     {
+
     }
 }

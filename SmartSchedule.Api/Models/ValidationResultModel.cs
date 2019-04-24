@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FluentValidation;
-
-namespace SmartSchedule.Api.Models
+﻿namespace SmartSchedule.Api.Models
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using FluentValidation;
+
     public class ValidationResultModel
     {
         public ValidationResultModel(ValidationException validationException)

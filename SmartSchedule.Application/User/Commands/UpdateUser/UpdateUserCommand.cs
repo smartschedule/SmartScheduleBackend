@@ -2,7 +2,6 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using FluentValidation;
     using MediatR;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
@@ -16,11 +15,13 @@
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly SmartScheduleDbContext _context
+                ;
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
                 var user = await _context.Users.FindAsync(request.Id);

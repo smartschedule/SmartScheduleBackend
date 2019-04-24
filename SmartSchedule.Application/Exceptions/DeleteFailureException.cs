@@ -9,9 +9,10 @@
         public DeleteFailureException(string name, object key, string message)
             : base($"Deletion of entity \"{name}\" ({key}) failed. {message}")
         {
+
         }
 
-        protected DeleteFailureException(SerializationInfo info, StreamingContext context) : base(info,context)
+        protected DeleteFailureException(SerializationInfo info, StreamingContext context) : base(info, context)
         {
 
         }

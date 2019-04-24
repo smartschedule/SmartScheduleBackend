@@ -18,7 +18,7 @@
         {
             var entity = await _context.Users.FindAsync(request.Id);
 
-            if(entity == null)
+            if (entity == null)
             {
                 throw new NotFoundException(nameof(Domain.Entities.User), request.Id);
             }

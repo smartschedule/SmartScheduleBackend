@@ -30,7 +30,7 @@
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))));
 
-                if(friendRequest == null)
+                if (friendRequest == null)
                 {
                     throw new NotFoundException("BlockedUser", request.UserToUnblockId);
                 }

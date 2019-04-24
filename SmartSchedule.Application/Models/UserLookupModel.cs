@@ -7,6 +7,7 @@
     {
         public int Id { get; set; }
         public string Email { get; set; }
+
         public void CreateMappings(Profile configuration)
         {
             configuration.CreateMap<Domain.Entities.User, UserLookupModel>()

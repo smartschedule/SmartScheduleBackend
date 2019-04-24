@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class DeleteEventsFromCalendarCommand : IRequest
     {
@@ -19,6 +19,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(DeleteEventsFromCalendarCommand request, CancellationToken cancellationToken)
             {
                 var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(request.CalendarId));

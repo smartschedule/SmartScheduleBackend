@@ -19,6 +19,7 @@
             _context = context;
             _mapper = mapper;
         }
+
         public async Task<UserListViewModel> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
         {
             return new UserListViewModel

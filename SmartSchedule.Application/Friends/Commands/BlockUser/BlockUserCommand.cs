@@ -11,6 +11,7 @@
     {
         public int UserToBlock { get; set; }
         public int UserId { get; set; }
+
         public class Handler : IRequestHandler<BlockUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -19,6 +20,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
             {
                 var vResult = await new BlockUserCommandValidator().ValidateAsync(request, cancellationToken);

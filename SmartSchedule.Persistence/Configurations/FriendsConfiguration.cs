@@ -10,13 +10,11 @@
         {
             builder.Property(x => x.Type).HasConversion<int>();
             builder.HasKey("FirstUserId", "SecoundUserId");
+
             builder.HasOne(x => x.SecoundUser)
-                .WithMany()
-                .OnDelete(DeleteBehavior.Restrict);
+                   .WithMany()
+                   .OnDelete(DeleteBehavior.Restrict);
 
         }
     }
-
-
-
 }

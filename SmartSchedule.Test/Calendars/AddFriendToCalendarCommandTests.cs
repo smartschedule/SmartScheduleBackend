@@ -1,19 +1,20 @@
 ﻿namespace SmartSchedule.Test.Calendars
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
-    using System.Threading;
-    using System.Threading.Tasks;
     using Xunit;
 
     [Collection("TestCollection")]
     public class AddFriendToCalendarCommandTests
     {
         private readonly SmartScheduleDbContext _context;
+
         public AddFriendToCalendarCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;

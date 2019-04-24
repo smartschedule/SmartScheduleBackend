@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using SmartSchedule.Domain.Entities.Base;
-
-namespace SmartSchedule.Domain.Entities
+﻿namespace SmartSchedule.Domain.Entities
 {
+    using System;
+    using System.Collections.Generic;
+    using SmartSchedule.Domain.Entities.Base;
+
     public class Event : BaseEntity<int>
     {
         public DateTime StartDate { get; set; }

@@ -19,11 +19,13 @@
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IOptions<JwtSettings> _jwt;
+
         public JwtService(SmartScheduleDbContext context, IOptions<JwtSettings> jwt)
         {
             _context = context;
             _jwt = jwt;
         }
+
         public async Task<IActionResult> Login(EmailSignInModel model)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(model.Email));
@@ -38,7 +40,7 @@
             else
             {
                 return new ObjectResult(GenerateJwtToken(model.Email, user.Id, false));
-            }          
+            }
         }
 
         private JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)

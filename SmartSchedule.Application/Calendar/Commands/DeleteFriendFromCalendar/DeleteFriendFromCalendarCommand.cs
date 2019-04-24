@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar
 {
+    using System.Threading;
+    using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
-    using System.Threading;
-    using System.Threading.Tasks;
 
     public class DeleteFriendFromCalendarCommand : IRequest
     {
@@ -20,6 +20,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(DeleteFriendFromCalendarCommand request, CancellationToken cancellationToken)
             {
                 var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(request.CalendarId)

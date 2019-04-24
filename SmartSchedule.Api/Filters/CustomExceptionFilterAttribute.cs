@@ -1,12 +1,12 @@
-﻿using System;
-using System.Net;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Filters;
-using SmartSchedule.Api.Models;
-using SmartSchedule.Application.Exceptions;
-
-namespace SmartSchedule.Api.Filters
+﻿namespace SmartSchedule.Api.Filters
 {
+    using System;
+    using System.Net;
+    using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Filters;
+    using SmartSchedule.Api.Models;
+    using SmartSchedule.Application.Exceptions;
+
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class CustomExceptionFilterAttribute : ExceptionFilterAttribute
     {

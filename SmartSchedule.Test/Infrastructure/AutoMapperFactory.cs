@@ -1,8 +1,8 @@
-﻿using AutoMapper;
-using SmartSchedule.Application.Infrastructure.AutoMapper;
-
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
+    using AutoMapper;
+    using SmartSchedule.Application.Infrastructure.AutoMapper;
+
     public static class AutoMapperFactory
     {
         public static IMapper Create()
