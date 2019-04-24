@@ -25,12 +25,8 @@
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 var hash = new HashedPassword(PasswordHelper.CreateHash(request.Password));
-                var vResult = await new CreateUserCommandValidator(_context).ValidateAsync(request, cancellationToken);
-                if (!vResult.IsValid)
-                {
-                    throw new ValidationException(vResult.Errors);
-                }
-
+                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: request, cancellationToken: cancellationToken);
+                
                 var entity = new Domain.Entities.User
                 {
                     Email = request.Email,
