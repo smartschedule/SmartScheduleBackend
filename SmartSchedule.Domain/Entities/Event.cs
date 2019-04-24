@@ -12,8 +12,8 @@
         public TimeSpan? ReminderBefore { get; set; } // ile minut/godzin/dni/... przed rozpoczęciem wydarzenia ma wyświetlić się przypomnienie? jeśli null to brak przypomnienia
 
         public TimeSpan? RepeatsEvery { get; set; } // co jaki okres czasu powtarza się wydarzenie? jeśli null to nie powtarza się
-        public DateTime RepeatsTo { get; set; } // do kiedy powtarza się wydarzenie?
-
+        public DateTime RepeatsTo { get; set; } // do kiedy powtarza się wydarzenie? //nullable here are
+                                                //przydalby sie bool albo enum który określa czy to świeto normalne czy panstwowe czy tam koscielne
         public string Name { get; set; }
         public int CalendarId { get; set; }
         public int LocationId { get; set; }
