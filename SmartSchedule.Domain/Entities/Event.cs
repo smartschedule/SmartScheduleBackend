@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using SmartSchedule.Domain.Entities.Base;
+    using SmartSchedule.Domain.Enums;
 
     public class Event : BaseEntity<int>
     {
