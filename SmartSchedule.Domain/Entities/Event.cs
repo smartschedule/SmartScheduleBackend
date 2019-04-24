@@ -7,13 +7,13 @@
 
     public class Event : BaseEntity<int>
     {
-        public DateTime StartDate { get; set; } // godzina i data rozpoczęcia eventu
-        public TimeSpan Duration { get; set; } // czas trwania wydarzenia od rozpoczęcia
+        public DateTime StartDate { get; set; }
+        public TimeSpan Duration { get; set; }
 
-        public TimeSpan? ReminderBefore { get; set; } // ile minut/godzin/dni/... przed rozpoczęciem wydarzenia ma wyświetlić się przypomnienie? jeśli null to brak przypomnienia
+        public TimeSpan? ReminderBefore { get; set; }
 
-        public TimeSpan? RepeatsEvery { get; set; } // co jaki okres czasu powtarza się wydarzenie? jeśli null to nie powtarza się
-        public DateTime? RepeatsTo { get; set; } // do kiedy powtarza się wydarzenie? jak null to w nieskonczoność się powtarza
+        public TimeSpan? RepeatsEvery { get; set; }
+        public DateTime? RepeatsTo { get; set; }
 
         public EventTypes Type { get; set; }
 
