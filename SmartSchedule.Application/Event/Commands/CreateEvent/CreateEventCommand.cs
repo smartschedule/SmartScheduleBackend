@@ -7,10 +7,8 @@
     using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommand : IRequest
+    public class CreateEventCommand : EventCreateModel, IRequest
     {
-        public EventCreateModel EventCreateModel { get; set; }
-
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -23,7 +21,7 @@
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
 
-                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(request.EventCreateModel, cancellationToken);
+                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(request, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -32,8 +30,8 @@
 
                 var entityLocation = new Domain.Entities.Location
                 {
-                    Latitude = request.EventCreateModel.Latitude,
-                    Longitude = request.EventCreateModel.Longitude
+                    Latitude = request.Latitude,
+                    Longitude = request.Longitude
                 };
 
                 var location = _context.Locations.Add(entityLocation);
@@ -42,14 +40,14 @@
 
                 var entityEvent = new Domain.Entities.Event
                 {
-                    StartDate = request.EventCreateModel.StartDate,
-                    Duration = request.EventCreateModel.Duration,
-                    ReminderBefore = request.EventCreateModel.ReminderBefore,
-                    RepeatsEvery = request.EventCreateModel.RepeatsEvery,
-                    RepeatsTo = request.EventCreateModel.RepeatsTo,
-                    Type = request.EventCreateModel.Type,
-                    Name = request.EventCreateModel.Name,
-                    CalendarId = request.EventCreateModel.CalendarId,
+                    StartDate = request.StartDate,
+                    Duration = request.Duration,
+                    ReminderBefore = request.ReminderBefore,
+                    RepeatsEvery = request.RepeatsEvery,
+                    RepeatsTo = request.RepeatsTo,
+                    Type = request.Type,
+                    Name = request.Name,
+                    CalendarId = request.CalendarId,
                     LocationId = location.Entity.Id
                 };
                 _context.Events.Add(entityEvent);

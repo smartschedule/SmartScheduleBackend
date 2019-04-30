@@ -10,10 +10,8 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
     using SmartSchedule.Persistence;
     using ValidationException = FluentValidation.ValidationException;
 
-    public class UpdateEventCommand : IRequest
+    public class UpdateEventCommand : EventDetailModel, IRequest
     {
-        public EventDetailModel EventDetailModel {get;set;}
-
         public class Handler : IRequestHandler<UpdateEventCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -24,14 +22,14 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
             }
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
-                var entityEvent = await _context.Events.FindAsync(request.EventDetailModel.Id);
+                var entityEvent = await _context.Events.FindAsync(request.Id);
 
                 if (entityEvent == null)
                 {
-                    throw new NotFoundException("Event", request.EventDetailModel.Id);
+                    throw new NotFoundException("Event", request.Id);
                 }
 
-                var vResult = await new UpdateEventCommandValidator(_context).ValidateAsync(request.EventDetailModel, cancellationToken);
+                var vResult = await new UpdateEventCommandValidator(_context).ValidateAsync(request, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -40,21 +38,21 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 
                 var entityLocation = new Domain.Entities.Location
                 {
-                    Latitude = request.EventDetailModel.Latitude,
-                    Longitude = request.EventDetailModel.Longitude
+                    Latitude = request.Latitude,
+                    Longitude = request.Longitude
                 };
                 var location = _context.Locations.Add(entityLocation);
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                entityEvent.StartDate = request.EventDetailModel.StartDate;
-                entityEvent.Duration = request.EventDetailModel.Duration;
-                entityEvent.ReminderBefore = request.EventDetailModel.ReminderBefore;
-                entityEvent.RepeatsEvery = request.EventDetailModel.RepeatsEvery;
-                entityEvent.RepeatsTo = request.EventDetailModel.RepeatsTo;
-                entityEvent.Type = request.EventDetailModel.Type;
-                entityEvent.Name = request.EventDetailModel.Name;
-                entityEvent.CalendarId = request.EventDetailModel.CalendarId;
+                entityEvent.StartDate = request.StartDate;
+                entityEvent.Duration = request.Duration;
+                entityEvent.ReminderBefore = request.ReminderBefore;
+                entityEvent.RepeatsEvery = request.RepeatsEvery;
+                entityEvent.RepeatsTo = request.RepeatsTo;
+                entityEvent.Type = request.Type;
+                entityEvent.Name = request.Name;
+                entityEvent.CalendarId = request.CalendarId;
                 entityEvent.LocationId = location.Entity.Id;
 
 

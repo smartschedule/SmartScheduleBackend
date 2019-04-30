@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -28,7 +29,7 @@
 
             result.ShouldBeOfType<CalendarDetailModel>();
             result.Id.ShouldBe(2);
-            result.Events.ShouldBeOfType<List<EventLookupModel>>();
+            result.Events.ShouldBeOfType<List<EventDetailModel>>();
         }
     }
 }
