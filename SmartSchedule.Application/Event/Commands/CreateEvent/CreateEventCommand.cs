@@ -1,30 +1,15 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using SmartSchedule.Domain.Enums;
-    using SmartSchedule.Domain.Entities;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
 
     public class CreateEventCommand : IRequest
     {
-        public DateTime StartDate { get; set; }
-        public TimeSpan Duration { get; set; }
-
-        public TimeSpan? ReminderBefore { get; set; }
-
-        public TimeSpan? RepeatsEvery { get; set; }
-        public DateTime? RepeatsTo { get; set; }
-
-        public EventTypes Type { get; set; }
-
-        public string Name { get; set; }
-        public int CalendarId { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
+        public EventCreateModel EventCreateModel { get; set; }
 
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {
@@ -38,7 +23,7 @@
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
 
-                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(request.EventCreateModel, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -47,8 +32,8 @@
 
                 var entityLocation = new Domain.Entities.Location
                 {
-                    Latitude = request.Latitude,
-                    Longitude = request.Longitude
+                    Latitude = request.EventCreateModel.Latitude,
+                    Longitude = request.EventCreateModel.Longitude
                 };
 
                 var location = _context.Locations.Add(entityLocation);
@@ -57,14 +42,14 @@
 
                 var entityEvent = new Domain.Entities.Event
                 {
-                    StartDate = request.StartDate,
-                    Duration = request.Duration,
-                    ReminderBefore = request.ReminderBefore,
-                    RepeatsEvery = request.RepeatsEvery,
-                    RepeatsTo = request.RepeatsTo,
-                    Type = request.Type,
-                    Name = request.Name,
-                    CalendarId = request.CalendarId,
+                    StartDate = request.EventCreateModel.StartDate,
+                    Duration = request.EventCreateModel.Duration,
+                    ReminderBefore = request.EventCreateModel.ReminderBefore,
+                    RepeatsEvery = request.EventCreateModel.RepeatsEvery,
+                    RepeatsTo = request.EventCreateModel.RepeatsTo,
+                    Type = request.EventCreateModel.Type,
+                    Name = request.EventCreateModel.Name,
+                    CalendarId = request.EventCreateModel.CalendarId,
                     LocationId = location.Entity.Id
                 };
                 _context.Events.Add(entityEvent);

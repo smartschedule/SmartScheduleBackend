@@ -2,9 +2,10 @@
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommandValidator : AbstractValidator<CreateEventCommand>
+    public class CreateEventCommandValidator : AbstractValidator<EventCreateModel>
     {
         public CreateEventCommandValidator(SmartScheduleDbContext context)
         {

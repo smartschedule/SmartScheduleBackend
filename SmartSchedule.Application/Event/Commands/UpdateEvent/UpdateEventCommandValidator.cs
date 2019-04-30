@@ -1,9 +1,10 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
     using FluentValidation;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
 
-    public class UpdateEventCommandValidator : AbstractValidator<UpdateEventCommand>
+    public class UpdateEventCommandValidator : AbstractValidator<EventDetailModel>
     {
         public UpdateEventCommandValidator(SmartScheduleDbContext context)
         {
