@@ -23,14 +23,16 @@
                     ColorHex = calendar.ColorHex,
                     Events = calendar.Events.Select(y => new EventLookupModel
                     {
-                        Id = y.Id,
+                        StartDate = y.StartDate,
+                        Duration = y.Duration,
+                        ReminderBefore = y.ReminderBefore,
+                        RepeatsEvery = y.RepeatsEvery,
+                        RepeatsTo = y.RepeatsTo,
+                        Type = y.Type,
                         Name = y.Name,
                         CalendarId = y.CalendarId,
-                        EndTime = y.EndTime,
-                        StartDate = y.StartDate,
                         Latitude = y.Location.Latitude,
                         Longitude = y.Location.Longitude
-
                     }).ToList()
                 };
             }

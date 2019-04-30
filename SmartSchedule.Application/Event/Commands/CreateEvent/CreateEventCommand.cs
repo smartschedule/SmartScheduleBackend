@@ -5,15 +5,23 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Domain.Enums;
+    using SmartSchedule.Domain.Entities;
     using SmartSchedule.Persistence;
 
     public class CreateEventCommand : IRequest
     {
         public DateTime StartDate { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime ReminderAt { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public TimeSpan? ReminderBefore { get; set; }
+
+        public TimeSpan? RepeatsEvery { get; set; }
+        public DateTime? RepeatsTo { get; set; }
+
+        public EventTypes Type { get; set; }
+
         public string Name { get; set; }
-        public int RepeatsEvery { get; set; }
         public int CalendarId { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
@@ -50,10 +58,12 @@
                 var entityEvent = new Domain.Entities.Event
                 {
                     StartDate = request.StartDate,
-                    EndTime = request.EndTime,
-                    ReminderAt = request.ReminderAt,
-                    Name = request.Name,
+                    Duration = request.Duration,
+                    ReminderBefore = request.ReminderBefore,
                     RepeatsEvery = request.RepeatsEvery,
+                    RepeatsTo = request.RepeatsTo,
+                    Type = request.Type,
+                    Name = request.Name,
                     CalendarId = request.CalendarId,
                     LocationId = location.Entity.Id
                 };

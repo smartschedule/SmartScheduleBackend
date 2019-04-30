@@ -3,15 +3,22 @@
     using System;
     using System.Linq.Expressions;
     using Domain.Entities;
+    using SmartSchedule.Domain.Enums;
 
     public class EventDetailModel
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime ReminderAt { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public TimeSpan? ReminderBefore { get; set; }
+
+        public TimeSpan? RepeatsEvery { get; set; }
+        public DateTime? RepeatsTo { get; set; }
+
+        public EventTypes Type { get; set; }
+
         public string Name { get; set; }
-        public int RepeatsEvery { get; set; }
         public int CalendarId { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
@@ -24,13 +31,15 @@
                 {
                     Id = evnt.Id,
                     StartDate = evnt.StartDate,
-                    EndTime = evnt.EndTime,
-                    ReminderAt = evnt.ReminderAt,
+                    Duration = evnt.Duration,
+                    ReminderBefore = evnt.ReminderBefore,
                     RepeatsEvery = evnt.RepeatsEvery,
+                    RepeatsTo = evnt.RepeatsTo,
+                    Type = evnt.Type,
                     Name = evnt.Name,
                     CalendarId = evnt.CalendarId,
-                    Latitude = evnt.Location.Latitude,
-                    Longitude = evnt.Location.Longitude
+                    Longitude = evnt.Location.Longitude,
+                    Latitude = evnt.Location.Latitude
                 };
             }
         }
