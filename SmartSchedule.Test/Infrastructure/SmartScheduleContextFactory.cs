@@ -68,10 +68,10 @@
 
             context.Events.AddRange(new[]
             {
-                new Event{Id=2, StartDate=DateTime.Now, EndTime=DateTime.Now.AddDays(+1), ReminderAt = DateTime.Now.AddDays(-1),
-                Name="eventsuper", LocationId = 2, CalendarId = 3, RepeatsEvery = 2},
-                new Event{Id=3, StartDate=DateTime.Now, EndTime=DateTime.Now.AddDays(+1), ReminderAt = DateTime.Now.AddDays(-1),
-                Name="eventsuper2", LocationId = 5, CalendarId = 4, RepeatsEvery = 2}
+                new Event{Id=2, StartDate=DateTime.Now, Duration = TimeSpan.Zero, ReminderBefore = TimeSpan.Zero, RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5), Type = Domain.Enums.EventTypes.standard, Name="eventsuper", LocationId = 2, CalendarId = 3},
+                new Event{Id=3, StartDate=DateTime.Now, Duration = TimeSpan.Zero, ReminderBefore = TimeSpan.Zero, RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5), Type = Domain.Enums.EventTypes.standard,Name="eventsuper2", LocationId = 5, CalendarId = 4}
             });
 
             context.SaveChanges();

@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Application.Event.Queries.GetEventDetails;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;

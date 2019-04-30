@@ -6,6 +6,7 @@
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Persistence;
 
     public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, EventListViewModel>
@@ -23,7 +24,7 @@
         {
             return new EventListViewModel
             {
-                Events = await _context.Events.ProjectTo<EventLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                Events = await _context.Events.ProjectTo<EventDetailModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
             };
         }
     }

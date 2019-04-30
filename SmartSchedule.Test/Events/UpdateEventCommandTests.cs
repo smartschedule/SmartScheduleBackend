@@ -23,15 +23,16 @@
         [Fact]
         public async Task UpdateEventShouldUpdateEventInDbContext()
         {
-
             var command = new UpdateEventCommand
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
-                EndTime = DateTime.Now.AddDays(-1),
-                ReminderAt = DateTime.Now.AddDays(-2),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
-                RepeatsEvery = 11,
                 Latitude = "43.38247",
                 Longitude = "59.27492"
             };
@@ -44,8 +45,11 @@
 
             eventE.Name.ShouldBe(command.Name);
             eventE.StartDate.ShouldBe(command.StartDate);
-            eventE.EndTime.ShouldBe(command.EndTime);
-            eventE.ReminderAt.ShouldBe(command.ReminderAt);
+            eventE.Duration.ShouldBe(command.Duration);
+            eventE.ReminderBefore.ShouldBe(command.ReminderBefore);
+            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
+            eventE.RepeatsTo.ShouldBe(command.RepeatsTo);
+            eventE.Type.ShouldBe(command.Type);
             eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
             eventE.Location.Latitude.ShouldBe(command.Latitude);
         }
@@ -59,10 +63,12 @@
             {
                 Id = 1000,
                 StartDate = DateTime.Now.AddDays(1),
-                EndTime = DateTime.Now.AddDays(-1),
-                ReminderAt = DateTime.Now.AddDays(-2),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
-                RepeatsEvery = 11,
                 Latitude = "43.38247",
                 Longitude = "59.27492"
             };

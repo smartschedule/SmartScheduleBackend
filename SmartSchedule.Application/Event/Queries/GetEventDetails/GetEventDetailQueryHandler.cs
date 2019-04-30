@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.Event.Models;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 

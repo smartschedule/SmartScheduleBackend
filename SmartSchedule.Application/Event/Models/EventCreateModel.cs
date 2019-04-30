@@ -1,11 +1,10 @@
-﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
+﻿namespace SmartSchedule.Application.Event.Models
 {
     using System;
     using SmartSchedule.Domain.Enums;
 
-    public class EventLookupModel
+    public class EventCreateModel
     {
-        public int Id { get; set; }
         public DateTime StartDate { get; set; }
         public TimeSpan Duration { get; set; }
 
@@ -20,5 +19,6 @@
         public int CalendarId { get; set; }
         public string Longitude { get; set; }
         public string Latitude { get; set; }
+
     }
 }

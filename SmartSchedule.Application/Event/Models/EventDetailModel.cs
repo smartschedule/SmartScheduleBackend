@@ -1,27 +1,12 @@
-﻿namespace SmartSchedule.Application.Event.Queries.GetEventDetails
+﻿namespace SmartSchedule.Application.Event.Models
 {
     using System;
     using System.Linq.Expressions;
     using Domain.Entities;
-    using SmartSchedule.Domain.Enums;
 
-    public class EventDetailModel
+    public class EventDetailModel : EventCreateModel
     {
         public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public TimeSpan Duration { get; set; }
-
-        public TimeSpan? ReminderBefore { get; set; }
-
-        public TimeSpan? RepeatsEvery { get; set; }
-        public DateTime? RepeatsTo { get; set; }
-
-        public EventTypes Type { get; set; }
-
-        public string Name { get; set; }
-        public int CalendarId { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
 
         public static Expression<Func<Event, EventDetailModel>> Projection
         {

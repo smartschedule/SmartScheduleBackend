@@ -26,10 +26,12 @@
             var command = new CreateEventCommand
             {
                 StartDate = DateTime.Now,
-                EndTime = DateTime.Now.AddDays(1),
-                ReminderAt = DateTime.Now.AddDays(-1),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
-                RepeatsEvery = 10,
                 CalendarId = 2,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -56,10 +58,12 @@
             var command = new CreateEventCommand
             {
                 StartDate = DateTime.Now,
-                EndTime = DateTime.Now.AddDays(1),
-                ReminderAt = DateTime.Now.AddDays(-1),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
-                RepeatsEvery = 10,
                 CalendarId = 200,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -76,10 +80,12 @@
             var command = new CreateEventCommand
             {
                 StartDate = DateTime.Now,
-                EndTime = DateTime.Now.AddDays(1),
-                ReminderAt = DateTime.Now.AddDays(-1),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "",
-                RepeatsEvery = 10,
                 CalendarId = 2,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -96,10 +102,12 @@
             var command = new CreateEventCommand
             {
                 StartDate = DateTime.Now,
-                EndTime = DateTime.Now.AddDays(1),
-                ReminderAt = DateTime.Now.AddDays(-1),
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
-                RepeatsEvery = 10,
                 CalendarId = 2,
                 Latitude = "",
                 Longitude = "53.27492"

@@ -4,13 +4,14 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using SmartSchedule.Application.Event.Models;
 
     public class CalendarDetailModel
     {
         public int Id { get; set; }
         public string Name { get; set; }
         public string ColorHex { get; set; }
-        public IList<EventLookupModel> Events { get; set; }
+        public IList<EventDetailModel> Events { get; set; }
 
         public static Expression<Func<Domain.Entities.Calendar, CalendarDetailModel>> Projection
         {
@@ -21,19 +22,7 @@
                     Id = calendar.Id,
                     Name = calendar.Name,
                     ColorHex = calendar.ColorHex,
-                    Events = calendar.Events.Select(y => new EventLookupModel
-                    {
-                        StartDate = y.StartDate,
-                        Duration = y.Duration,
-                        ReminderBefore = y.ReminderBefore,
-                        RepeatsEvery = y.RepeatsEvery,
-                        RepeatsTo = y.RepeatsTo,
-                        Type = y.Type,
-                        Name = y.Name,
-                        CalendarId = y.CalendarId,
-                        Latitude = y.Location.Latitude,
-                        Longitude = y.Location.Longitude
-                    }).ToList()
+                    Events = calendar.Events.Select(y => EventDetailModel.Create(y)).ToList()
                 };
             }
         }
