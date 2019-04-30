@@ -27,7 +27,7 @@
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
-                Duration = TimeSpan.Zero,
+                Duration = TimeSpan.FromHours(2),
                 ReminderBefore = TimeSpan.Zero,
                 RepeatsEvery = TimeSpan.Zero,
                 RepeatsTo = DateTime.Now.AddDays(-5),
