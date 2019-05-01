@@ -8,7 +8,7 @@
     {
         public int Id { get; set; }
 
-        public new static Expression<Func<Event, EventDetailModel>> Projection
+        public static Expression<Func<Event, EventDetailModel>> Projection
         {
             get
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public new static EventDetailModel Create(Event evnt)
+        public static EventDetailModel Create(Event evnt)
         {
             return Projection.Compile().Invoke(evnt);
         }

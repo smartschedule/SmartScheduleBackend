@@ -50,6 +50,7 @@
                     CalendarId = request.CalendarId,
                     LocationId = location.Entity.Id
                 };
+
                 _context.Events.Add(entityEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);
