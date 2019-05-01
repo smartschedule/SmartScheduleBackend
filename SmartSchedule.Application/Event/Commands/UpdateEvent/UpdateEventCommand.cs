@@ -55,7 +55,6 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                 entityEvent.CalendarId = request.CalendarId;
                 entityEvent.LocationId = location.Entity.Id;
 
-
                 _context.Events.Update(entityEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);

@@ -2,13 +2,13 @@
 {
     using System;
     using System.Linq.Expressions;
-    using Domain.Entities;
+    using SmartSchedule.Domain.Entities;
 
     public class EventDetailModel : EventCreateModel
     {
         public int Id { get; set; }
 
-        public static Expression<Func<Event, EventDetailModel>> Projection
+        public new static Expression<Func<Event, EventDetailModel>> Projection
         {
             get
             {
@@ -29,7 +29,7 @@
             }
         }
 
-        public static EventDetailModel Create(Event evnt)
+        public new static EventDetailModel Create(Event evnt)
         {
             return Projection.Compile().Invoke(evnt);
         }
