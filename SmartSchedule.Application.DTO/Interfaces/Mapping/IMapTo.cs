@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Interfaces.Mapping
+namespace SmartSchedule.Application.DTO.Interfaces.Mapping
 {
     public interface IMapTo<TEntity>
     {

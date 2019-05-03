@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Api.Controllers
+namespace SmartSchedule.Api.Controllers
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -41,7 +41,7 @@
 
         [Authorize]
         [HttpGet("/api/event/details/{id}")]
-        public async Task<IActionResult> GetUserDetails(int id)
+        public async Task<IActionResult> GetEventDetails(int id)
         {
             var query = new GetEventDetailQuery
             {

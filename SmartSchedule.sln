@@ -27,7 +27,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{4F90F73F
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Test", "SmartSchedule.Test\SmartSchedule.Test.csproj", "{0FB47B07-412A-42EC-B7A6-849A7D138777}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SmartSchedule.Application.DTO", "SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj", "{E1577EE1-8B48-437F-9FA1-154B2DF21684}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SmartSchedule.Application.DTO", "SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj", "{E1577EE1-8B48-437F-9FA1-154B2DF21684}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -1,7 +1,7 @@
-﻿namespace SmartSchedule.Application.DTO.User
+namespace SmartSchedule.Application.DTO.User
 {
     using AutoMapper;
-    using SmartSchedule.Application.Interfaces.Mapping;
+    using SmartSchedule.Application.DTO.Interfaces.Mapping;
 
     public class UserLookupModel : IHaveCustomMapping
     {

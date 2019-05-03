@@ -1,9 +1,9 @@
-﻿namespace SmartSchedule.Application.DTO.Calendar.Queries
+namespace SmartSchedule.Application.DTO.Calendar.Queries
 {
     using System.Collections.Generic;
     using System.Linq;
     using AutoMapper;
-    using SmartSchedule.Application.Interfaces.Mapping;
+    using SmartSchedule.Application.DTO.Interfaces.Mapping;
 
     public class GetCalendarListResponse
     {
