@@ -2,7 +2,6 @@
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Event;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
 

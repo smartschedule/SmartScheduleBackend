@@ -18,6 +18,7 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
                 var entityEvent = await _context.Events.FindAsync(request.Id);

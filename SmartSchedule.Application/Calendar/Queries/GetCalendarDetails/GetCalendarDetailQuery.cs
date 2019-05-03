@@ -27,9 +27,7 @@
                     throw new NotFoundException(nameof(Domain.Entities.Calendar), request.Id);
                 }
 
-                var result = GetCalendarDetailResponse.Create(entity);
-
-                return result;
+                return GetCalendarDetailResponse.Create(entity);
             }
         }
     }
