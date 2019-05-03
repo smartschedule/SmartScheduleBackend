@@ -3,7 +3,8 @@
     using System.IO;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Authentication;
+
     public static class JwtSettingFactory
     {
         public static IOptions<JwtSettings> Create()

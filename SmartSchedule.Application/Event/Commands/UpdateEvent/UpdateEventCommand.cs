@@ -1,16 +1,14 @@
 namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.Event.Models;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Domain.Enums;
     using SmartSchedule.Persistence;
     using ValidationException = FluentValidation.ValidationException;
 
-    public class UpdateEventCommand : EventDetailModel, IRequest
+    public class UpdateEventCommand : UpdateEventRequest, IRequest
     {
         public class Handler : IRequestHandler<UpdateEventCommand, Unit>
         {

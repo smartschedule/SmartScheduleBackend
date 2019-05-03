@@ -4,10 +4,10 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using SmartSchedule.Application.Event.Models;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommand : EventCreateModel, IRequest
+    public class CreateEventCommand : CreateEventRequest, IRequest
     {
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {

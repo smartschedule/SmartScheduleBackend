@@ -4,13 +4,12 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteEventsFromCalendarCommand : IRequest
+    public class DeleteEventsFromCalendarCommand : DeleteEventsFromCalendarRequest, IRequest
     {
-        public int CalendarId { get; set; }
-
         public class Handler : IRequestHandler<DeleteEventsFromCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

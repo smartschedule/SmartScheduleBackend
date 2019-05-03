@@ -13,16 +13,20 @@
     <PrivateAssets>all</PrivateAssets>
   </PackageReference>
   <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="2.2.0" />
-  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.0" />
-  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.2" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.9.0" />
+  <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="2.2.4" />
+  <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="2.2.4" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.0.1" />
     <PackageReference Include="Shouldly" Version="3.0.2" />
-    <PackageReference Include="xunit" Version="2.4.0" />
-    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.0" />
+    <PackageReference Include="xunit" Version="2.4.1" />
+    <PackageReference Include="xunit.runner.visualstudio" Version="2.4.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\SmartSchedule.Api\SmartSchedule.Api.csproj" />
+    <ProjectReference Include="..\SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj" />
     <ProjectReference Include="..\SmartSchedule.Application\SmartSchedule.Application.csproj" />
     <ProjectReference Include="..\SmartSchedule.Common\SmartSchedule.Common.csproj" />
     <ProjectReference Include="..\SmartSchedule.Domain\SmartSchedule.Domain.csproj" />

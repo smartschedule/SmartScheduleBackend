@@ -4,14 +4,12 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteFriendFromCalendarCommand : IRequest
+    public class DeleteFriendFromCalendarCommand : DeleteFriendFromCalendarRequest, IRequest
     {
-        public int CalendarId { get; set; }
-        public int UserId { get; set; }
-
         public class Handler : IRequestHandler<DeleteFriendFromCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

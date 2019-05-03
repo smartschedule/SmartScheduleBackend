@@ -15,9 +15,9 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Api.Filters;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
@@ -45,7 +45,7 @@
             });
 
             //Mediator
-            services.AddMediatR(typeof(GetUserDetailQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUserDetailQuery.Handler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

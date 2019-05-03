@@ -1,10 +1,10 @@
-﻿namespace SmartSchedule.Application.Infrastructure.AutoMapper
+namespace SmartSchedule.Application.Infrastructure.AutoMapper
 {
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Reflection;
-    using SmartSchedule.Application.Interfaces.Mapping;
+    using SmartSchedule.Application.DTO.Interfaces.Mapping;
 
     public sealed class Map
     {

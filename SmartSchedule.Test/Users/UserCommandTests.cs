@@ -4,8 +4,8 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Commands.DeleteUser;
     using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Persistence;

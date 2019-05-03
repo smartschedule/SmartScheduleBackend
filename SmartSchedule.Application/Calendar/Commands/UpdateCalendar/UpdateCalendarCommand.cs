@@ -3,16 +3,13 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using ValidationException = FluentValidation.ValidationException;
 
-    public class UpdateCalendarCommand : IRequest
+    public class UpdateCalendarCommand : UpdateCalendarRequest, IRequest
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string ColorHex { get; set; }
-
         public class Handler : IRequestHandler<UpdateCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

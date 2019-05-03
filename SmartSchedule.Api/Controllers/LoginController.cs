@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
 
     public class LoginController : BaseController
     {
@@ -15,7 +15,7 @@
         }
 
         [HttpPost("/api/login")]
-        public async Task<IActionResult> Login([FromBody]EmailSignInModel model)
+        public async Task<IActionResult> Login([FromBody]LoginRequest model)
         {
             return await _jwt.Login(model);
         }

@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Authentication;
 
     public interface IJwtService
     {
-        Task<IActionResult> Login(EmailSignInModel model);
+        Task<IActionResult> Login(LoginRequest model);
     }
 }
