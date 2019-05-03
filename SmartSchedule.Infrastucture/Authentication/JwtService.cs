@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Infrastucture.Authentication
+namespace SmartSchedule.Infrastucture.Authentication
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
@@ -9,10 +9,10 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using SmartSchedule.Application.DTO.Authorization;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Persistence;
 
     public class JwtService : IJwtService

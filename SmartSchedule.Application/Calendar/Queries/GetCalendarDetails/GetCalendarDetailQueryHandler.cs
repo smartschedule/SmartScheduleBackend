@@ -1,8 +1,9 @@
-﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
+namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Calendar;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 

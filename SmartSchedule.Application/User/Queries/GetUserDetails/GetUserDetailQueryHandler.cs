@@ -1,8 +1,9 @@
-﻿namespace SmartSchedule.Application.User.Queries.GetUserDetails
+namespace SmartSchedule.Application.User.Queries.GetUserDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 

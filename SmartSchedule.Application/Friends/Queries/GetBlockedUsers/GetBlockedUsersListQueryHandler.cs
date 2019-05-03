@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
+namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,8 +7,8 @@
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.Friends.Models;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
     public class GetBlockedUsersListQueryHandler : IRequestHandler<GetBlockedUsersListQuery, FriendsListViewModel>

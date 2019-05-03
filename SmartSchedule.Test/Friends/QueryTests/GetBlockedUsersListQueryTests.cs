@@ -1,10 +1,10 @@
-﻿namespace SmartSchedule.Test.Friends.QueryTests
+namespace SmartSchedule.Test.Friends.QueryTests
 {
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
-    using SmartSchedule.Application.Friends.Models;
+    using SmartSchedule.Application.DTO.Friends;
     using SmartSchedule.Application.Friends.Queries.GetBlockedUsers;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;

@@ -1,13 +1,13 @@
-﻿namespace SmartSchedule.Test.Users
+namespace SmartSchedule.Test.Users
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Authorization;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;

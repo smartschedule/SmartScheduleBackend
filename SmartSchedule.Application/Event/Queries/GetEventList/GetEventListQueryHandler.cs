@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Event.Queries.GetEventList
+namespace SmartSchedule.Application.Event.Queries.GetEventList
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,7 +6,7 @@
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.Event.Models;
+    using SmartSchedule.Application.DTO.Event;
     using SmartSchedule.Persistence;
 
     public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, EventListViewModel>

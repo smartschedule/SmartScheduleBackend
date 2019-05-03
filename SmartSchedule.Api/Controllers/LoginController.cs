@@ -1,9 +1,9 @@
-﻿namespace SmartSchedule.Api.Controllers
+namespace SmartSchedule.Api.Controllers
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.DTO.Authorization;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
 
     public class LoginController : BaseController
     {

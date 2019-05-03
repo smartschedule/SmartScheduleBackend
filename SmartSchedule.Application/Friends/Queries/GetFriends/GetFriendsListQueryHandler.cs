@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Friends.Queries.GetFriends
+namespace SmartSchedule.Application.Friends.Queries.GetFriends
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,8 +7,8 @@
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.Friends.Models;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
     public class GetFriendsListQueryHandler : IRequestHandler<GetFriendsListQuery, FriendsListViewModel>

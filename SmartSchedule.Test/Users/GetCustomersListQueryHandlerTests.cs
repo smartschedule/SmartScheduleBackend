@@ -1,9 +1,10 @@
-﻿namespace SmartSchedule.Test.Users
+namespace SmartSchedule.Test.Users
 {
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
+    using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Application.User.Queries.GetUserList;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;

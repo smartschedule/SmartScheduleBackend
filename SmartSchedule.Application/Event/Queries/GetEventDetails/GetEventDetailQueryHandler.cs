@@ -1,9 +1,9 @@
-﻿namespace SmartSchedule.Application.Event.Queries.GetEventDetails
+namespace SmartSchedule.Application.Event.Queries.GetEventDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.Event.Models;
+    using SmartSchedule.Application.DTO.Event;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 

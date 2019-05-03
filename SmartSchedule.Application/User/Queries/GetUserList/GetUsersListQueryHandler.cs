@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.User.Queries.GetUserList
+namespace SmartSchedule.Application.User.Queries.GetUserList
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,7 +6,7 @@
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
     public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, UserListViewModel>

@@ -1,7 +1,7 @@
-﻿namespace SmartSchedule.Application.Event.Queries.GetEventDetails
+namespace SmartSchedule.Application.Event.Queries.GetEventDetails
 {
     using MediatR;
-    using SmartSchedule.Application.Event.Models;
+    using SmartSchedule.Application.DTO.Event;
 
     public class GetEventDetailQuery : IRequest<EventDetailModel>
     {

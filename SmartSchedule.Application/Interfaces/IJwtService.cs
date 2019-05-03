@@ -1,8 +1,8 @@
-﻿namespace SmartSchedule.Application.Interfaces
+namespace SmartSchedule.Application.Interfaces
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Authorization;
 
     public interface IJwtService
     {

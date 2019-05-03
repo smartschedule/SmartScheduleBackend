@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Api
+namespace SmartSchedule.Api
 {
     using System.Net;
     using System.Reflection;
@@ -15,9 +15,9 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Api.Filters;
+    using SmartSchedule.Application.DTO.Authorization;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;

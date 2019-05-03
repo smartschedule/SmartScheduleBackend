@@ -1,11 +1,11 @@
-﻿namespace SmartSchedule.Test.Users
+namespace SmartSchedule.Test.Users
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Authorization;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Commands.DeleteUser;
     using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Persistence;
