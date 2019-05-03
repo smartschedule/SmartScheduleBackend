@@ -26,7 +26,7 @@
 
             var command = new DeleteCalendarCommand
             {
-                Id = 1
+                CalendarId = 1
             };
             var calendar = await _context.Calendars.FindAsync(1);
             calendar.ShouldNotBeNull();
@@ -50,7 +50,7 @@
 
             var command = new DeleteCalendarCommand
             {
-                Id = 100
+                CalendarId = 100
             };
 
             var commandHandler = new DeleteCalendarCommand.Handler(_context);

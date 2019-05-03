@@ -1,24 +1,15 @@
-﻿namespace SmartSchedule.Application.Event.Commands.UpdateEvent
+namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using ValidationException = FluentValidation.ValidationException;
 
-    public class UpdateEventCommand : IRequest
+    public class UpdateEventCommand : UpdateEventRequest, IRequest
     {
-        public int Id { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime ReminderAt { get; set; }
-        public string Name { get; set; }
-        public int RepeatsEvery { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-
         public class Handler : IRequestHandler<UpdateEventCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -27,6 +18,7 @@
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
                 var entityEvent = await _context.Events.FindAsync(request.Id);
@@ -53,10 +45,13 @@
                 await _context.SaveChangesAsync(cancellationToken);
 
                 entityEvent.StartDate = request.StartDate;
-                entityEvent.EndTime = request.EndTime;
-                entityEvent.ReminderAt = request.ReminderAt;
-                entityEvent.Name = request.Name;
+                entityEvent.Duration = request.Duration;
+                entityEvent.ReminderBefore = request.ReminderBefore;
                 entityEvent.RepeatsEvery = request.RepeatsEvery;
+                entityEvent.RepeatsTo = request.RepeatsTo;
+                entityEvent.Type = request.Type;
+                entityEvent.Name = request.Name;
+                entityEvent.CalendarId = request.CalendarId;
                 entityEvent.LocationId = location.Entity.Id;
 
                 _context.Events.Update(entityEvent);

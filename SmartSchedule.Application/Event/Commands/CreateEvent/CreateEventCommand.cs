@@ -1,23 +1,14 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommand : IRequest
+    public class CreateEventCommand : CreateEventRequest, IRequest
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime ReminderAt { get; set; }
-        public string Name { get; set; }
-        public int RepeatsEvery { get; set; }
-        public int CalendarId { get; set; }
-        public string Longitude { get; set; }
-        public string Latitude { get; set; }
-
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -50,13 +41,16 @@
                 var entityEvent = new Domain.Entities.Event
                 {
                     StartDate = request.StartDate,
-                    EndTime = request.EndTime,
-                    ReminderAt = request.ReminderAt,
-                    Name = request.Name,
+                    Duration = request.Duration,
+                    ReminderBefore = request.ReminderBefore,
                     RepeatsEvery = request.RepeatsEvery,
+                    RepeatsTo = request.RepeatsTo,
+                    Type = request.Type,
+                    Name = request.Name,
                     CalendarId = request.CalendarId,
                     LocationId = location.Entity.Id
                 };
+
                 _context.Events.Add(entityEvent);
 
                 await _context.SaveChangesAsync(cancellationToken);

@@ -3,14 +3,21 @@
     using System;
     using System.Collections.Generic;
     using SmartSchedule.Domain.Entities.Base;
+    using SmartSchedule.Domain.Enums;
 
     public class Event : BaseEntity<int>
     {
         public DateTime StartDate { get; set; }
-        public DateTime EndTime { get; set; }
-        public DateTime ReminderAt { get; set; }
+        public TimeSpan Duration { get; set; }
+
+        public TimeSpan? ReminderBefore { get; set; }
+
+        public TimeSpan? RepeatsEvery { get; set; }
+        public DateTime? RepeatsTo { get; set; }
+
+        public EventTypes Type { get; set; }
+
         public string Name { get; set; }
-        public int RepeatsEvery { get; set; }
         public int CalendarId { get; set; }
         public int LocationId { get; set; }
 

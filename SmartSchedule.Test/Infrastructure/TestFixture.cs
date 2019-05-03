@@ -3,7 +3,7 @@
     using System;
     using AutoMapper;
     using Microsoft.Extensions.Options;
-    using SmartSchedule.Application.Models;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Persistence;
     using Xunit;
 

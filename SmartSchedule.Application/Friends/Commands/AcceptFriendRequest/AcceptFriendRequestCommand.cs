@@ -4,13 +4,11 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Persistence;
 
-    public class AcceptFriendRequestCommand : IRequest
+    public class AcceptFriendRequestCommand : AcceptOrRejectFriendRequestRequest, IRequest
     {
-        public int RequestingUserId { get; set; }
-        public int RequestedUserId { get; set; }
-
         public class Handler : IRequestHandler<AcceptFriendRequestCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

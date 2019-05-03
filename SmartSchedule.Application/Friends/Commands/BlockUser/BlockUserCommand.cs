@@ -4,14 +4,12 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class BlockUserCommand : IRequest
+    public class BlockUserCommand : BlockUserRequest, IRequest
     {
-        public int UserToBlock { get; set; }
-        public int UserId { get; set; }
-
         public class Handler : IRequestHandler<BlockUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

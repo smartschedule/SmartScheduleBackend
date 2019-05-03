@@ -1,17 +1,15 @@
-﻿namespace SmartSchedule.Application.Friends.Commands.UnblockUser
+namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class UnblockUserCommand : IRequest
+    public class UnblockUserCommand : UnblockUserRequest, IRequest
     {
-        public int UserId { get; set; }
-        public int UserToUnblockId { get; set; }
-
         public class Handler : IRequestHandler<UnblockUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

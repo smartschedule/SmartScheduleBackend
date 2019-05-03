@@ -5,9 +5,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Models;
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
@@ -77,7 +77,7 @@
         [Fact]
         public async Task SignInUserWithValidCredentialsShouldReturnToken()
         {
-            var credentials = new EmailSignInModel
+            var credentials = new LoginRequest
             {
                 Email = "test1@test.com",
                 Password = "test1234"
@@ -93,7 +93,7 @@
         [Fact]
         public async Task SignInUserWithInvalidPasswordShouldReturnUnauthorizedResult()
         {
-            var credentials = new EmailSignInModel
+            var credentials = new LoginRequest
             {
                 Email = "test1@test.com",
                 Password = "asdasfsdgsd"
@@ -109,7 +109,7 @@
         [Fact]
         public async Task SignInUserWithNotExistingEmailShouldThrowNotFoundException()
         {
-            var credentials = new EmailSignInModel
+            var credentials = new LoginRequest
             {
                 Email = "test22@test.com",
                 Password = "whatever"

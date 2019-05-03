@@ -7,12 +7,10 @@
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
+    using SmartSchedule.Application.DTO.Friends.Commands;
 
-    public class SendFriendRequestCommand : IRequest
+    public class SendFriendRequestCommand : SendFriendRequestRequest, IRequest
     {
-        public int FriendId { get; set; }
-        public int UserId { get; set; }
-
         public class Handler : IRequestHandler<SendFriendRequestCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
