@@ -1,8 +1,8 @@
-namespace SmartSchedule.Api.Controllers
+﻿namespace SmartSchedule.Api.Controllers
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.DTO.Authorization;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Interfaces;
 
     public class LoginController : BaseController
@@ -15,7 +15,7 @@ namespace SmartSchedule.Api.Controllers
         }
 
         [HttpPost("/api/login")]
-        public async Task<IActionResult> Login([FromBody]EmailSignInModel model)
+        public async Task<IActionResult> Login([FromBody]LoginRequest model)
         {
             return await _jwt.Login(model);
         }

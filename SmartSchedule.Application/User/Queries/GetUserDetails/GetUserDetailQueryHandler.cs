@@ -1,13 +1,13 @@
-namespace SmartSchedule.Application.User.Queries.GetUserDetails
+﻿namespace SmartSchedule.Application.User.Queries.GetUserDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.DTO.User;
+    using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQuery, UserDetailModel>
+    public class GetUserDetailQueryHandler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
     {
         private readonly SmartScheduleDbContext _context;
 
@@ -15,7 +15,7 @@ namespace SmartSchedule.Application.User.Queries.GetUserDetails
         {
             _context = context;
         }
-        public async Task<UserDetailModel> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
+        public async Task<GetUserDetailResponse> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Users.FindAsync(request.Id);
 
@@ -24,7 +24,7 @@ namespace SmartSchedule.Application.User.Queries.GetUserDetails
                 throw new NotFoundException(nameof(Domain.Entities.User), request.Id);
             }
 
-            return UserDetailModel.Create(entity);
+            return GetUserDetailResponse.Create(entity);
         }
     }
 }

@@ -1,10 +1,10 @@
-namespace SmartSchedule.Application.User.Queries.GetUserDetails
+﻿namespace SmartSchedule.Application.User.Queries.GetUserDetails
 {
     using MediatR;
-    using SmartSchedule.Application.DTO.User;
+    using SmartSchedule.Application.DTO.User.Queries;
 
-    public class GetUserDetailQuery : IRequest<UserDetailModel>
+    public class GetUserDetailQuery : GetUserDetailRequest, IRequest<GetUserDetailResponse>
     {
-        public int Id { get; set; }
+
     }
 }

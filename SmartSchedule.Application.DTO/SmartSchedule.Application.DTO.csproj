@@ -12,11 +12,4 @@
     <ProjectReference Include="..\SmartSchedule.Domain\SmartSchedule.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Authorization\Commands\" />
-    <Folder Include="Authorization\Queries\" />
-    <Folder Include="User\Commands\" />
-    <Folder Include="User\Queries\" />
-  </ItemGroup>
-
 </Project>

@@ -3,16 +3,13 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
-    public class UpdateUserCommand : IRequest
-    {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
 
+    public class UpdateUserCommand : UpdateUserRequest, IRequest
+    {
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

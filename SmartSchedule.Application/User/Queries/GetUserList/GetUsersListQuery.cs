@@ -1,9 +1,9 @@
-namespace SmartSchedule.Application.User.Queries.GetUserList
+﻿namespace SmartSchedule.Application.User.Queries.GetUserList
 {
     using MediatR;
-    using SmartSchedule.Application.DTO.User;
+    using SmartSchedule.Application.DTO.User.Queries;
 
-    public class GetUsersListQuery : IRequest<UserListViewModel>
+    public class GetUsersListQuery : IRequest<GetUsersListResponse>
     {
     }
 }

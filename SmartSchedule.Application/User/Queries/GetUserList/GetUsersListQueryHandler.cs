@@ -1,4 +1,4 @@
-namespace SmartSchedule.Application.User.Queries.GetUserList
+﻿namespace SmartSchedule.Application.User.Queries.GetUserList
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -7,9 +7,10 @@ namespace SmartSchedule.Application.User.Queries.GetUserList
     using MediatR;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.User;
+    using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Persistence;
 
-    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, UserListViewModel>
+    public class GetUsersListQueryHandler : IRequestHandler<GetUsersListQuery, GetUsersListResponse>
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IMapper _mapper;
@@ -20,9 +21,9 @@ namespace SmartSchedule.Application.User.Queries.GetUserList
             _mapper = mapper;
         }
 
-        public async Task<UserListViewModel> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
+        public async Task<GetUsersListResponse> Handle(GetUsersListQuery request, CancellationToken cancellationToken)
         {
-            return new UserListViewModel
+            return new GetUsersListResponse
             {
                 Users = await _context.Users.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
             };

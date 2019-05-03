@@ -1,9 +1,9 @@
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
     using System.IO;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.Options;
-    using SmartSchedule.Application.DTO.Authorization;
+    using SmartSchedule.Application.DTO.Authentication;
 
     public static class JwtSettingFactory
     {

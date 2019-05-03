@@ -1,4 +1,4 @@
-namespace SmartSchedule.Infrastucture.Authentication
+﻿namespace SmartSchedule.Infrastucture.Authentication
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
@@ -9,7 +9,7 @@ namespace SmartSchedule.Infrastucture.Authentication
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-    using SmartSchedule.Application.DTO.Authorization;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Application.Interfaces;
@@ -26,7 +26,7 @@ namespace SmartSchedule.Infrastucture.Authentication
             _jwt = jwt;
         }
 
-        public async Task<IActionResult> Login(EmailSignInModel model)
+        public async Task<IActionResult> Login(LoginRequest model)
         {
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(model.Email));
             if (user == null)

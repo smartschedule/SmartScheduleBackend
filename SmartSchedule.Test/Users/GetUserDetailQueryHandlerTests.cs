@@ -1,9 +1,9 @@
-namespace SmartSchedule.Test.Users
+﻿namespace SmartSchedule.Test.Users
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
-    using SmartSchedule.Application.DTO.User;
+    using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -26,7 +26,7 @@ namespace SmartSchedule.Test.Users
 
             var result = await sut.Handle(new GetUserDetailQuery { Id = 2 }, CancellationToken.None);
 
-            result.ShouldBeOfType<UserDetailModel>();
+            result.ShouldBeOfType<GetUserDetailResponse>();
             result.Id.ShouldBe(2);
         }
     }

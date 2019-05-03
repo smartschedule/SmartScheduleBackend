@@ -1,9 +1,9 @@
-namespace SmartSchedule.Test.Infrastructure
+﻿namespace SmartSchedule.Test.Infrastructure
 {
     using System;
     using AutoMapper;
     using Microsoft.Extensions.Options;
-    using SmartSchedule.Application.DTO.Authorization;
+    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Persistence;
     using Xunit;
 

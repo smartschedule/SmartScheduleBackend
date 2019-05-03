@@ -1,11 +1,11 @@
-namespace SmartSchedule.Application.Interfaces
+﻿namespace SmartSchedule.Application.Interfaces
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.DTO.Authorization;
+    using SmartSchedule.Application.DTO.Authentication;
 
     public interface IJwtService
     {
-        Task<IActionResult> Login(EmailSignInModel model);
+        Task<IActionResult> Login(LoginRequest model);
     }
 }
