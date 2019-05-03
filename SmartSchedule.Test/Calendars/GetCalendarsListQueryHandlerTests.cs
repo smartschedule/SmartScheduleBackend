@@ -5,6 +5,7 @@
     using AutoMapper;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -28,7 +29,7 @@
 
             var result = await sut.Handle(new GetCalendarsListQuery(), CancellationToken.None);
 
-            result.ShouldBeOfType<CalendarListViewModel>();
+            result.ShouldBeOfType<GetCalendarListResponse>();
         }
     }
 }

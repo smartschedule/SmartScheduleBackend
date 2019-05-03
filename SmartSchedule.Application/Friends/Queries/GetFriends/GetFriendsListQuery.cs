@@ -1,10 +1,10 @@
-namespace SmartSchedule.Application.Friends.Queries.GetFriends
+﻿namespace SmartSchedule.Application.Friends.Queries.GetFriends
 {
     using MediatR;
-    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.Friends.Queries;
 
-    public class GetFriendsListQuery : IRequest<FriendsListViewModel>
+    public class GetFriendsListQuery : FriendsUserIdRequest, IRequest<FriendsListResponse>
     {
-        public int UserId { get; set; }
+
     }
 }

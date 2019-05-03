@@ -1,4 +1,4 @@
-namespace SmartSchedule.Application.Event.Queries.GetEventList
+﻿namespace SmartSchedule.Application.Event.Queries.GetEventList
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,10 +6,11 @@ namespace SmartSchedule.Application.Event.Queries.GetEventList
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Persistence;
+    using static SmartSchedule.Application.DTO.Event.Queries.GetEventListResponse;
 
-    public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, EventListViewModel>
+    public class GetEventListQueryHandler : IRequestHandler<GetEventListQuery, GetEventListResponse>
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IMapper _mapper;
@@ -20,11 +21,11 @@ namespace SmartSchedule.Application.Event.Queries.GetEventList
             _mapper = mapper;
         }
 
-        public async Task<EventListViewModel> Handle(GetEventListQuery request, CancellationToken cancellationToken)
+        public async Task<GetEventListResponse> Handle(GetEventListQuery request, CancellationToken cancellationToken)
         {
-            return new EventListViewModel
+            return new GetEventListResponse
             {
-                Events = await _context.Events.ProjectTo<EventDetailModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                Events = await _context.Events.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
             };
         }
     }

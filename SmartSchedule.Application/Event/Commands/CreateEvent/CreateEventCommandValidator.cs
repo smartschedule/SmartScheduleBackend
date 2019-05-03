@@ -1,11 +1,12 @@
-namespace SmartSchedule.Application.Event.Commands.CreateEvent
+﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommandValidator : AbstractValidator<EventCreateModel>
+    public class CreateEventCommandValidator : AbstractValidator<CreateEventRequest>
     {
         public CreateEventCommandValidator(SmartScheduleDbContext context)
         {

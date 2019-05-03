@@ -1,10 +1,10 @@
-namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
+﻿namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
 {
     using MediatR;
-    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.Friends.Queries;
 
-    public class GetBlockedUsersListQuery : IRequest<FriendsListViewModel>
+    public class GetBlockedUsersListQuery : FriendsUserIdRequest, IRequest<FriendsListResponse>
     {
-        public int UserId { get; set; }
+
     }
 }

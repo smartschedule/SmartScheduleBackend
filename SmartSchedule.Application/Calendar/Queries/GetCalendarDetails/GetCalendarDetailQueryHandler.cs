@@ -1,13 +1,14 @@
-namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
+﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetCalendarDetailQueryHandler : IRequestHandler<GetCalendarDetailQuery, CalendarDetailModel>
+    public class GetCalendarDetailQueryHandler : IRequestHandler<GetCalendarDetailQuery, GetCalendarDetailResponse>
     {
         private readonly SmartScheduleDbContext _context;
 
@@ -16,7 +17,7 @@ namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
             _context = context;
         }
 
-        public async Task<CalendarDetailModel> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
+        public async Task<GetCalendarDetailResponse> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Calendars.FindAsync(request.Id);
 
@@ -25,7 +26,7 @@ namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
                 throw new NotFoundException(nameof(Domain.Entities.Calendar), request.Id);
             }
 
-            var result = CalendarDetailModel.Create(entity);
+            var result = GetCalendarDetailResponse.Create(entity);
 
             return result;
         }

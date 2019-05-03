@@ -1,13 +1,13 @@
-namespace SmartSchedule.Application.Event.Queries.GetEventDetails
+﻿namespace SmartSchedule.Application.Event.Queries.GetEventDetails
 {
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, EventDetailModel>
+    public class GetEventDetailQueryHandler : IRequestHandler<GetEventDetailQuery, UpdateEventRequest>
     {
         private readonly SmartScheduleDbContext _context;
 
@@ -16,7 +16,7 @@ namespace SmartSchedule.Application.Event.Queries.GetEventDetails
             _context = context;
         }
 
-        public async Task<EventDetailModel> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
+        public async Task<UpdateEventRequest> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
         {
             var entity = await _context.Events.FindAsync(request.Id);
 
@@ -25,7 +25,7 @@ namespace SmartSchedule.Application.Event.Queries.GetEventDetails
                 throw new NotFoundException(nameof(Domain.Entities.Event), request.Id);
             }
 
-            return EventDetailModel.Create(entity);
+            return UpdateEventRequest.Create(entity);
         }
     }
 }

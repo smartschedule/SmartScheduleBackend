@@ -15,8 +15,8 @@
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context
-                ;
+            private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;

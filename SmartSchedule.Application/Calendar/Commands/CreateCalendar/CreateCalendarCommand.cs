@@ -1,17 +1,14 @@
-﻿namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
+namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 {
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateCalendarCommand : IRequest
+    public class CreateCalendarCommand : CreateCalendarRequest, IRequest
     {
-        public string Name { get; set; }
-        public string ColorHex { get; set; }
-        public int UserId { get; set; }
-
         public class Handler : IRequestHandler<CreateCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

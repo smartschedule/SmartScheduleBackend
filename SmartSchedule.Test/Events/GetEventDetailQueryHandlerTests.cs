@@ -1,9 +1,10 @@
-namespace SmartSchedule.Test.Events
+﻿namespace SmartSchedule.Test.Events
 {
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Queries.GetEventDetails;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -26,7 +27,7 @@ namespace SmartSchedule.Test.Events
 
             var result = await sut.Handle(new GetEventDetailQuery { Id = 3 }, CancellationToken.None);
 
-            result.ShouldBeOfType<EventDetailModel>();
+            result.ShouldBeOfType<UpdateEventRequest>();
             result.Id.ShouldBe(3);
         }
     }

@@ -15,12 +15,6 @@
   <ItemGroup>
     <Folder Include="Authorization\Commands\" />
     <Folder Include="Authorization\Queries\" />
-    <Folder Include="Calendar\Commands\" />
-    <Folder Include="Calendar\Queries\" />
-    <Folder Include="Event\Commands\" />
-    <Folder Include="Event\Queries\" />
-    <Folder Include="Friends\Commands\" />
-    <Folder Include="Friends\Queries\" />
     <Folder Include="User\Commands\" />
     <Folder Include="User\Queries\" />
   </ItemGroup>

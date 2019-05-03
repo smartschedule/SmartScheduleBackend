@@ -1,17 +1,15 @@
-﻿namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
+namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 {
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
 
-    public class AddFriendToCalendarCommand : IRequest
+    public class AddFriendToCalendarCommand : AddFriendToCalendarRequest, IRequest
     {
-        public int CalendarId { get; set; }
-        public int UserId { get; set; }
-
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;

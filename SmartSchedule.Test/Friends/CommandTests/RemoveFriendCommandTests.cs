@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Friends.Commands.RemoveFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.RemoveFriend;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;

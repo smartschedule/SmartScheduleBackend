@@ -1,4 +1,4 @@
-namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
+﻿namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,11 +7,11 @@ namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
-    public class GetBlockedUsersListQueryHandler : IRequestHandler<GetBlockedUsersListQuery, FriendsListViewModel>
+    public class GetBlockedUsersListQueryHandler : IRequestHandler<GetBlockedUsersListQuery, FriendsListResponse>
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IMapper _mapper;
@@ -21,7 +21,7 @@ namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
             _context = context;
             _mapper = mapper;
         }
-        public async Task<FriendsListViewModel> Handle(GetBlockedUsersListQuery request, CancellationToken cancellationToken)
+        public async Task<FriendsListResponse> Handle(GetBlockedUsersListQuery request, CancellationToken cancellationToken)
         {
             var blockedList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
@@ -32,7 +32,7 @@ namespace SmartSchedule.Application.Friends.Queries.GetBlockedUsers
                                                          .Include(x => x.FirstUser)
                                                          .Include(x => x.SecoundUser)
                                                          .ToListAsync(cancellationToken);
-            var friendsViewModel = new FriendsListViewModel
+            var friendsViewModel = new FriendsListResponse
             {
                 Users = new List<UserLookupModel>()
             };

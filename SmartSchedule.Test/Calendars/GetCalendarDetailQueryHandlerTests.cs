@@ -1,12 +1,12 @@
-namespace SmartSchedule.Test.Calendars
+﻿namespace SmartSchedule.Test.Calendars
 {
     using System.Collections.Generic;
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
-    using SmartSchedule.Application.DTO.Calendar;
-    using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -28,9 +28,9 @@ namespace SmartSchedule.Test.Calendars
 
             var result = await sut.Handle(new GetCalendarDetailQuery { Id = 2 }, CancellationToken.None);
 
-            result.ShouldBeOfType<CalendarDetailModel>();
+            result.ShouldBeOfType<GetCalendarDetailResponse>();
             result.Id.ShouldBe(2);
-            result.Events.ShouldBeOfType<List<EventDetailModel>>();
+            result.Events.ShouldBeOfType<List<UpdateEventRequest>>();
         }
     }
 }

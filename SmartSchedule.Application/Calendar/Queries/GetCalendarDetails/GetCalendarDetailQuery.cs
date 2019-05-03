@@ -1,10 +1,10 @@
-namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
+﻿namespace SmartSchedule.Application.Calendar.Queries.GetCalendarDetails
 {
     using MediatR;
-    using SmartSchedule.Application.DTO.Calendar;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
 
-    public class GetCalendarDetailQuery : IRequest<CalendarDetailModel>
+    public class GetCalendarDetailQuery : GetCalendarDetailRequest, IRequest<GetCalendarDetailResponse>
     {
-        public int Id { get; set; }
+
     }
 }

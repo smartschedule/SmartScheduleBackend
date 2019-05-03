@@ -6,9 +6,11 @@
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Persistence;
+    using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
 
-    public class GetCalendarsListQueryHandler : IRequestHandler<GetCalendarsListQuery, CalendarListViewModel>
+    public class GetCalendarsListQueryHandler : IRequestHandler<GetCalendarsListQuery, GetCalendarListResponse>
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IMapper _mapper;
@@ -19,9 +21,9 @@
             _mapper = mapper;
         }
 
-        public async Task<CalendarListViewModel> Handle(GetCalendarsListQuery request, CancellationToken cancellationToken)
+        public async Task<GetCalendarListResponse> Handle(GetCalendarsListQuery request, CancellationToken cancellationToken)
         {
-            return new CalendarListViewModel
+            return new GetCalendarListResponse
             {
                 Calendars = await _context.Calendars.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
             };

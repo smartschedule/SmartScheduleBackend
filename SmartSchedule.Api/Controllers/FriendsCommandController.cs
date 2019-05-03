@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Api.Controllers
+namespace SmartSchedule.Api.Controllers
 {
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -7,7 +7,7 @@
     using SmartSchedule.Application.Friends.Commands.AcceptFriendRequest;
     using SmartSchedule.Application.Friends.Commands.BlockUser;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
-    using SmartSchedule.Application.Friends.Commands.RemoveFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.RemoveFriend;
     using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
     using SmartSchedule.Application.Friends.Commands.UnblockUser;
 

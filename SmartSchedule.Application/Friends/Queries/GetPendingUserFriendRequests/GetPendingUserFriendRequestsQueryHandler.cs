@@ -1,4 +1,4 @@
-namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
+﻿namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
 {
     using System.Collections.Generic;
     using System.Linq;
@@ -7,11 +7,11 @@ namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Friends;
+    using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
-    public class GetPendingUserFriendRequestsQueryHandler : IRequestHandler<GetPendingUserFriendRequestsQuery, FriendsListViewModel>
+    public class GetPendingUserFriendRequestsQueryHandler : IRequestHandler<GetPendingUserFriendRequestsQuery, FriendsListResponse>
     {
         private readonly SmartScheduleDbContext _context;
         private readonly IMapper _mapper;
@@ -22,7 +22,7 @@ namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
             _mapper = mapper;
         }
 
-        public async Task<FriendsListViewModel> Handle(GetPendingUserFriendRequestsQuery request, CancellationToken cancellationToken)
+        public async Task<FriendsListResponse> Handle(GetPendingUserFriendRequestsQuery request, CancellationToken cancellationToken)
         {
             var pendingList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
                                                          && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))
@@ -31,7 +31,7 @@ namespace SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests
                                                          .Include(x => x.FirstUser)
                                                          .Include(x => x.SecoundUser)
                                                          .ToListAsync(cancellationToken);
-            var friendsViewModel = new FriendsListViewModel
+            var friendsViewModel = new FriendsListResponse
             {
                 Users = new List<UserLookupModel>()
             };

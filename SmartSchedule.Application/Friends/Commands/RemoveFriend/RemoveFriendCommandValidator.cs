@@ -1,5 +1,5 @@
 ﻿
-namespace SmartSchedule.Application.Friends.Commands.RemoveFriendRequest
+namespace SmartSchedule.Application.Friends.Commands.RemoveFriend
 {
     using FluentValidation;
 

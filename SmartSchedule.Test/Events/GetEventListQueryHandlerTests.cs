@@ -1,10 +1,11 @@
-namespace SmartSchedule.Test.Events
+﻿namespace SmartSchedule.Test.Events
 {
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
     using SmartSchedule.Application.DTO.Event;
+    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Event.Queries.GetEventList;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -29,7 +30,7 @@ namespace SmartSchedule.Test.Events
 
             var result = await sut.Handle(new GetEventListQuery(), CancellationToken.None);
 
-            result.ShouldBeOfType<EventListViewModel>();
+            result.ShouldBeOfType<GetEventListResponse>();
         }
     }
 }
