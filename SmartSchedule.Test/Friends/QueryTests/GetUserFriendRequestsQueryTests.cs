@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Friends.QueryTests
+namespace SmartSchedule.Test.Friends.QueryTests
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,7 +25,7 @@
         [Fact]
         public async Task GetPendingUserFriendRequests()
         {
-            var sut = new GetUserFriendRequestsQueryHandler(_context, _mapper);
+            var sut = new GetUserFriendRequestsQuery.Handler(_context, _mapper);
 
             var result = await sut.Handle(new GetUserFriendRequestsQuery { UserId = 7 }, CancellationToken.None);
 

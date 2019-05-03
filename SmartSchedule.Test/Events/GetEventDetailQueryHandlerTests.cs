@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Events
+namespace SmartSchedule.Test.Events
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -23,7 +23,7 @@
         [Fact]
         public async Task GetEventDetail()
         {
-            var sut = new GetEventDetailQueryHandler(_context);
+            var sut = new GetEventDetailQuery.Handler(_context);
 
             var result = await sut.Handle(new GetEventDetailQuery { Id = 3 }, CancellationToken.None);
 

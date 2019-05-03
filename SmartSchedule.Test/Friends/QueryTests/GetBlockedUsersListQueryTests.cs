@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Friends.QueryTests
+namespace SmartSchedule.Test.Friends.QueryTests
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,7 +25,7 @@
         [Fact]
         public async Task GetBlockedUsersList()
         {
-            var sut = new GetBlockedUsersListQueryHandler(_context, _mapper);
+            var sut = new GetBlockedUsersListQuery.Handler(_context, _mapper);
 
             var result = await sut.Handle(new GetBlockedUsersListQuery { UserId = 6 }, CancellationToken.None);
 

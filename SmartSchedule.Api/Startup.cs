@@ -45,7 +45,7 @@
             });
 
             //Mediator
-            services.AddMediatR(typeof(GetUserDetailQueryHandler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUserDetailQuery.Handler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

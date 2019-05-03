@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Friends.QueryTests
+namespace SmartSchedule.Test.Friends.QueryTests
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -25,7 +25,7 @@
         [Fact]
         public async Task GetFriendsList()
         {
-            var sut = new GetFriendsListQueryHandler(_context, _mapper);
+            var sut = new GetFriendsListQuery.Handler(_context, _mapper);
 
             var result = await sut.Handle(new GetFriendsListQuery { UserId = 6 }, CancellationToken.None);
 

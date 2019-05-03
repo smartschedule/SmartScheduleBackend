@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Users
+namespace SmartSchedule.Test.Users
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -22,7 +22,7 @@
         [Fact]
         public async Task GetUserDetail()
         {
-            var sut = new GetUserDetailQueryHandler(_context);
+            var sut = new GetUserDetailQuery.Handler(_context);
 
             var result = await sut.Handle(new GetUserDetailQuery { Id = 2 }, CancellationToken.None);
 

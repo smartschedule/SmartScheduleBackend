@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Calendars
+namespace SmartSchedule.Test.Calendars
 {
     using System.Collections.Generic;
     using System.Threading;
@@ -24,7 +24,7 @@
         [Fact]
         public async Task GetCalendarDetail()
         {
-            var sut = new GetCalendarDetailQueryHandler(_context);
+            var sut = new GetCalendarDetailQuery.Handler(_context);
 
             var result = await sut.Handle(new GetCalendarDetailQuery { Id = 2 }, CancellationToken.None);
 
