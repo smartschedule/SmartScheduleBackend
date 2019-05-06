@@ -2,6 +2,7 @@
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
 
     public class CreateCalendarCommandValidator : AbstractValidator<CreateCalendarCommand>
@@ -20,7 +21,8 @@
                 return true;
             }).WithMessage("This user does not exist.");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty");
-            RuleFor(x => x.ColorHex).NotEmpty().WithMessage("You must declare a color");
+            RuleFor(x => x.ColorHex).NotEmpty().WithMessage("ColorHex cannot be empty");
+            RuleFor(x => x.ColorHex).Matches(ColorValidationHelper.HEX_RGB_REGEX).WithMessage("ColorHex must be in HEX.");
         }
     }
 }

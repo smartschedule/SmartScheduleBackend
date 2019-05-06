@@ -47,6 +47,7 @@
                     RepeatsTo = request.RepeatsTo,
                     Type = request.Type,
                     Name = request.Name,
+                    ColorHex = request.ColorHex,
                     CalendarId = request.CalendarId,
                     LocationId = location.Entity.Id
                 };

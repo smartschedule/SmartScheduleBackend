@@ -83,5 +83,36 @@
 
         }
 
+        [Theory]
+        [InlineData("#fffffz")]
+        [InlineData("ffffff")]
+        [InlineData("fff")]
+        [InlineData("#0123456")]
+        [InlineData("#01234")]
+        [InlineData("#0123")]
+        [InlineData("#01")]
+        [InlineData("#0")]
+        public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongColor(string color)
+        {
+            var command = new UpdateEventCommand
+            {
+                StartDate = DateTime.Now,
+                Duration = TimeSpan.Zero,
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
+                Name = "Event1",
+                ColorHex = color,
+                CalendarId = 2,
+                Latitude = "",
+                Longitude = "53.27492"
+            };
+
+            var commandHandler = new UpdateEventCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
+
     }
 }
