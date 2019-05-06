@@ -26,7 +26,7 @@
 
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(basePath)
-                .AddJsonFile("appsettings.Development.json")    //Jeżeli pracujemy lokalnie, to zmieniamy na appsettings.Development.json
+                .AddJsonFile("appsettings.json")    //Jeżeli pracujemy lokalnie, to zmieniamy na appsettings.Development.json
                 .AddJsonFile($"appsettings.Local.json", optional: true)
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
                 .AddEnvironmentVariables()

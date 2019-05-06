@@ -15,8 +15,8 @@
                 .Options;
 
             var context = new SmartScheduleDbContext(options);
-            var saltedPassword1 = new HashedPassword(PasswordHelper.CreateHash("test1234")).ToSaltedPassword();
-            var saltedPassword2 = new HashedPassword(PasswordHelper.CreateHash("test4321")).ToSaltedPassword();
+            var saltedPassword1 = PasswordHelper.CreateHash("test1234");
+            var saltedPassword2 = PasswordHelper.CreateHash("test4321");
 
             context.Users.AddRange(new[]
             {

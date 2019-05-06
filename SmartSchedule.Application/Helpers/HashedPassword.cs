@@ -4,31 +4,39 @@
 
     public class HashedPassword
     {
-        private const int saltIndex = 24;
+        public int SaltByteSize { get; }
+        public int SaltIndex { get; }
 
         public string Salt { get; private set; }
         public string Hash { get; private set; }
 
-        private HashedPassword()
+        private HashedPassword(int saltByteSize)
         {
+            SaltByteSize = saltByteSize;
+            SaltIndex = GetBase64EncodedLength(saltByteSize);
         }
 
-        public HashedPassword(byte[] salt, byte[] hash)
+        public HashedPassword(byte[] salt, byte[] hash, int saltByteSize) : this(saltByteSize)
         {
             Salt = Convert.ToBase64String(salt);
             Hash = Convert.ToBase64String(hash);
         }
 
-        public HashedPassword(string salt, string hash)
+        public HashedPassword(string salt, string hash, int saltByteSize) : this(saltByteSize)
         {
             Salt = salt;
             Hash = hash;
         }
 
-        public HashedPassword(string saltedPassword)
+        public HashedPassword(string saltedPassword, int saltByteSize) : this(saltByteSize)
         {
-            Salt = saltedPassword.Substring(0, saltIndex);
-            Hash = saltedPassword.Substring(saltIndex);
+            Salt = saltedPassword.Substring(0, SaltIndex);
+            Hash = saltedPassword.Substring(SaltIndex);
+        }
+
+        private int GetBase64EncodedLength(int byteSize)
+        {
+            return 4 * (int)Math.Ceiling((double)byteSize / 3);
         }
 
         public byte[] SaltToArray()
