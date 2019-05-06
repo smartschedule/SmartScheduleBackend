@@ -92,21 +92,21 @@
         [InlineData("#0123")]
         [InlineData("#01")]
         [InlineData("#0")]
-        public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongColor(string color)
+        public async Task UpdateEventProvidingWrongColorShouldNotUpdateEventInDbContext(string color)
         {
             var command = new UpdateEventCommand
             {
-                StartDate = DateTime.Now,
+                Id = 1,
+                StartDate = DateTime.Now.AddDays(1),
                 Duration = TimeSpan.Zero,
                 ReminderBefore = TimeSpan.Zero,
                 RepeatsEvery = TimeSpan.Zero,
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
-                Name = "Event1",
+                Name = "Event2",
                 ColorHex = color,
-                CalendarId = 2,
-                Latitude = "",
-                Longitude = "53.27492"
+                Latitude = "43.38247",
+                Longitude = "59.27492"
             };
 
             var commandHandler = new UpdateEventCommand.Handler(_context);

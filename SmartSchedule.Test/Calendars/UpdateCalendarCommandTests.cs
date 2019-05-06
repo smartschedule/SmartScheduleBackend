@@ -83,11 +83,11 @@
         [InlineData("#0123")]
         [InlineData("#01")]
         [InlineData("#0")]
-        public async Task UpdateCalendarShouldThrowExceptionAfterProvidingWrongColor(string color)
+        public async Task UpdateCalendarProvidingWrongColorShouldNotUpdateCalendarInDbContextProvidingWrongColor(string color)
         {
             var command = new UpdateCalendarCommand
             {
-                Id = 20000,
+                Id = 2,
                 Name = "testowanazwa",
                 ColorHex = color
             };
