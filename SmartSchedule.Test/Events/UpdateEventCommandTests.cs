@@ -33,6 +33,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
+                ColorHex = "#ffffff",
                 Latitude = "43.38247",
                 Longitude = "59.27492"
             };
@@ -42,8 +43,10 @@
             await commandHandler.Handle(command, CancellationToken.None);
 
             var eventE = await _context.Events.FindAsync(1);
+            eventE.ShouldNotBeNull();
 
             eventE.Name.ShouldBe(command.Name);
+            eventE.ColorHex.ShouldBe(command.ColorHex);
             eventE.StartDate.ShouldBe(command.StartDate);
             eventE.Duration.ShouldBe(command.Duration);
             eventE.ReminderBefore.ShouldBe(command.ReminderBefore);
@@ -69,6 +72,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
+                ColorHex = "#ffffff",
                 Latitude = "43.38247",
                 Longitude = "59.27492"
             };

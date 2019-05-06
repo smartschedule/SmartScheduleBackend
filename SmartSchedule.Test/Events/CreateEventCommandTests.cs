@@ -32,6 +32,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
+                ColorHex = "#ffffff",
                 CalendarId = 2,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -41,14 +42,25 @@
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var Event = await _context.Events.FindAsync(1);
+            var eventE = await _context.Events.FindAsync(1);
+            eventE.ShouldNotBeNull();
+
+            eventE.Name.ShouldBe(command.Name);
+            eventE.ColorHex.ShouldBe(command.ColorHex);
+            eventE.StartDate.ShouldBe(command.StartDate);
+            eventE.Duration.ShouldBe(command.Duration);
+            eventE.ReminderBefore.ShouldBe(command.ReminderBefore);
+            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
+            eventE.RepeatsTo.ShouldBe(command.RepeatsTo);
+            eventE.Type.ShouldBe(command.Type);
+            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
+            eventE.Location.Latitude.ShouldBe(command.Latitude);
 
             var Location = await _context.Locations.FindAsync(1);
 
             var calendar = await _context.Calendars.FindAsync(2);
 
             calendar.Events.ShouldNotBeEmpty();
-            Event.ShouldNotBeNull();
             Location.ShouldNotBeNull();
         }
 
@@ -64,6 +76,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
+                ColorHex = "#ffffff",
                 CalendarId = 200,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -86,6 +99,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "",
+                ColorHex = "#ffffff",
                 CalendarId = 2,
                 Latitude = "37.38231",
                 Longitude = "53.27492"
@@ -108,6 +122,7 @@
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event1",
+                ColorHex = "#ffffff",
                 CalendarId = 2,
                 Latitude = "",
                 Longitude = "53.27492"

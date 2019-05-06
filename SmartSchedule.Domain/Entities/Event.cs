@@ -18,6 +18,8 @@
         public EventTypes Type { get; set; }
 
         public string Name { get; set; }
+        public string ColorHex { get; set; }
+
         public int CalendarId { get; set; }
         public int LocationId { get; set; }
 

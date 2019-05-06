@@ -51,6 +51,7 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                 entityEvent.RepeatsTo = request.RepeatsTo;
                 entityEvent.Type = request.Type;
                 entityEvent.Name = request.Name;
+                entityEvent.ColorHex = request.ColorHex;
                 entityEvent.CalendarId = request.CalendarId;
                 entityEvent.LocationId = location.Entity.Id;
 

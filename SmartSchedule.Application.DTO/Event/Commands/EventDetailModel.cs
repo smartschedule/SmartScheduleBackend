@@ -22,6 +22,7 @@
                     RepeatsTo = evnt.RepeatsTo,
                     Type = evnt.Type,
                     Name = evnt.Name,
+                    ColorHex = evnt.ColorHex,
                     CalendarId = evnt.CalendarId,
                     Longitude = evnt.Location.Longitude,
                     Latitude = evnt.Location.Latitude
