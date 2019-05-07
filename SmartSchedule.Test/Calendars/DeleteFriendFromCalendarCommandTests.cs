@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Test.Calendars
+namespace SmartSchedule.Test.Calendars
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -30,12 +30,12 @@
                 UserId = 3
             };
             var command = new DeleteFriendFromCalendarCommand(requestData);
-   
+
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.Data.CalendarId && x.UserId == command.Data.UserId);
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == requestData.CalendarId && x.UserId == requestData.UserId);
 
             var user = await _context.Users.FindAsync(1);
 

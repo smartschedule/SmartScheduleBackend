@@ -21,6 +21,7 @@
         {
             this.Data = data;
         }
+
         public class Handler : IRequestHandler<DeleteFriendFromCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
