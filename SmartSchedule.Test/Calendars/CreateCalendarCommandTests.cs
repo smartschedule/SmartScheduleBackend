@@ -26,7 +26,7 @@
             var command = new CreateCalendarCommand
             {
                 Name = "kalendarz1",
-                ColorHex = "dziendobrytakikolor",
+                ColorHex = "#aabbcc",
                 UserId = 8
             };
 
@@ -47,7 +47,7 @@
             var command = new CreateCalendarCommand
             {
                 Name = "kalendarz1",
-                ColorHex = "dziendobrytakikolor",
+                ColorHex = "#aabbcc",
                 UserId = 193913
             };
 
@@ -62,7 +62,7 @@
             var command = new CreateCalendarCommand
             {
                 Name = "",
-                ColorHex = "dziendobrytakikolor",
+                ColorHex = "#aabbcc",
                 UserId = 1
             };
 
@@ -71,5 +71,27 @@
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
 
+        [Theory]
+        [InlineData("#fffffz")]
+        [InlineData("ffffff")]
+        [InlineData("fff")]
+        [InlineData("#0123456")]
+        [InlineData("#01234")]
+        [InlineData("#0123")]
+        [InlineData("#01")]
+        [InlineData("#0")]
+        public async Task CreateCalendarShouldThrowExceptionAfterProvidingWrongColor(string color)
+        {
+            var command = new CreateCalendarCommand
+            {
+                Name = "",
+                ColorHex = color,
+                UserId = 1
+            };
+
+            var commandHandler = new CreateCalendarCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
     }
 }

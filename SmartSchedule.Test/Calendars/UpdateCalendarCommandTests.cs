@@ -27,7 +27,7 @@
             {
                 Id = 2,
                 Name = "kalendarz2",
-                ColorHex = "dziendobrytakikolor2"
+                ColorHex = "#aabbcc"
             };
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
@@ -48,7 +48,7 @@
             {
                 Id = 2,
                 Name = "",
-                ColorHex = ""
+                ColorHex = "#aabbcc"
             };
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
@@ -65,7 +65,7 @@
             {
                 Id = 20000,
                 Name = "",
-                ColorHex = ""
+                ColorHex = "#aabbcc"
             };
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
@@ -74,5 +74,27 @@
 
         }
 
+        [Theory]
+        [InlineData("#fffffz")]
+        [InlineData("ffffff")]
+        [InlineData("fff")]
+        [InlineData("#0123456")]
+        [InlineData("#01234")]
+        [InlineData("#0123")]
+        [InlineData("#01")]
+        [InlineData("#0")]
+        public async Task UpdateCalendarProvidingWrongColorShouldNotUpdateCalendarInDbContextProvidingWrongColor(string color)
+        {
+            var command = new UpdateCalendarCommand
+            {
+                Id = 2,
+                Name = "testowanazwa",
+                ColorHex = color
+            };
+
+            var commandHandler = new UpdateCalendarCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
     }
 }
