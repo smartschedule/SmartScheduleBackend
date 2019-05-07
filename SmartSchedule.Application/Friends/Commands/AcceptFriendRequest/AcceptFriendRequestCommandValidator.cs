@@ -1,8 +1,9 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.AcceptFriendRequest
 {
     using FluentValidation;
+    using SmartSchedule.Application.DTO.Friends.Commands;
 
-    public class AcceptFriendRequestCommandValidator : AbstractValidator<AcceptFriendRequestCommand>
+    public class AcceptFriendRequestCommandValidator : AbstractValidator<AcceptOrRejectFriendRequestRequest>
     {
         public AcceptFriendRequestCommandValidator(Domain.Entities.Friends friendRequest)
         {

@@ -1,10 +1,12 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.BlockUser
 {
     using FluentValidation;
+    using SmartSchedule.Application.DTO.Friends.Commands;
+    using SmartSchedule.Persistence;
 
-    public class BlockUserCommandValidator : AbstractValidator<BlockUserCommand>
+    public class BlockUserCommandValidator : AbstractValidator<BlockUserRequest>
     {
-        public BlockUserCommandValidator()
+        public BlockUserCommandValidator(SmartScheduleDbContext context)
         {
 
         }

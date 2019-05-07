@@ -2,9 +2,10 @@
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Persistence;
 
-    public class RejectFriendRequestCommandValidator : AbstractValidator<RejectFriendRequestCommand>
+    public class RejectFriendRequestCommandValidator : AbstractValidator<AcceptOrRejectFriendRequestRequest>
     {
         public RejectFriendRequestCommandValidator(SmartScheduleDbContext context)
         {

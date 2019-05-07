@@ -1,10 +1,11 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
     using FluentValidation;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
 
-    public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarCommand>
+    public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarRequest>
     {
         public UpdateCalendarCommandValidator(SmartScheduleDbContext context)
         {
