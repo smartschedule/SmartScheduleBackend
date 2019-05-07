@@ -8,8 +8,20 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteUserCommand : IdRequest, IRequest
+    public class DeleteUserCommand : IRequest
     {
+        public IdRequest Data { get; set; }
+
+        public DeleteUserCommand()
+        {
+
+        }
+
+        public DeleteUserCommand(IdRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,11 +33,13 @@
 
             public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(request.Id));
+                IdRequest data = request.Data;
+
+                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (user == null)
                 {
-                    throw new NotFoundException("User", request.Id);
+                    throw new NotFoundException("User", data.Id);
                 }
 
                 _context.Users.Remove(user);
