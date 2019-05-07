@@ -26,8 +26,8 @@
             RuleFor(x => x.Duration).NotEmpty().WithMessage("You must set a duration");
             RuleFor(x => x.RepeatsEvery).NotEmpty().WithMessage("You must declare how often event repeats");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty");
-            RuleFor(x => x.Latitude).NotEmpty().WithMessage("You must declare a latitude");
-            RuleFor(x => x.Longitude).NotEmpty().WithMessage("You must declare a longitude");
+            RuleFor(x => x.Latitude).NotNull().InclusiveBetween(-90, 90).WithMessage("You must declare a valid latitude");
+            RuleFor(x => x.Longitude).NotNull().InclusiveBetween(-90, 90).WithMessage("You must declare a valid longitude");
 
             RuleFor(x => x.ColorHex).NotEmpty().WithMessage("ColorHex cannot be empty");
             RuleFor(x => x.ColorHex).Matches(ColorValidationHelper.HEX_RGB_REGEX).WithMessage("ColorHex must be in HEX.");
