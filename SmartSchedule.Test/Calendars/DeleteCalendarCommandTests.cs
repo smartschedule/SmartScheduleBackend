@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -23,11 +24,13 @@
         [Fact]
         public async Task DeleteCalendarShouldDeleteCalendarFromDbContext()
         {
-
-            var command = new DeleteCalendarCommand
+            var requestData = new DeleteCalendarRequest
             {
                 CalendarId = 1
             };
+            var command = new DeleteCalendarCommand(requestData);
+
+    
             var calendar = await _context.Calendars.FindAsync(1);
             calendar.ShouldNotBeNull();
 
@@ -47,12 +50,12 @@
         [Fact]
         public async Task DeleteCalendarWithNotExistingIdShouldNotDeleteCalendarFromDbContext()
         {
-
-            var command = new DeleteCalendarCommand
+            var requestData = new DeleteCalendarRequest
             {
                 CalendarId = 100
             };
-
+            var command = new DeleteCalendarCommand(requestData);
+    
             var commandHandler = new DeleteCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();

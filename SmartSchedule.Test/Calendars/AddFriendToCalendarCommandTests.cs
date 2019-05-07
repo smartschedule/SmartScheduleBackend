@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -23,18 +24,18 @@
         [Fact]
         public async Task AddFriendToCalendarShouldAddUserCalendarToDbContext()
         {
-
-            var command = new AddFriendToCalendarCommand
+            var requestData = new AddFriendToCalendarRequest
             {
                 CalendarId = 2,
                 UserId = 3
             };
+            var command = new AddFriendToCalendarCommand(requestData);
 
             var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId && x.UserId == command.UserId);
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.Data.CalendarId && x.UserId == command.Data.UserId);
 
             userCalendar.ShouldNotBeNull();
             userCalendar.ShouldBeOfType<UserCalendar>();
@@ -43,12 +44,12 @@
         [Fact]
         public async Task AddFriendToCalendarProvidingWrongUserIdCShouldThrowException()
         {
-
-            var command = new AddFriendToCalendarCommand
+            var requestData = new AddFriendToCalendarRequest
             {
                 CalendarId = 2,
                 UserId = 100
             };
+            var command = new AddFriendToCalendarCommand(requestData);
 
             var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
 
@@ -59,12 +60,12 @@
         [Fact]
         public async Task AddFriendToCalendarProvidingWrongCalendarIdCShouldThrowException()
         {
-
-            var command = new AddFriendToCalendarCommand
+            var requestData = new AddFriendToCalendarRequest
             {
                 CalendarId = 2000,
                 UserId = 1
             };
+            var command = new AddFriendToCalendarCommand(requestData);
 
             var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
 
@@ -75,12 +76,12 @@
         [Fact]
         public async Task AddFriendToCalendarProvidingExistingUserCalendarShouldThrowException()
         {
-
-            var command = new AddFriendToCalendarCommand
+            var requestData = new AddFriendToCalendarRequest
             {
                 CalendarId = 2,
                 UserId = 1
             };
+            var command = new AddFriendToCalendarCommand(requestData);
 
             var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
 

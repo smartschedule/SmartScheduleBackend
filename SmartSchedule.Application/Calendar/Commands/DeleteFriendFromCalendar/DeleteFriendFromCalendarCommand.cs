@@ -8,8 +8,19 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteFriendFromCalendarCommand : DeleteFriendFromCalendarRequest, IRequest
+    public class DeleteFriendFromCalendarCommand : IRequest
     {
+        public DeleteFriendFromCalendarRequest Data { get; set; }
+
+        public DeleteFriendFromCalendarCommand()
+        {
+
+        }
+
+        public DeleteFriendFromCalendarCommand(DeleteFriendFromCalendarRequest data)
+        {
+            this.Data = data;
+        }
         public class Handler : IRequestHandler<DeleteFriendFromCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,8 +32,10 @@
 
             public async Task<Unit> Handle(DeleteFriendFromCalendarCommand request, CancellationToken cancellationToken)
             {
-                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(request.CalendarId)
-                                                                                    && x.UserId.Equals(request.UserId));
+                DeleteFriendFromCalendarRequest data = request.Data;
+
+                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                                                                                    && x.UserId.Equals(data.UserId));
 
                 if (userCalendar == null)
                 {

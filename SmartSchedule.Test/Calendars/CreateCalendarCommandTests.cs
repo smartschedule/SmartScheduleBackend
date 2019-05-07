@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -22,20 +23,20 @@
         [Fact]
         public async Task CreateCalendarShouldAddCalendarToDbContext()
         {
-
-            var command = new CreateCalendarCommand
+            var requestData = new CreateCalendarRequest
             {
                 Name = "kalendarz1",
                 ColorHex = "#aabbcc",
                 UserId = 8
             };
-
+            var command = new CreateCalendarCommand(requestData);
+    
             var commandHandler = new CreateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Name.Equals(command.Name));
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.UserId.Equals(command.UserId));
+            var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Name.Equals(command.Data.Name));
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.UserId.Equals(command.Data.UserId));
 
             calendar.ShouldNotBeNull();
             userCalendar.ShouldNotBeNull();
@@ -44,12 +45,13 @@
         [Fact]
         public async Task CreateCalendarShouldThrowExceptionAfterProvidingNotExistingUser()
         {
-            var command = new CreateCalendarCommand
+            var requestData = new CreateCalendarRequest
             {
                 Name = "kalendarz1",
                 ColorHex = "#aabbcc",
                 UserId = 193913
             };
+            var command = new CreateCalendarCommand(requestData);
 
             var commandHandler = new CreateCalendarCommand.Handler(_context);
 
@@ -59,12 +61,13 @@
         [Fact]
         public async Task CreateCalendarShouldThrowExceptionAfterProvidingEmptyCalendarName()
         {
-            var command = new CreateCalendarCommand
+            var requestData = new CreateCalendarRequest
             {
                 Name = "",
                 ColorHex = "#aabbcc",
                 UserId = 1
             };
+            var command = new CreateCalendarCommand(requestData);
 
             var commandHandler = new CreateCalendarCommand.Handler(_context);
 
@@ -82,12 +85,13 @@
         [InlineData("#0")]
         public async Task CreateCalendarShouldThrowExceptionAfterProvidingWrongColor(string color)
         {
-            var command = new CreateCalendarCommand
+            var requestData = new CreateCalendarRequest
             {
                 Name = "",
                 ColorHex = color,
                 UserId = 1
             };
+            var command = new CreateCalendarCommand(requestData);
 
             var commandHandler = new CreateCalendarCommand.Handler(_context);
 

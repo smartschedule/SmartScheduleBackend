@@ -12,6 +12,11 @@
 
     public class GetCalendarsListQuery : IRequest<GetCalendarListResponse>
     {
+        public GetCalendarsListQuery()
+        {
+
+        }
+
         public class Handler : IRequestHandler<GetCalendarsListQuery, GetCalendarListResponse>
         {
             private readonly SmartScheduleDbContext _context;

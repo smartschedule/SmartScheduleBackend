@@ -12,66 +12,80 @@
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
 
     public class CalendarController : BaseController
     {
         [Authorize]
         [HttpPost("/api/CreateCalendar")]
-        public async Task<IActionResult> CreateCalendar([FromBody]CreateCalendarCommand calendar)
+        public async Task<IActionResult> CreateCalendar([FromBody]CreateCalendarRequest calendar)
         {
+            var command = new CreateCalendarCommand(calendar);
+
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             calendar.UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value);
 
-            return Ok(await Mediator.Send(calendar));
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpPost("/api/DeleteCalendar")]
-        public async Task<IActionResult> DeleteCalendar([FromBody]DeleteCalendarCommand calendar)
+        public async Task<IActionResult> DeleteCalendar([FromBody]DeleteCalendarRequest calendar)
         {
-            return Ok(await Mediator.Send(calendar));
+            var command = new DeleteCalendarCommand(calendar);
+
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpPost("/api/UpdateCalendar")]
-        public async Task<IActionResult> UpdateCalendar([FromBody]UpdateCalendarCommand calendar)
+        public async Task<IActionResult> UpdateCalendar([FromBody]UpdateCalendarRequest calendar)
         {
-            return Ok(await Mediator.Send(calendar));
+            var command = new UpdateCalendarCommand(calendar);
+
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpPost("/api/AddFriendToCalendar")]
-        public async Task<IActionResult> AddFriendToCalendar([FromBody]AddFriendToCalendarCommand calendar)
+        public async Task<IActionResult> AddFriendToCalendar([FromBody]AddFriendToCalendarRequest calendar)
         {
-            return Ok(await Mediator.Send(calendar));
+            var command = new AddFriendToCalendarCommand(calendar);
+
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpPost("/api/DeleteFriendFromCalendar")]
-        public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarCommand calendar)
+        public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarRequest calendar)
         {
-            return Ok(await Mediator.Send(calendar));
+            var command = new DeleteFriendFromCalendarCommand(calendar);
+
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpPost("/api/DeleteEventsFromCalendar")]
-        public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]DeleteEventsFromCalendarCommand calendar)
+        public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]DeleteEventsFromCalendarRequest calendar)
         {
-            return Ok(await Mediator.Send(calendar));
+            var command = new DeleteEventsFromCalendarCommand(calendar);
+
+            return Ok(await Mediator.Send(command));
         }
 
         [Authorize]
         [HttpGet("/api/calendars")]
-        public async Task<IActionResult> GetCalendarsList() => Ok(await Mediator.Send(new GetCalendarsListQuery()));
+        public async Task<IActionResult> GetCalendarsList()
+        {
+            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+        }
 
         [Authorize]
         [HttpGet("/api/calendar/details/{id}")]
-        public async Task<IActionResult> GetCalendarDetails(int id)
+        public async Task<IActionResult> GetCalendarDetails([FromBody]GetCalendarDetailRequest calendar)
         {
-            var query = new GetCalendarDetailQuery
-            {
-                Id = id
-            };
+            var query = new GetCalendarDetailQuery(calendar);
 
             return Ok(await Mediator.Send(query));
         }

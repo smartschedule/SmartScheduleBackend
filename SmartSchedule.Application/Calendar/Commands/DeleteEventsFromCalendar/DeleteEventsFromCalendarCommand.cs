@@ -8,8 +8,20 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteEventsFromCalendarCommand : DeleteEventsFromCalendarRequest, IRequest
+    public class DeleteEventsFromCalendarCommand : IRequest
     {
+        public DeleteEventsFromCalendarRequest Data { get; set; }
+
+        public DeleteEventsFromCalendarCommand()
+        {
+
+        }
+
+        public DeleteEventsFromCalendarCommand(DeleteEventsFromCalendarRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<DeleteEventsFromCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,7 +33,9 @@
 
             public async Task<Unit> Handle(DeleteEventsFromCalendarCommand request, CancellationToken cancellationToken)
             {
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(request.CalendarId));
+                DeleteEventsFromCalendarRequest data = request.Data;
+
+                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.CalendarId));
 
                 if (calendar == null)
                 {

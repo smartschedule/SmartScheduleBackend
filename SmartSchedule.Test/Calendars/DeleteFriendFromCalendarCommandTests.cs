@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -23,18 +24,18 @@
         [Fact]
         public async Task DeleteFriendFromCalendarShouldRemoveUserCalendarButNoInUsersOrCalendarsInDbContext()
         {
-
-            var command = new DeleteFriendFromCalendarCommand
+            var requestData = new DeleteFriendFromCalendarRequest
             {
                 CalendarId = 2,
                 UserId = 3
             };
-
+            var command = new DeleteFriendFromCalendarCommand(requestData);
+   
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.CalendarId && x.UserId == command.UserId);
+            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.Data.CalendarId && x.UserId == command.Data.UserId);
 
             var user = await _context.Users.FindAsync(1);
 
@@ -48,33 +49,31 @@
         [Fact]
         public async Task DeleteFriendFromCalendarProvidingNotExistingCalendarIdShouldThrowException()
         {
-
-            var command = new DeleteFriendFromCalendarCommand
+            var requestData = new DeleteFriendFromCalendarRequest
             {
                 CalendarId = 200,
                 UserId = 1
             };
+            var command = new DeleteFriendFromCalendarCommand(requestData);
 
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
-
         }
 
         [Fact]
         public async Task DeleteFriendFromCalendarProvidingNotExistingUserIdShouldThrowException()
         {
-
-            var command = new DeleteFriendFromCalendarCommand
+            var requestData = new DeleteFriendFromCalendarRequest
             {
                 CalendarId = 2,
                 UserId = 1000
             };
+            var command = new DeleteFriendFromCalendarCommand(requestData);
 
             var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
-
         }
 
     }

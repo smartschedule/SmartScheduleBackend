@@ -8,8 +8,20 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    public class DeleteCalendarCommand : DeleteCalendarRequest, IRequest
+    public class DeleteCalendarCommand : IRequest
     {
+        public DeleteCalendarRequest Data { get; set; }
+
+        public DeleteCalendarCommand()
+        {
+
+        }
+
+        public DeleteCalendarCommand(DeleteCalendarRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<DeleteCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,11 +33,13 @@
 
             public async Task<Unit> Handle(DeleteCalendarCommand request, CancellationToken cancellationToken)
             {
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(request.CalendarId));
+                DeleteCalendarRequest data = request.Data;
+
+                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.CalendarId));
 
                 if (calendar == null)
                 {
-                    throw new NotFoundException("Calendar", request.CalendarId);
+                    throw new NotFoundException("Calendar", data.CalendarId);
                 }
 
                 _context.Calendars.Remove(calendar);
