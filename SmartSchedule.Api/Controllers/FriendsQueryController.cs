@@ -18,7 +18,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var command = new GetFriendsListQuery
             {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
+                Id = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
             };
 
             return Ok(await Mediator.Send(command));
@@ -31,7 +31,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var command = new GetBlockedUsersListQuery
             {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
+                Id = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
             };
 
             return Ok(await Mediator.Send(command));
@@ -44,7 +44,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var command = new GetPendingUserFriendRequestsQuery
             {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
+                Id = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
             };
 
             return Ok(await Mediator.Send(command));
@@ -57,7 +57,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var command = new GetUserFriendRequestsQuery
             {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
+                Id = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
             };
 
             return Ok(await Mediator.Send(command));

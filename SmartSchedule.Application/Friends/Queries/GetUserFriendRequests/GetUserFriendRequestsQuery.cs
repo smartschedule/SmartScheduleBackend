@@ -7,11 +7,12 @@
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
-    public class GetUserFriendRequestsQuery : FriendsUserIdRequest, IRequest<FriendsListResponse>
+    public class GetUserFriendRequestsQuery : IdRequest, IRequest<FriendsListResponse>
     {
         public class Handler : IRequestHandler<GetUserFriendRequestsQuery, FriendsListResponse>
         {
@@ -25,9 +26,9 @@
             }
             public async Task<FriendsListResponse> Handle(GetUserFriendRequestsQuery request, CancellationToken cancellationToken)
             {
-                var friendRequestList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
+                var friendRequestList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.Id)
                                                              && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
-                                                             || (x.SecoundUserId.Equals(request.UserId)
+                                                             || (x.SecoundUserId.Equals(request.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))))
                                                              .Include(x => x.FirstUser)
                                                              .Include(x => x.SecoundUser)

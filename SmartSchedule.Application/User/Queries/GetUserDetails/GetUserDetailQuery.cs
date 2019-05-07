@@ -3,11 +3,12 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetUserDetailQuery : GetUserDetailRequest, IRequest<GetUserDetailResponse>
+    public class GetUserDetailQuery : IdRequest, IRequest<GetUserDetailResponse>
     {
         public class Handler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
         {

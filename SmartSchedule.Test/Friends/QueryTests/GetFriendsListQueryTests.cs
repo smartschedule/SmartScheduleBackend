@@ -27,7 +27,7 @@ namespace SmartSchedule.Test.Friends.QueryTests
         {
             var sut = new GetFriendsListQuery.Handler(_context, _mapper);
 
-            var result = await sut.Handle(new GetFriendsListQuery { UserId = 6 }, CancellationToken.None);
+            var result = await sut.Handle(new GetFriendsListQuery { Id = 6 }, CancellationToken.None);
 
             result.ShouldBeOfType<FriendsListResponse>();
             result.Users.Count.ShouldBe(1);

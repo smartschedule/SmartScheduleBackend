@@ -27,7 +27,7 @@ namespace SmartSchedule.Test.Friends.QueryTests
         {
             var sut = new GetBlockedUsersListQuery.Handler(_context, _mapper);
 
-            var result = await sut.Handle(new GetBlockedUsersListQuery { UserId = 6 }, CancellationToken.None);
+            var result = await sut.Handle(new GetBlockedUsersListQuery { Id = 6 }, CancellationToken.None);
 
             result.ShouldBeOfType<FriendsListResponse>();
             result.Users.Count.ShouldBe(3);
