@@ -21,7 +21,7 @@
 
             public async Task<Unit> Handle(RemoveFriendCommand request, CancellationToken cancellationToken)
             {
-                var vResult = await new RemoveFriendCommandValidator().ValidateAsync(request, cancellationToken);
+                var vResult = await new RemoveFriendCommandValidator(_context).ValidateAsync(request, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);

@@ -2,10 +2,12 @@
 namespace SmartSchedule.Application.Friends.Commands.RemoveFriend
 {
     using FluentValidation;
+    using SmartSchedule.Application.DTO.Friends.Commands;
+    using SmartSchedule.Persistence;
 
-    public class RemoveFriendCommandValidator : AbstractValidator<RemoveFriendCommand>
+    public class RemoveFriendCommandValidator : AbstractValidator<RemoveFriendRequest>
     {
-        public RemoveFriendCommandValidator()
+        public RemoveFriendCommandValidator(SmartScheduleDbContext context)
         {
 
         }

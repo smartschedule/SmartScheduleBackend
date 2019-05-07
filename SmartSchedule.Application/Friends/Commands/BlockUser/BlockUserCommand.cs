@@ -21,7 +21,7 @@
 
             public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
             {
-                var vResult = await new BlockUserCommandValidator().ValidateAsync(request, cancellationToken);
+                var vResult = await new BlockUserCommandValidator(_context).ValidateAsync(request, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
