@@ -10,11 +10,11 @@
     using Xunit;
 
     [Collection("TestCollection")]
-    public class CreateCalendarCommandTests
+    public class CreateEventCommandTests
     {
         private readonly SmartScheduleDbContext _context;
 
-        public CreateCalendarCommandTests(TestFixture fixture)
+        public CreateEventCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;
         }
@@ -156,57 +156,57 @@
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
 
-        [Theory]
-        [InlineData(90F)]
-        [InlineData(-90F)]
-        public void CreateEventShouldNotThrowExceptionAfterProvidingEdgeLatitude(float value)
-        {
-            var command = new CreateEventCommand
-            {
-                StartDate = DateTime.Now,
-                Duration = TimeSpan.FromHours(2),
-                ReminderBefore = TimeSpan.Zero,
-                RepeatsEvery = TimeSpan.Zero,
-                RepeatsTo = DateTime.Now.AddDays(-5),
-                Type = Domain.Enums.EventTypes.standard,
-                Name = "Event1",
-                ColorHex = "#ffffff",
-                CalendarId = 2,
-                Latitude = value,
-                Longitude = 53.27492F
-            };
+        //[Theory]
+        //[InlineData(90F)]
+        //[InlineData(-90F)]
+        //public void CreateEventShouldNotThrowExceptionAfterProvidingEdgeLatitude(float value)
+        //{
+        //    var command = new CreateEventCommand
+        //    {
+        //        StartDate = DateTime.Now,
+        //        Duration = TimeSpan.FromHours(2),
+        //        ReminderBefore = TimeSpan.Zero,
+        //        RepeatsEvery = TimeSpan.Zero,
+        //        RepeatsTo = DateTime.Now.AddDays(-5),
+        //        Type = Domain.Enums.EventTypes.standard,
+        //        Name = "Event1",
+        //        ColorHex = "#ffffff",
+        //        CalendarId = 2,
+        //        Latitude = value,
+        //        Longitude = 53.27492F
+        //    };
 
-            var commandHandler = new CreateEventCommand.Handler(_context);
+        //    var commandHandler = new CreateEventCommand.Handler(_context);
 
-            Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
-            Assert.Null(Record.Exception(testCode));
-        }
+        //    Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
+        //    Assert.Null(Record.Exception(testCode));
+        //}
 
-        [Theory]
-        [InlineData(90F)]
-        [InlineData(-90F)]
-        public void CreateEventShouldNotThrowExceptionAfterProvidingEdgeLongitude(float value)
-        {
-            var command = new CreateEventCommand
-            {
-                StartDate = DateTime.Now,
-                Duration = TimeSpan.FromHours(2),
-                ReminderBefore = TimeSpan.Zero,
-                RepeatsEvery = TimeSpan.Zero,
-                RepeatsTo = DateTime.Now.AddDays(-5),
-                Type = Domain.Enums.EventTypes.standard,
-                Name = "Event1",
-                ColorHex = "#ffffff",
-                CalendarId = 2,
-                Latitude = 53.27492F,
-                Longitude = value
-            };
+        //[Theory]
+        //[InlineData(90F)]
+        //[InlineData(-90F)]
+        //public void CreateEventShouldNotThrowExceptionAfterProvidingEdgeLongitude(float value)
+        //{
+        //    var command = new CreateEventCommand
+        //    {
+        //        StartDate = DateTime.Now,
+        //        Duration = TimeSpan.FromHours(2),
+        //        ReminderBefore = TimeSpan.Zero,
+        //        RepeatsEvery = TimeSpan.Zero,
+        //        RepeatsTo = DateTime.Now.AddDays(-5),
+        //        Type = Domain.Enums.EventTypes.standard,
+        //        Name = "Event1",
+        //        ColorHex = "#ffffff",
+        //        CalendarId = 2,
+        //        Latitude = 53.27492F,
+        //        Longitude = value
+        //    };
 
-            var commandHandler = new CreateEventCommand.Handler(_context);
+        //    var commandHandler = new CreateEventCommand.Handler(_context);
 
-            Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
-            Assert.Null(Record.Exception(testCode));
-        }
+        //    Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
+        //    Assert.Null(Record.Exception(testCode));
+        //}
 
         [Theory]
         [InlineData("#fffffz")]
