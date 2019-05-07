@@ -4,20 +4,20 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
     public class DeleteEventsFromCalendarCommand : IRequest
     {
-        public DeleteEventsFromCalendarRequest Data { get; set; }
+        public IdRequest Data { get; set; }
 
         public DeleteEventsFromCalendarCommand()
         {
 
         }
 
-        public DeleteEventsFromCalendarCommand(DeleteEventsFromCalendarRequest data)
+        public DeleteEventsFromCalendarCommand(IdRequest data)
         {
             this.Data = data;
         }
@@ -33,9 +33,9 @@
 
             public async Task<Unit> Handle(DeleteEventsFromCalendarCommand request, CancellationToken cancellationToken)
             {
-                DeleteEventsFromCalendarRequest data = request.Data;
+                IdRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.CalendarId));
+                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (calendar == null)
                 {

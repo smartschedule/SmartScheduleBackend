@@ -6,6 +6,7 @@ namespace SmartSchedule.Test.Calendars
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Application.DTO.Calendar.Queries;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -26,7 +27,7 @@ namespace SmartSchedule.Test.Calendars
         {
             var sut = new GetCalendarDetailQuery.Handler(_context);
 
-            var requestData = new GetCalendarDetailRequest()
+            var requestData = new IdRequest()
             {
                 Id = 2
             };

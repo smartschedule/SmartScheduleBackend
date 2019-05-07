@@ -4,19 +4,20 @@
     using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Queries;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
     public class GetCalendarDetailQuery : IRequest<GetCalendarDetailResponse>
     {
-        public GetCalendarDetailRequest Data { get; set; }
+        public IdRequest Data { get; set; }
 
         public GetCalendarDetailQuery()
         {
 
         }
 
-        public GetCalendarDetailQuery(GetCalendarDetailRequest data)
+        public GetCalendarDetailQuery(IdRequest data)
         {
             this.Data = data;
         }
@@ -32,7 +33,7 @@
 
             public async Task<GetCalendarDetailResponse> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
             {
-                GetCalendarDetailRequest data = request.Data;
+                IdRequest data = request.Data;
 
                 var entity = await _context.Calendars.FindAsync(data.Id);
 

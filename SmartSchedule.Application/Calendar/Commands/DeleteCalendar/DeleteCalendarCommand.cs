@@ -1,23 +1,23 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.DeleteCalendar
 {
-    using MediatR;
-    using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using System.Threading;
     using System.Threading.Tasks;
+    using MediatR;
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Common;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Persistence;
 
     public class DeleteCalendarCommand : IRequest
     {
-        public DeleteCalendarRequest Data { get; set; }
+        public IdRequest Data { get; set; }
 
         public DeleteCalendarCommand()
         {
 
         }
 
-        public DeleteCalendarCommand(DeleteCalendarRequest data)
+        public DeleteCalendarCommand(IdRequest data)
         {
             this.Data = data;
         }
@@ -33,13 +33,13 @@
 
             public async Task<Unit> Handle(DeleteCalendarCommand request, CancellationToken cancellationToken)
             {
-                DeleteCalendarRequest data = request.Data;
+                IdRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.CalendarId));
+                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (calendar == null)
                 {
-                    throw new NotFoundException("Calendar", data.CalendarId);
+                    throw new NotFoundException("Calendar", data.Id);
                 }
 
                 _context.Calendars.Remove(calendar);

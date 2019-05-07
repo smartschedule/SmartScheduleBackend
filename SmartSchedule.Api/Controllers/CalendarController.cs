@@ -14,6 +14,7 @@
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.DTO.Calendar.Queries;
+    using SmartSchedule.Application.DTO.Common;
 
     public class CalendarController : BaseController
     {
@@ -31,7 +32,7 @@
 
         [Authorize]
         [HttpPost("/api/DeleteCalendar")]
-        public async Task<IActionResult> DeleteCalendar([FromBody]DeleteCalendarRequest calendar)
+        public async Task<IActionResult> DeleteCalendar([FromBody]IdRequest calendar)
         {
             var command = new DeleteCalendarCommand(calendar);
 
@@ -67,7 +68,7 @@
 
         [Authorize]
         [HttpPost("/api/DeleteEventsFromCalendar")]
-        public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]DeleteEventsFromCalendarRequest calendar)
+        public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]IdRequest calendar)
         {
             var command = new DeleteEventsFromCalendarCommand(calendar);
 
@@ -83,7 +84,7 @@
 
         [Authorize]
         [HttpGet("/api/calendar/details/{id}")]
-        public async Task<IActionResult> GetCalendarDetails([FromBody]GetCalendarDetailRequest calendar)
+        public async Task<IActionResult> GetCalendarDetails([FromBody]IdRequest calendar)
         {
             var query = new GetCalendarDetailQuery(calendar);
 
