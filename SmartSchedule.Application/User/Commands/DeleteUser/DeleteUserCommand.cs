@@ -4,11 +4,11 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DTO.User.Commands;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class DeleteUserCommand : DeleteUserRequest, IRequest
+    public class DeleteUserCommand : IdRequest, IRequest
     {
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
