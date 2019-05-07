@@ -84,9 +84,9 @@
 
         [Authorize]
         [HttpGet("/api/calendar/details/{id}")]
-        public async Task<IActionResult> GetCalendarDetails([FromBody]IdRequest calendar)
+        public async Task<IActionResult> GetCalendarDetails(int id)
         {
-            var query = new GetCalendarDetailQuery(calendar);
+            var query = new GetCalendarDetailQuery(new IdRequest(id));
 
             return Ok(await Mediator.Send(query));
         }
