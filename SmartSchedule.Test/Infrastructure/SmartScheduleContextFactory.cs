@@ -62,8 +62,8 @@
 
             context.Locations.AddRange(new[]
             {
-                new Location{Id=3,Latitude="42.423423", Longitude="34.23424"},
-                new Location{Id=5,Latitude="42.423423", Longitude="34.23424"}
+                new Location{Id=3,Latitude=42.423423F, Longitude=34.23424F},
+                new Location{Id=5,Latitude=42.423423F, Longitude=34.23424F}
             });
 
             context.Events.AddRange(new[]
