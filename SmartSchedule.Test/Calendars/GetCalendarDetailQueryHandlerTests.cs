@@ -27,10 +27,7 @@ namespace SmartSchedule.Test.Calendars
         {
             var sut = new GetCalendarDetailQuery.Handler(_context);
 
-            var requestData = new IdRequest()
-            {
-                Id = 2
-            };
+            var requestData = new IdRequest(2);
             var result = await sut.Handle(new GetCalendarDetailQuery(requestData), CancellationToken.None);
 
             result.ShouldBeOfType<GetCalendarDetailResponse>();

@@ -3,6 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
@@ -22,11 +23,9 @@
         [Fact]
         public async Task DeleteEventShouldDeleteEventFromDbContext()
         {
+            var requestData = new IdRequest(2);
+            var command = new DeleteEventCommand(requestData);
 
-            var command = new DeleteEventCommand
-            {
-                Id = 2
-            };
             var eventE = await _context.Events.FindAsync(1);
             eventE.ShouldNotBeNull();
 
@@ -42,11 +41,8 @@
         [Fact]
         public async Task DeleteEventWithNotExistingIdShouldNotEventCalendarFromDbContext()
         {
-
-            var command = new DeleteEventCommand
-            {
-                Id = 100
-            };
+            var requestData = new IdRequest(100);
+            var command = new DeleteEventCommand(requestData);
 
             var commandHandler = new DeleteEventCommand.Handler(_context);
 

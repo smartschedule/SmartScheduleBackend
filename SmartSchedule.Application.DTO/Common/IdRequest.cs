@@ -4,6 +4,11 @@
     {
         public int Id { get; set; }
 
+        public IdRequest()
+        {
+
+        }
+
         public IdRequest(int id)
         {
             Id = id;

@@ -24,10 +24,7 @@
         [Fact]
         public async Task DeleteCalendarShouldDeleteCalendarFromDbContext()
         {
-            var requestData = new IdRequest
-            {
-                Id = 1
-            };
+            var requestData = new IdRequest(1);
             var command = new DeleteCalendarCommand(requestData);
 
 
@@ -50,10 +47,7 @@
         [Fact]
         public async Task DeleteCalendarWithNotExistingIdShouldNotDeleteCalendarFromDbContext()
         {
-            var requestData = new IdRequest
-            {
-                Id = 100
-            };
+            var requestData = new IdRequest(100);
             var command = new DeleteCalendarCommand(requestData);
 
             var commandHandler = new DeleteCalendarCommand.Handler(_context);
