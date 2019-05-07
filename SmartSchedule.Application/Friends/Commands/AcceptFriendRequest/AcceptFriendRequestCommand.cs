@@ -7,8 +7,20 @@
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Persistence;
 
-    public class AcceptFriendRequestCommand : AcceptOrRejectFriendRequestRequest, IRequest
+    public class AcceptFriendRequestCommand : IRequest
     {
+        public AcceptOrRejectFriendRequestRequest Data { get; set; }
+
+        public AcceptFriendRequestCommand()
+        {
+
+        }
+
+        public AcceptFriendRequestCommand(AcceptOrRejectFriendRequestRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<AcceptFriendRequestCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -19,14 +31,16 @@
             }
             public async Task<Unit> Handle(AcceptFriendRequestCommand request, CancellationToken cancellationToken)
             {
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(request.RequestingUserId)
-                                                                                && x.SecoundUserId.Equals(request.RequestedUserId)
+                AcceptOrRejectFriendRequestRequest data = request.Data;
+
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.RequestingUserId)
+                                                                                && x.SecoundUserId.Equals(data.RequestedUserId)
                                                                                 && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
-                                                                                || (x.FirstUserId.Equals(request.RequestedUserId)
-                                                                                && x.SecoundUserId.Equals(request.RequestingUserId))
+                                                                                || (x.FirstUserId.Equals(data.RequestedUserId)
+                                                                                && x.SecoundUserId.Equals(data.RequestingUserId))
                                                                                 && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first)), cancellationToken);
 
-                var vResult = new AcceptFriendRequestCommandValidator(friendRequest).Validate(request);
+                var vResult = new AcceptFriendRequestCommandValidator(friendRequest).Validate(data);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);

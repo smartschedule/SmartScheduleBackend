@@ -24,6 +24,8 @@ namespace SmartSchedule.Test.Calendars
         [Fact]
         public async Task DeleteFriendFromCalendarShouldRemoveUserCalendarButNoInUsersOrCalendarsInDbContext()
         {
+            // czy to na pewno dobrze?
+
             var requestData = new DeleteFriendFromCalendarRequest
             {
                 CalendarId = 2,
@@ -37,7 +39,7 @@ namespace SmartSchedule.Test.Calendars
 
             var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == requestData.CalendarId && x.UserId == requestData.UserId);
 
-            var user = await _context.Users.FindAsync(1);
+            var user = await _context.Users.FindAsync(3);
 
             var calendar = await _context.Calendars.FindAsync(2);
 

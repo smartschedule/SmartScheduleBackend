@@ -12,8 +12,20 @@
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
-    public class GetBlockedUsersListQuery : IdRequest, IRequest<FriendsListResponse>
+    public class GetBlockedUsersListQuery : IRequest<FriendsListResponse>
     {
+        public IdRequest Data { get; set; }
+
+        public GetBlockedUsersListQuery()
+        {
+
+        }
+
+        public GetBlockedUsersListQuery(IdRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<GetBlockedUsersListQuery, FriendsListResponse>
         {
             private readonly SmartScheduleDbContext _context;
@@ -24,12 +36,15 @@
                 _context = context;
                 _mapper = mapper;
             }
+
             public async Task<FriendsListResponse> Handle(GetBlockedUsersListQuery request, CancellationToken cancellationToken)
             {
-                var blockedList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.Id)
+                IdRequest data = request.Data;
+
+                var blockedList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                              || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
-                                                             || (x.SecoundUserId.Equals(request.Id)
+                                                             || (x.SecoundUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
                                                              || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))))
                                                              .Include(x => x.FirstUser)
@@ -46,7 +61,7 @@
                         item.SecoundUser : item.FirstUser;
                     if (item.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                     {
-                        user = item.FirstUserId.Equals(request.Id) ? item.SecoundUser : item.FirstUser;
+                        user = item.FirstUserId.Equals(data.Id) ? item.SecoundUser : item.FirstUser;
                     }
                     friendsViewModel.Users.Add(_mapper.Map<UserLookupModel>(user));
                 }
