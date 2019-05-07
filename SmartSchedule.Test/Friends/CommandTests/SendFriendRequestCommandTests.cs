@@ -6,7 +6,7 @@
     using Shouldly;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.SendFriendInvitation;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -23,14 +23,14 @@
         [Fact]
         public async Task SendValidFriendRequestShouldCreateRecordInDBContext()
         {
-            var requestData = new SendFriendRequestRequest
+            var requestData = new SendFriendInvitationRequest
             {
                 UserId = 3,
                 FriendId = 2
             };
-            var command = new SendFriendRequestCommand(requestData);
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
@@ -44,14 +44,14 @@
         [Fact]
         public async Task SendInvalidFriendRequestShouldThrowNotFoundException()
         {
-            var requestData = new SendFriendRequestRequest
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 22,
                 UserId = 3
             };
-            var command = new SendFriendRequestCommand(requestData);
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
@@ -59,14 +59,14 @@
         [Fact]
         public async Task SendSecoundTimeSameFriendRequestShouldThrowValidationException()
         {
-            var requestData = new SendFriendRequestRequest
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 4,
                 UserId = 3
             };
-            var command = new SendFriendRequestCommand(requestData);
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -74,14 +74,14 @@
         [Fact]
         public async Task SendFriendRequestToUserWhoInvitedYouFirstShouldThrowValidationException()
         {
-            var requestData = new SendFriendRequestRequest
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 3,
                 UserId = 4
             };
-            var command = new SendFriendRequestCommand(requestData);
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

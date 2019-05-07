@@ -9,14 +9,14 @@
 
     public class RejectFriendRequestCommand : IRequest
     {
-        public AcceptOrRejectFriendRequestRequest Data { get; set; }
+        public AcceptOrRejectFriendInvitationRequest Data { get; set; }
 
         public RejectFriendRequestCommand()
         {
 
         }
 
-        public RejectFriendRequestCommand(AcceptOrRejectFriendRequestRequest data)
+        public RejectFriendRequestCommand(AcceptOrRejectFriendInvitationRequest data)
         {
             this.Data = data;
         }
@@ -32,7 +32,7 @@
 
             public async Task<Unit> Handle(RejectFriendRequestCommand request, CancellationToken cancellationToken)
             {
-                AcceptOrRejectFriendRequestRequest data = request.Data;
+                AcceptOrRejectFriendInvitationRequest data = request.Data;
 
                 var vResult = await new RejectFriendRequestCommandValidator(_context).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)

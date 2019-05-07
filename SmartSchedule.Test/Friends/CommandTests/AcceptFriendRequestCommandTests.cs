@@ -5,7 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Application.Friends.Commands.AcceptFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.AcceptFriendInvitation;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -23,14 +23,14 @@
         [Fact]
         public async Task Trying_To_Accept_Friend_Request_Which_Does_Not_Exists_Should_Throw_ValidationException()
         {
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 22,
                 RequestedUserId = 2
             };
-            var command = new AcceptFriendRequestCommand(requestData);
+            var command = new AcceptFriendInvitationCommand(requestData);
 
-            var commandHandler = new AcceptFriendRequestCommand.Handler(_context);
+            var commandHandler = new AcceptFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None)
                 .ShouldThrowAsync<FluentValidation.ValidationException>();
@@ -39,14 +39,14 @@
         [Fact]
         public async Task Accept_Valid_Friend_Request_Should_Change_Type_In_DB_Context()
         {
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 3,
                 RequestedUserId = 4
             };
-            var command = new AcceptFriendRequestCommand(requestData);
+            var command = new AcceptFriendInvitationCommand(requestData);
 
-            var commandHandler = new AcceptFriendRequestCommand.Handler(_context);
+            var commandHandler = new AcceptFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 

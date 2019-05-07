@@ -5,11 +5,11 @@ namespace SmartSchedule.Api.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Application.Friends.Commands.AcceptFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.AcceptFriendInvitation;
     using SmartSchedule.Application.Friends.Commands.BlockUser;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
     using SmartSchedule.Application.Friends.Commands.RemoveFriend;
-    using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.SendFriendInvitation;
     using SmartSchedule.Application.Friends.Commands.UnblockUser;
 
     public class FriendsCommandController : BaseController
@@ -19,12 +19,12 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> CreateFriendRequest([FromBody]int friendId)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var requestData = new SendFriendRequestRequest
+            var requestData = new SendFriendInvitationRequest
             {
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 FriendId = friendId
             };
-            var command = new SendFriendRequestCommand(requestData);
+            var command = new SendFriendInvitationCommand(requestData);
 
             return Ok(await Mediator.Send(command));
         }
@@ -34,12 +34,12 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> AcceptFriendRequest([FromBody]int requestingUserId)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 RequestingUserId = requestingUserId
             };
-            var command = new AcceptFriendRequestCommand(requestData);      
+            var command = new AcceptFriendInvitationCommand(requestData);      
 
             return Ok(await Mediator.Send(command));
         }
@@ -49,7 +49,7 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> RejectFriendRequest([FromBody]int requestingUserId)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 RequestingUserId = requestingUserId

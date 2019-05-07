@@ -23,7 +23,7 @@
         [Fact]
         public async Task Reject_Valid_Friend_Request_Should_Remove_Friend_Request_From_DB_Context()
         {
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 3,
                 RequestedUserId = 2
@@ -43,7 +43,7 @@
         [Fact]
         public async Task Trying_To_Reject_Friend_Request_Which_Does_Not_Exists_Should_Throw_ValidationException()
         {
-            var requestData = new AcceptOrRejectFriendRequestRequest
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 4,
                 RequestedUserId = 34
