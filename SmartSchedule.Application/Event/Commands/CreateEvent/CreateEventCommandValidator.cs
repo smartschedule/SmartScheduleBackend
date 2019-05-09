@@ -24,7 +24,7 @@
 
             RuleFor(x => x.StartDate).NotEmpty().WithMessage("You must set a start date");
             RuleFor(x => x.Duration).NotEmpty().WithMessage("You must set a duration");
-            RuleFor(x => x.RepeatsEvery).NotEmpty().WithMessage("You must declare how often event repeats");
+            RuleFor(x => x.Type).IsInEnum().WithMessage("You must set a valid type of event");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(x => x.Latitude).NotNull().InclusiveBetween(-90, 90).WithMessage("You must declare a valid latitude");
             RuleFor(x => x.Longitude).NotNull().InclusiveBetween(-90, 90).WithMessage("You must declare a valid longitude");

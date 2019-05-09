@@ -3,12 +3,25 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetUserDetailQuery : GetUserDetailRequest, IRequest<GetUserDetailResponse>
+    public class GetUserDetailQuery : IRequest<GetUserDetailResponse>
     {
+        public IdRequest Data { get; set; }
+
+        public GetUserDetailQuery()
+        {
+
+        }
+
+        public GetUserDetailQuery(IdRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
         {
             private readonly SmartScheduleDbContext _context;
@@ -17,13 +30,16 @@
             {
                 _context = context;
             }
+
             public async Task<GetUserDetailResponse> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Users.FindAsync(request.Id);
+                IdRequest data = request.Data;
+
+                var entity = await _context.Users.FindAsync(data.Id);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Domain.Entities.User), request.Id);
+                    throw new NotFoundException(nameof(Domain.Entities.User), data.Id);
                 }
 
                 return GetUserDetailResponse.Create(entity);

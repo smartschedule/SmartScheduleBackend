@@ -8,8 +8,20 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
 
-    public class AddFriendToCalendarCommand : AddFriendToCalendarRequest, IRequest
+    public class AddFriendToCalendarCommand : IRequest
     {
+        public AddFriendToCalendarRequest Data { get; set; }
+
+        public AddFriendToCalendarCommand()
+        {
+
+        }
+
+        public AddFriendToCalendarCommand(AddFriendToCalendarRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,14 +33,16 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 
             public async Task<Unit> Handle(AddFriendToCalendarCommand request, CancellationToken cancellationToken)
             {
-                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(request.CalendarId)
-                                                                                       && x.UserId.Equals(request.UserId));
+                AddFriendToCalendarRequest data = request.Data;
+
+                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                                                                                       && x.UserId.Equals(data.UserId));
                 if (userCalendar != null)
                 {
                     throw new ValidationException("This user is already added to this calendar");
                 }
 
-                var vResult = await new AddFriendToCalendarCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new AddFriendToCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -37,8 +51,8 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
-                    CalendarId = request.CalendarId,
-                    UserId = request.UserId
+                    CalendarId = data.CalendarId,
+                    UserId = data.UserId
                 };
                 _context.UserCalendars.Add(entityUserCalendar);
 

@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
@@ -23,7 +24,7 @@
         [Fact]
         public async Task UpdateEventShouldUpdateEventInDbContext()
         {
-            var command = new UpdateEventCommand
+            var requestData = new UpdateEventRequest
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
@@ -37,7 +38,7 @@
                 Latitude = 43.38247F,
                 Longitude = 59.27492F
             };
-
+            var command = new UpdateEventCommand(requestData);
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
@@ -45,24 +46,23 @@
             var eventE = await _context.Events.FindAsync(1);
             eventE.ShouldNotBeNull();
 
-            eventE.Name.ShouldBe(command.Name);
-            eventE.ColorHex.ShouldBe(command.ColorHex);
-            eventE.StartDate.ShouldBe(command.StartDate);
-            eventE.Duration.ShouldBe(command.Duration);
-            eventE.ReminderBefore.ShouldBe(command.ReminderBefore);
-            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
-            eventE.RepeatsTo.ShouldBe(command.RepeatsTo);
-            eventE.Type.ShouldBe(command.Type);
-            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
-            eventE.Location.Latitude.ShouldBe(command.Latitude);
+            eventE.Name.ShouldBe(requestData.Name);
+            eventE.ColorHex.ShouldBe(requestData.ColorHex);
+            eventE.StartDate.ShouldBe(requestData.StartDate);
+            eventE.Duration.ShouldBe(requestData.Duration);
+            eventE.ReminderBefore.ShouldBe(requestData.ReminderBefore);
+            eventE.RepeatsEvery.ShouldBe(requestData.RepeatsEvery);
+            eventE.RepeatsTo.ShouldBe(requestData.RepeatsTo);
+            eventE.Type.ShouldBe(requestData.Type);
+            eventE.RepeatsEvery.ShouldBe(requestData.RepeatsEvery);
+            eventE.Location.Latitude.ShouldBe(requestData.Latitude);
         }
 
 
         [Fact]
         public async Task UpdateEventProvidingNotExistingIdShouldNotUpdateEventInDbContext()
         {
-
-            var command = new UpdateEventCommand
+            var requestData = new UpdateEventRequest
             {
                 Id = 1000,
                 StartDate = DateTime.Now.AddDays(1),
@@ -76,7 +76,7 @@
                 Latitude = 43.38247F,
                 Longitude = 59.27492F
             };
-
+            var command = new UpdateEventCommand(requestData);
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
@@ -193,7 +193,7 @@
         [InlineData("#0")]
         public async Task UpdateEventProvidingWrongColorShouldNotUpdateEventInDbContext(string color)
         {
-            var command = new UpdateEventCommand
+            var requestData = new UpdateEventRequest
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
@@ -207,7 +207,7 @@
                 Latitude = 43.38247F,
                 Longitude = 59.27492F
             };
-
+            var command = new UpdateEventCommand(requestData);
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();

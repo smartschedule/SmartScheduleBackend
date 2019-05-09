@@ -8,8 +8,20 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class UnblockUserCommand : UnblockUserRequest, IRequest
+    public class UnblockUserCommand : IRequest
     {
+        public UnblockUserRequest Data { get; set; }
+
+        public UnblockUserCommand()
+        {
+
+        }
+
+        public UnblockUserCommand(UnblockUserRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<UnblockUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -18,21 +30,24 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
             {
                 _context = context;
             }
+
             public async Task<Unit> Handle(UnblockUserCommand request, CancellationToken cancellationToken)
             {
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.UserId)
-                                                          && x.SecoundUserId.Equals(request.UserToUnblockId)
+                UnblockUserRequest data = request.Data;
+
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                                                          && x.SecoundUserId.Equals(data.UserToUnblockId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
-                                                         || (x.SecoundUserId.Equals(request.UserId) && x.FirstUserId.Equals(request.UserToUnblockId)
+                                                         || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.UserToUnblockId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))));
 
                 if (friendRequest == null)
                 {
-                    throw new NotFoundException("BlockedUser", request.UserToUnblockId);
+                    throw new NotFoundException("BlockedUser", data.UserToUnblockId);
                 }
-                else if (friendRequest.FirstUserId.Equals(request.UserId)
+                else if (friendRequest.FirstUserId.Equals(data.UserId)
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;

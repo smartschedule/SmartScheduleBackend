@@ -4,14 +4,23 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
 
     public class CreateUserCommand : IRequest
     {
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public CreateUserRequest Data { get; set; }
+
+        public CreateUserCommand()
+        {
+
+        }
+
+        public CreateUserCommand(CreateUserRequest data)
+        {
+            this.Data = data;
+        }
 
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
@@ -24,13 +33,15 @@
 
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
-                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: request, cancellationToken: cancellationToken);
+                CreateUserRequest data = request.Data;
+
+                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
                 
                 var entity = new Domain.Entities.User
                 {
-                    Email = request.Email,
-                    Name = request.UserName,
-                    Password = PasswordHelper.CreateHash(request.Password)
+                    Email = data.Email,
+                    Name = data.UserName,
+                    Password = PasswordHelper.CreateHash(data.Password)
                 };
                 _context.Users.Add(entity);
 

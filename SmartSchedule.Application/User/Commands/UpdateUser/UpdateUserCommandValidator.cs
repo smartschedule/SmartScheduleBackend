@@ -2,9 +2,10 @@
 {
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Persistence;
 
-    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserCommand>
+    public class UpdateUserCommandValidator : AbstractValidator<UpdateUserRequest>
     {
         private const int minPasswordLength = 6;
 

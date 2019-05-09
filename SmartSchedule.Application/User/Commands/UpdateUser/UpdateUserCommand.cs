@@ -3,20 +3,29 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
+
     public class UpdateUserCommand : IRequest
     {
-        public int Id { get; set; }
-        public string UserName { get; set; }
-        public string Email { get; set; }
-        public string Password { get; set; }
+        public UpdateUserRequest Data { get; set; }
+
+        public UpdateUserCommand()
+        {
+
+        }
+
+        public UpdateUserCommand(UpdateUserRequest data)
+        {
+            this.Data = data;
+        }
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context
-                ;
+            private readonly SmartScheduleDbContext _context;
+
             public Handler(SmartScheduleDbContext context)
             {
                 _context = context;
@@ -24,22 +33,24 @@
 
             public async Task<Unit> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
             {
-                var user = await _context.Users.FindAsync(request.Id);
+                UpdateUserRequest data = request.Data;
+
+                var user = await _context.Users.FindAsync(data.Id);
 
                 if (user == null)
                 {
-                    throw new NotFoundException("User", request.Id);
+                    throw new NotFoundException("User", data.Id);
                 }
 
-                var vResult = await new UpdateUserCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new UpdateUserCommandValidator(_context).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                user.Name = request.UserName;
-                user.Email = request.Email;
-                user.Password = PasswordHelper.CreateHash(request.Password);
+                user.Name = data.UserName;
+                user.Email = data.Email;
+                user.Password = PasswordHelper.CreateHash(data.Password);
 
                 _context.Users.Update(user);
 

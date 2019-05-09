@@ -1,10 +1,11 @@
-﻿namespace SmartSchedule.Application.Friends.Commands.AcceptFriendRequest
+﻿namespace SmartSchedule.Application.Friends.Commands.AcceptFriendInvitation
 {
     using FluentValidation;
+    using SmartSchedule.Application.DTO.Friends.Commands;
 
-    public class AcceptFriendRequestCommandValidator : AbstractValidator<AcceptFriendRequestCommand>
+    public class AcceptFriendInvitationCommandValidator : AbstractValidator<AcceptOrRejectFriendInvitationRequest>
     {
-        public AcceptFriendRequestCommandValidator(Domain.Entities.Friends friendRequest)
+        public AcceptFriendInvitationCommandValidator(Domain.Entities.Friends friendRequest)
         {
             RuleFor(x => x.RequestingUserId).NotEmpty().Must((request, val, token) =>
             {

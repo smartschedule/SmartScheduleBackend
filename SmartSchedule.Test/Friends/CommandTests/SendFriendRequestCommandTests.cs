@@ -4,8 +4,9 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Friends.Commands.SendFriendRequest;
+    using SmartSchedule.Application.Friends.Commands.SendFriendInvitation;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
@@ -22,18 +23,19 @@
         [Fact]
         public async Task SendValidFriendRequestShouldCreateRecordInDBContext()
         {
-            var command = new SendFriendRequestCommand
+            var requestData = new SendFriendInvitationRequest
             {
                 UserId = 3,
                 FriendId = 2
             };
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(command.FriendId) && x.SecoundUserId.Equals(command.UserId))
-                                                                            || (x.FirstUserId.Equals(command.UserId) && x.SecoundUserId.Equals(command.FriendId)));
+            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(requestData.FriendId) && x.SecoundUserId.Equals(requestData.UserId))
+                                                                            || (x.FirstUserId.Equals(requestData.UserId) && x.SecoundUserId.Equals(requestData.FriendId)));
 
             friendRequest.ShouldNotBeNull();
             friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.pending_first_secound);
@@ -42,13 +44,14 @@
         [Fact]
         public async Task SendInvalidFriendRequestShouldThrowNotFoundException()
         {
-            var command = new SendFriendRequestCommand
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 22,
                 UserId = 3
             };
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
@@ -56,13 +59,14 @@
         [Fact]
         public async Task SendSecoundTimeSameFriendRequestShouldThrowValidationException()
         {
-            var command = new SendFriendRequestCommand
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 4,
                 UserId = 3
             };
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -70,13 +74,14 @@
         [Fact]
         public async Task SendFriendRequestToUserWhoInvitedYouFirstShouldThrowValidationException()
         {
-            var command = new SendFriendRequestCommand
+            var requestData = new SendFriendInvitationRequest
             {
                 FriendId = 3,
                 UserId = 4
             };
+            var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendRequestCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

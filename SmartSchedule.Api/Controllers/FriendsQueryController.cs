@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Friends.Queries.GetBlockedUsers;
     using SmartSchedule.Application.Friends.Queries.GetFriends;
     using SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests;
@@ -16,10 +17,8 @@
         public async Task<IActionResult> GetFriendsList()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new GetFriendsListQuery
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-            };
+            var requestData = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+            var command = new GetFriendsListQuery(requestData);
 
             return Ok(await Mediator.Send(command));
         }
@@ -29,10 +28,8 @@
         public async Task<IActionResult> GetBlockedUsersList()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new GetBlockedUsersListQuery
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-            };
+            var requestData = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+            var command = new GetBlockedUsersListQuery(requestData);
 
             return Ok(await Mediator.Send(command));
         }
@@ -42,10 +39,8 @@
         public async Task<IActionResult> GetPendingUserFriendRequests()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new GetPendingUserFriendRequestsQuery
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-            };
+            var requestData = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+            var command = new GetPendingUserFriendRequestsQuery(requestData);
 
             return Ok(await Mediator.Send(command));
         }
@@ -55,10 +50,8 @@
         public async Task<IActionResult> GetUserFriendRequests()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var command = new GetUserFriendRequestsQuery
-            {
-                UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-            };
+            var requestData = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+            var command = new GetUserFriendRequestsQuery(requestData);
 
             return Ok(await Mediator.Send(command));
         }

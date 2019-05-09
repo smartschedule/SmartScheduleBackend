@@ -5,6 +5,7 @@
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -22,18 +23,19 @@
         [Fact]
         public async Task Reject_Valid_Friend_Request_Should_Remove_Friend_Request_From_DB_Context()
         {
-            var command = new RejectFriendRequestCommand
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 3,
                 RequestedUserId = 2
             };
+            var command = new RejectFriendRequestCommand(requestData);
 
             var commandHandler = new RejectFriendRequestCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(command.RequestingUserId)
-                                                                                && x.SecoundUserId.Equals(command.RequestedUserId));
+            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.RequestingUserId)
+                                                                                && x.SecoundUserId.Equals(requestData.RequestedUserId));
 
             friendRequest.ShouldBeNull();
         }
@@ -41,11 +43,12 @@
         [Fact]
         public async Task Trying_To_Reject_Friend_Request_Which_Does_Not_Exists_Should_Throw_ValidationException()
         {
-            var command = new RejectFriendRequestCommand
+            var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestingUserId = 4,
                 RequestedUserId = 34
             };
+            var command = new RejectFriendRequestCommand(requestData);
 
             var commandHandler = new RejectFriendRequestCommand.Handler(_context);
 

@@ -4,12 +4,23 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
     public class DeleteEventCommand : IRequest
     {
-        public int Id { get; set; }
+        public IdRequest Data { get; set; }
+
+        public DeleteEventCommand()
+        {
+
+        }
+
+        public DeleteEventCommand(IdRequest data)
+        {
+            this.Data = data;
+        }
 
         public class Handler : IRequestHandler<DeleteEventCommand, Unit>
         {
@@ -22,11 +33,13 @@
 
             public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
             {
-                var eventE = await _context.Events.FirstOrDefaultAsync(x => x.Id.Equals(request.Id));
+                IdRequest data = request.Data;
+
+                var eventE = await _context.Events.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (eventE == null)
                 {
-                    throw new NotFoundException("Event", request.Id);
+                    throw new NotFoundException("Event", data.Id);
                 }
 
                 _context.Events.Remove(eventE);
