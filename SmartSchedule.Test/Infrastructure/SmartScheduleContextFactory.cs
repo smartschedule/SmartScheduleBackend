@@ -12,6 +12,7 @@
         {
             var options = new DbContextOptionsBuilder<SmartScheduleDbContext>()
                 .UseInMemoryDatabase(Guid.NewGuid().ToString())
+                .EnableSensitiveDataLogging(true)
                 .Options;
 
             var context = new SmartScheduleDbContext(options);
