@@ -13,7 +13,7 @@
         public CreateUserCommandValidator(SmartScheduleDbContext context)
         {
             RuleFor(x => x.UserName).NotEmpty().WithMessage("You must set username");
-            RuleFor(x => x.UserName).MinimumLength(MIN_PASSWORD_LENGTH).WithMessage("Username must have 3 or more characters");
+            RuleFor(x => x.UserName).MinimumLength(MIN_USERNAME_LENGTH).WithMessage("Username must have 3 or more characters");
 
             RuleFor(x => x.Email).NotEmpty().WithMessage("You must set Email");
             RuleFor(x => x.Email).EmailAddress().MustAsync(async (request, val, token) =>

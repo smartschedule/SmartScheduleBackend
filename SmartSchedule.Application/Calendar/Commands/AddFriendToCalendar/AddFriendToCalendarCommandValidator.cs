@@ -9,7 +9,8 @@
     {
         public AddFriendToCalendarCommandValidator(SmartScheduleDbContext context)
         {
-            RuleFor(x => x.UserId).NotEmpty().MustAsync(async (request, val, token) =>
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
+            RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
                 var userResult = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
 
@@ -21,7 +22,8 @@
                 return true;
             }).WithMessage("This user does not exist.");
 
-            RuleFor(x => x.CalendarId).NotEmpty().MustAsync(async (request, val, token) =>
+            RuleFor(x => x.CalendarId).NotEmpty().WithMessage("You must set CalendarId.");
+            RuleFor(x => x.CalendarId).MustAsync(async (request, val, token) =>
             {
                 var calendarResult = await context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(val));
 
