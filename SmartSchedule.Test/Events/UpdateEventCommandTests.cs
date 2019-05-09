@@ -35,11 +35,10 @@
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
                 ColorHex = "#ffffff",
-                Latitude = "43.38247",
-                Longitude = "59.27492"
+                Latitude = 43.38247F,
+                Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
@@ -67,23 +66,121 @@
             {
                 Id = 1000,
                 StartDate = DateTime.Now.AddDays(1),
-                Duration = TimeSpan.Zero,
+                Duration = TimeSpan.FromHours(2),
                 ReminderBefore = TimeSpan.Zero,
                 RepeatsEvery = TimeSpan.Zero,
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
                 ColorHex = "#ffffff",
-                Latitude = "43.38247",
-                Longitude = "59.27492"
+                Latitude = 43.38247F,
+                Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
 
         }
+
+        [Fact]
+        public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongLatitude()
+        {
+            var command = new UpdateEventCommand
+            {
+                Id = 1,
+                StartDate = DateTime.Now.AddDays(1),
+                Duration = TimeSpan.FromHours(2),
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
+                Name = "Event2",
+                ColorHex = "#ffffff",
+                Latitude = 91F,
+                Longitude = 59.27492F
+            };
+
+            var commandHandler = new UpdateEventCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
+
+        [Fact]
+        public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongLongitude()
+        {
+            var command = new UpdateEventCommand
+            {
+                Id = 1,
+                StartDate = DateTime.Now.AddDays(1),
+                Duration = TimeSpan.FromHours(2),
+                ReminderBefore = TimeSpan.Zero,
+                RepeatsEvery = TimeSpan.Zero,
+                RepeatsTo = DateTime.Now.AddDays(-5),
+                Type = Domain.Enums.EventTypes.standard,
+                Name = "Event2",
+                ColorHex = "#ffffff",
+                Latitude = 43.38247F,
+                Longitude = 91F
+            };
+
+            var commandHandler = new UpdateEventCommand.Handler(_context);
+
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
+        }
+
+        //[Theory]
+        //[InlineData(90F)]
+        //[InlineData(-90F)]
+        //public void UpdateEventShouldNotThrowExceptionAfterProvidingEdgeLatitude(float value)
+        //{
+        //    var command = new UpdateEventCommand
+        //    {
+        //        Id = 1,
+        //        StartDate = DateTime.Now.AddDays(1),
+        //        Duration = TimeSpan.FromHours(2),
+        //        ReminderBefore = TimeSpan.Zero,
+        //        RepeatsEvery = TimeSpan.Zero,
+        //        RepeatsTo = DateTime.Now.AddDays(-5),
+        //        Type = Domain.Enums.EventTypes.standard,
+        //        Name = "Event2",
+        //        ColorHex = "#ffffff",
+        //        Latitude = value,
+        //        Longitude = 43.38247F
+        //    };
+
+        //    var commandHandler = new UpdateEventCommand.Handler(_context);
+
+        //    Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
+        //    Assert.Null(Record.Exception(testCode));
+        //}
+
+        //[Theory]
+        //[InlineData(90F)]
+        //[InlineData(-90F)]
+        //public void UpdateEventShouldNotThrowExceptionAfterProvidingEdgeLongitude(float value)
+        //{
+        //    var command = new UpdateEventCommand
+        //    {
+        //        Id = 1,
+        //        StartDate = DateTime.Now.AddDays(1),
+        //        Duration = TimeSpan.FromHours(2),
+        //        ReminderBefore = TimeSpan.Zero,
+        //        RepeatsEvery = TimeSpan.Zero,
+        //        RepeatsTo = DateTime.Now.AddDays(-5),
+        //        Type = Domain.Enums.EventTypes.standard,
+        //        Name = "Event2",
+        //        ColorHex = "#ffffff",
+        //        Latitude = 43.38247F,
+        //        Longitude = value
+        //    };
+
+        //    var commandHandler = new UpdateEventCommand.Handler(_context);
+
+        //    Action testCode = async () => { await commandHandler.Handle(command, CancellationToken.None); };
+        //    Assert.Null(Record.Exception(testCode));
+        //}
+
 
         [Theory]
         [InlineData("#fffffz")]
@@ -100,18 +197,17 @@
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
-                Duration = TimeSpan.Zero,
+                Duration = TimeSpan.FromHours(2),
                 ReminderBefore = TimeSpan.Zero,
                 RepeatsEvery = TimeSpan.Zero,
                 RepeatsTo = DateTime.Now.AddDays(-5),
                 Type = Domain.Enums.EventTypes.standard,
                 Name = "Event2",
                 ColorHex = color,
-                Latitude = "43.38247",
-                Longitude = "59.27492"
+                Latitude = 43.38247F,
+                Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();

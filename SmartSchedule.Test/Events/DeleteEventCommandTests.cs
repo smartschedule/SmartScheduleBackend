@@ -11,11 +11,11 @@
     using Xunit;
 
     [Collection("TestCollection")]
-    public class DeleteCalendarCommandTests
+    public class DeleteEventCommandTests
     {
         private readonly SmartScheduleDbContext _context;
 
-        public DeleteCalendarCommandTests(TestFixture fixture)
+        public DeleteEventCommandTests(TestFixture fixture)
         {
             _context = fixture.Context;
         }
