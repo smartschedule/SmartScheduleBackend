@@ -8,8 +8,20 @@
     using SmartSchedule.Persistence;
     using ValidationException = FluentValidation.ValidationException;
 
-    public class UpdateCalendarCommand : UpdateCalendarRequest, IRequest
+    public class UpdateCalendarCommand : IRequest
     {
+        public UpdateCalendarRequest Data { get; set; }
+
+        public UpdateCalendarCommand()
+        {
+
+        }
+
+        public UpdateCalendarCommand(UpdateCalendarRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<UpdateCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,22 +33,24 @@
 
             public async Task<Unit> Handle(UpdateCalendarCommand request, CancellationToken cancellationToken)
             {
-                var calendar = await _context.Calendars.FindAsync(request.Id);
+                UpdateCalendarRequest data = request.Data;
+
+                var calendar = await _context.Calendars.FindAsync(data.Id);
 
                 if (calendar == null)
                 {
-                    throw new NotFoundException("Calendar", request.Id);
+                    throw new NotFoundException("Calendar", data.Id);
                 }
 
-                var vResult = await new UpdateCalendarCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new UpdateCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
                     throw new ValidationException(vResult.Errors);
                 }
 
-                calendar.Name = request.Name;
-                calendar.ColorHex = request.ColorHex;
+                calendar.Name = data.Name;
+                calendar.ColorHex = data.ColorHex;
 
                 _context.Calendars.Update(calendar);
 

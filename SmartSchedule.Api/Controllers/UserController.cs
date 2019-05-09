@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -7,6 +8,7 @@
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
+    using Application.DTO.Common;
 
     public class UserController : BaseController
     {
@@ -21,10 +23,8 @@
         public async Task<IActionResult> GetUserDetails()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
-            var query = new GetUserDetailQuery
-            {
-                Id = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value)
-            };
+            var data = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+            var query = new GetUserDetailQuery(data);
 
             return Ok(await Mediator.Send(query));
         }
@@ -33,10 +33,7 @@
         [HttpGet("/api/friend/details/{id}")]
         public async Task<IActionResult> GetFriendDetails(int id)
         {
-            var query = new GetUserDetailQuery
-            {
-                Id = id
-            };
+            var query = new GetUserDetailQuery(new IdRequest(id));
 
             return Ok(await Mediator.Send(query));
         }

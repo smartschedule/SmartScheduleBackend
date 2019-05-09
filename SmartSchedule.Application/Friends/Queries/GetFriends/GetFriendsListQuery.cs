@@ -7,12 +7,25 @@
     using AutoMapper;
     using MediatR;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Persistence;
 
-    public class GetFriendsListQuery : FriendsUserIdRequest, IRequest<FriendsListResponse>
+    public class GetFriendsListQuery : IRequest<FriendsListResponse>
     {
+        public IdRequest Data { get; set; }
+
+        public GetFriendsListQuery()
+        {
+
+        }
+
+        public GetFriendsListQuery(IdRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<GetFriendsListQuery, FriendsListResponse>
         {
             private readonly SmartScheduleDbContext _context;
@@ -26,8 +39,10 @@
 
             public async Task<FriendsListResponse> Handle(GetFriendsListQuery request, CancellationToken cancellationToken)
             {
-                var friendsList = await _context.Friends.Where(x => (x.FirstUserId.Equals(request.UserId)
-                                                             || x.SecoundUserId.Equals(request.UserId))
+                IdRequest data = request.Data;
+
+                var friendsList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
+                                                             || x.SecoundUserId.Equals(data.Id))
                                                              && x.Type.Equals(Domain.Enums.FriendshipTypes.friends))
                                                              .Include(x => x.FirstUser)
                                                              .Include(x => x.SecoundUser)
@@ -39,7 +54,7 @@
 
                 foreach (var item in friendsList)
                 {
-                    var user = item.FirstUserId.Equals(request.UserId) ? item.SecoundUser : item.FirstUser;
+                    var user = item.FirstUserId.Equals(data.Id) ? item.SecoundUser : item.FirstUser;
                     friendsViewModel.Users.Add(_mapper.Map<UserLookupModel>(user));
                 }
 

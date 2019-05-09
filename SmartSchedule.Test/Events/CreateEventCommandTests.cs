@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -22,8 +23,7 @@
         [Fact]
         public async Task CreateEventShouldAddCalendarToDbContext()
         {
-
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.FromHours(2),
@@ -37,7 +37,8 @@
                 Latitude = "37.38231",
                 Longitude = "53.27492"
             };
-
+            var command = new CreateEventCommand(requestData);
+  
             var commandHandler = new CreateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
@@ -45,16 +46,16 @@
             var eventE = await _context.Events.FindAsync(1);
             eventE.ShouldNotBeNull();
 
-            eventE.Name.ShouldBe(command.Name);
-            eventE.ColorHex.ShouldBe(command.ColorHex);
-            eventE.StartDate.ShouldBe(command.StartDate);
-            eventE.Duration.ShouldBe(command.Duration);
-            eventE.ReminderBefore.ShouldBe(command.ReminderBefore);
-            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
-            eventE.RepeatsTo.ShouldBe(command.RepeatsTo);
-            eventE.Type.ShouldBe(command.Type);
-            eventE.RepeatsEvery.ShouldBe(command.RepeatsEvery);
-            eventE.Location.Latitude.ShouldBe(command.Latitude);
+            eventE.Name.ShouldBe(requestData.Name);
+            eventE.ColorHex.ShouldBe(requestData.ColorHex);
+            eventE.StartDate.ShouldBe(requestData.StartDate);
+            eventE.Duration.ShouldBe(requestData.Duration);
+            eventE.ReminderBefore.ShouldBe(requestData.ReminderBefore);
+            eventE.RepeatsEvery.ShouldBe(requestData.RepeatsEvery);
+            eventE.RepeatsTo.ShouldBe(requestData.RepeatsTo);
+            eventE.Type.ShouldBe(requestData.Type);
+            eventE.RepeatsEvery.ShouldBe(requestData.RepeatsEvery);
+            eventE.Location.Latitude.ShouldBe(requestData.Latitude);
 
             var Location = await _context.Locations.FindAsync(1);
 
@@ -67,7 +68,7 @@
         [Fact]
         public async Task CreateEventShouldThrowExceptionAfterProvidingNotExistingCalendar()
         {
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.Zero,
@@ -81,6 +82,7 @@
                 Latitude = "37.38231",
                 Longitude = "53.27492"
             };
+            var command = new CreateEventCommand(requestData);
 
             var commandHandler = new CreateEventCommand.Handler(_context);
 
@@ -90,7 +92,7 @@
         [Fact]
         public async Task CreateEventShouldThrowExceptionAfterProvidingEmptyEventName()
         {
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.Zero,
@@ -104,6 +106,7 @@
                 Latitude = "37.38231",
                 Longitude = "53.27492"
             };
+            var command = new CreateEventCommand(requestData);
 
             var commandHandler = new CreateEventCommand.Handler(_context);
 
@@ -113,7 +116,7 @@
         [Fact]
         public async Task CreateEventShouldThrowExceptionAfterProvidingEmptyLatitude()
         {
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.Zero,
@@ -127,6 +130,7 @@
                 Latitude = "",
                 Longitude = "53.27492"
             };
+            var command = new CreateEventCommand(requestData);
 
             var commandHandler = new CreateEventCommand.Handler(_context);
 
@@ -144,7 +148,7 @@
         [InlineData("#0")]
         public async Task CreateEventShouldThrowExceptionAfterProvidingWrongColor(string color)
         {
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.Zero,
@@ -158,6 +162,7 @@
                 Latitude = "",
                 Longitude = "53.27492"
             };
+            var command = new CreateEventCommand(requestData);
 
             var commandHandler = new CreateEventCommand.Handler(_context);
 

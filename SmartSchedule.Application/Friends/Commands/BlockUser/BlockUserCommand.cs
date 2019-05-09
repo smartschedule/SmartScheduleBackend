@@ -8,8 +8,20 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class BlockUserCommand : BlockUserRequest, IRequest
+    public class BlockUserCommand : IRequest
     {
+        public BlockUserRequest Data { get; set; }
+
+        public BlockUserCommand()
+        {
+
+        }
+
+        public BlockUserCommand(BlockUserRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<BlockUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,22 +33,24 @@
 
             public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
             {
-                var vResult = await new BlockUserCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                BlockUserRequest data = request.Data;
+
+                var vResult = await new BlockUserCommandValidator(_context).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friend = await _context.Users.FindAsync(request.UserToBlock);
+                var friend = await _context.Users.FindAsync(data.UserToBlock);
                 if (friend == null)
                 {
-                    throw new NotFoundException("User", request.UserToBlock);
+                    throw new NotFoundException("User", data.UserToBlock);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.UserId)
-                                                                                && x.SecoundUserId.Equals(request.UserToBlock))
-                                                                                || (x.FirstUserId.Equals(request.UserToBlock)
-                                                                                && x.SecoundUserId.Equals(request.UserId)));
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                                                                                && x.SecoundUserId.Equals(data.UserToBlock))
+                                                                                || (x.FirstUserId.Equals(data.UserToBlock)
+                                                                                && x.SecoundUserId.Equals(data.UserId)));
 
                 if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
@@ -54,8 +68,8 @@
                 {
                     new Domain.Entities.Friends
                     {
-                        FirstUserId = request.UserId,
-                        SecoundUserId = request.UserToBlock,
+                        FirstUserId = data.UserId,
+                        SecoundUserId = data.UserToBlock,
                         Type = Domain.Enums.FriendshipTypes.block_scound_first
                     };
                 }

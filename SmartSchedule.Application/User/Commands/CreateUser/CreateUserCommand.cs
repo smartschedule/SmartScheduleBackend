@@ -8,8 +8,20 @@
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Persistence;
 
-    public class CreateUserCommand : CreateUserRequest, IRequest
+    public class CreateUserCommand : IRequest
     {
+        public CreateUserRequest Data { get; set; }
+
+        public CreateUserCommand()
+        {
+
+        }
+
+        public CreateUserCommand(CreateUserRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,13 +33,15 @@
 
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
-                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: request, cancellationToken: cancellationToken);
+                CreateUserRequest data = request.Data;
+
+                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
                 
                 var entity = new Domain.Entities.User
                 {
-                    Email = request.Email,
-                    Name = request.UserName,
-                    Password = PasswordHelper.CreateHash(request.Password)
+                    Email = data.Email,
+                    Name = data.UserName,
+                    Password = PasswordHelper.CreateHash(data.Password)
                 };
                 _context.Users.Add(entity);
 

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -22,56 +23,54 @@
         [Fact]
         public async Task UpdateCalendarShouldUpdateCalendarInDbContext()
         {
-
-            var command = new UpdateCalendarCommand
+            var requestData = new UpdateCalendarRequest
             {
                 Id = 2,
                 Name = "kalendarz2",
                 ColorHex = "#aabbcc"
             };
-
+            var command = new UpdateCalendarCommand(requestData);
+       
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
             var calendar = await _context.Calendars.FindAsync(2);
 
-            calendar.Name.ShouldBe(command.Name);
-            calendar.ColorHex.ShouldBe(command.ColorHex);
+            calendar.Name.ShouldBe(command.Data.Name);
+            calendar.ColorHex.ShouldBe(command.Data.ColorHex);
         }
 
         [Fact]
         public async Task UpdateCalendarProvidingEmptyDataShouldNotUpdateCalendarInDbContext()
         {
-
-            var command = new UpdateCalendarCommand
+            var requestData = new UpdateCalendarRequest
             {
                 Id = 2,
                 Name = "",
                 ColorHex = "#aabbcc"
             };
+            var command = new UpdateCalendarCommand(requestData);
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
-
         }
 
         [Fact]
         public async Task UpdateCalendarProvidingNotExistindIdShouldNotUpdateCalendarInDbContext()
         {
-
-            var command = new UpdateCalendarCommand
+            var requestData = new UpdateCalendarRequest
             {
                 Id = 20000,
                 Name = "",
                 ColorHex = "#aabbcc"
             };
+            var command = new UpdateCalendarCommand(requestData);
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
-
         }
 
         [Theory]
@@ -85,12 +84,13 @@
         [InlineData("#0")]
         public async Task UpdateCalendarProvidingWrongColorShouldNotUpdateCalendarInDbContextProvidingWrongColor(string color)
         {
-            var command = new UpdateCalendarCommand
+            var requestData = new UpdateCalendarRequest
             {
                 Id = 2,
                 Name = "testowanazwa",
                 ColorHex = color
             };
+            var command = new UpdateCalendarCommand(requestData);
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 

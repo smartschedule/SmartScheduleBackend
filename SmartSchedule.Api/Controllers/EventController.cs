@@ -3,6 +3,8 @@ namespace SmartSchedule.Api.Controllers
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.DTO.Common;
+    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
@@ -43,10 +45,7 @@ namespace SmartSchedule.Api.Controllers
         [HttpGet("/api/event/details/{id}")]
         public async Task<IActionResult> GetEventDetails(int id)
         {
-            var query = new GetEventDetailQuery
-            {
-                Id = id
-            };
+            var query = new GetEventDetailQuery(new IdRequest(id));
 
             return Ok(await Mediator.Send(query));
         }

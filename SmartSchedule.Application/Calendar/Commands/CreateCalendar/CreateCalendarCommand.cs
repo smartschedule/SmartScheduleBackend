@@ -7,8 +7,20 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateCalendarCommand : CreateCalendarRequest, IRequest
+    public class CreateCalendarCommand : IRequest
     {
+        public CreateCalendarRequest Data { get; set; }
+
+        public CreateCalendarCommand()
+        {
+
+        }
+
+        public CreateCalendarCommand(CreateCalendarRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<CreateCalendarCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -20,8 +32,9 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 
             public async Task<Unit> Handle(CreateCalendarCommand request, CancellationToken cancellationToken)
             {
+                CreateCalendarRequest data = request.Data;
 
-                var vResult = await new CreateCalendarCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new CreateCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -30,15 +43,15 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 
                 var entityCalendar = new Domain.Entities.Calendar
                 {
-                    Name = request.Name,
-                    ColorHex = request.ColorHex
+                    Name = data.Name,
+                    ColorHex = data.ColorHex
                 };
                 _context.Calendars.Add(entityCalendar);
 
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
                     CalendarId = entityCalendar.Id,
-                    UserId = request.UserId
+                    UserId = data.UserId
                 };
                 _context.UserCalendars.Add(entityUserCalendar);
 

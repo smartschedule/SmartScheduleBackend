@@ -7,8 +7,20 @@
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Persistence;
 
-    public class CreateEventCommand : CreateEventRequest, IRequest
+    public class CreateEventCommand : IRequest
     {
+        public CreateEventRequest Data { get; set; }
+
+        public CreateEventCommand()
+        {
+
+        }
+
+        public CreateEventCommand(CreateEventRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -20,8 +32,9 @@
 
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
+                CreateEventRequest data = request.Data;
 
-                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -30,8 +43,8 @@
 
                 var entityLocation = new Domain.Entities.Location
                 {
-                    Latitude = request.Latitude,
-                    Longitude = request.Longitude
+                    Latitude = data.Latitude,
+                    Longitude = data.Longitude
                 };
 
                 var location = _context.Locations.Add(entityLocation);
@@ -40,15 +53,15 @@
 
                 var entityEvent = new Domain.Entities.Event
                 {
-                    StartDate = request.StartDate,
-                    Duration = request.Duration,
-                    ReminderBefore = request.ReminderBefore,
-                    RepeatsEvery = request.RepeatsEvery,
-                    RepeatsTo = request.RepeatsTo,
-                    Type = request.Type,
-                    Name = request.Name,
-                    ColorHex = request.ColorHex,
-                    CalendarId = request.CalendarId,
+                    StartDate = data.StartDate,
+                    Duration = data.Duration,
+                    ReminderBefore = data.ReminderBefore,
+                    RepeatsEvery = data.RepeatsEvery,
+                    RepeatsTo = data.RepeatsTo,
+                    Type = data.Type,
+                    Name = data.Name,
+                    ColorHex = data.ColorHex,
+                    CalendarId = data.CalendarId,
                     LocationId = location.Entity.Id
                 };
 

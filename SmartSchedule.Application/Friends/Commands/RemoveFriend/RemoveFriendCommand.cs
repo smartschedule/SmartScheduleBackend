@@ -8,8 +8,20 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class RemoveFriendCommand : RemoveFriendRequest, IRequest
+    public class RemoveFriendCommand : IRequest
     {
+        public RemoveFriendRequest Data { get; set; }
+
+        public RemoveFriendCommand()
+        {
+
+        }
+
+        public RemoveFriendCommand(RemoveFriendRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<RemoveFriendCommand, Unit>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,20 +33,22 @@
 
             public async Task<Unit> Handle(RemoveFriendCommand request, CancellationToken cancellationToken)
             {
-                var vResult = await new RemoveFriendCommandValidator(_context).ValidateAsync(request, cancellationToken);
+                RemoveFriendRequest data = request.Data;
+
+                var vResult = await new RemoveFriendCommandValidator(_context).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(request.UserId)
-                                                                                && x.SecoundUserId.Equals(request.FriendId))
-                                                                                || (x.FirstUserId.Equals(request.FriendId)
-                                                                                && x.SecoundUserId.Equals(request.UserId)))
+                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.UserId)
+                                                                                && x.SecoundUserId.Equals(data.FriendId))
+                                                                                || (x.FirstUserId.Equals(data.FriendId)
+                                                                                && x.SecoundUserId.Equals(data.UserId)))
                                                                                 && x.Type.Equals(Domain.Enums.FriendshipTypes.friends));
                 if (friendRequest == null)
                 {
-                    throw new NotFoundException("FriendRequest", request.FriendId);
+                    throw new NotFoundException("FriendRequest", data.FriendId);
                 }
                 else
                 {

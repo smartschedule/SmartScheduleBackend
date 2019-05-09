@@ -3,13 +3,25 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
-    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
 
-    public class GetEventDetailQuery : GetEventDetailRequest, IRequest<UpdateEventRequest>
+    public class GetEventDetailQuery : IRequest<UpdateEventRequest>
     {
+        public IdRequest Data { get; set; }
+
+        public GetEventDetailQuery()
+        {
+
+        }
+
+        public GetEventDetailQuery(IdRequest data)
+        {
+            this.Data = data;
+        }
+
         public class Handler : IRequestHandler<GetEventDetailQuery, UpdateEventRequest>
         {
             private readonly SmartScheduleDbContext _context;
@@ -21,11 +33,13 @@
 
             public async Task<UpdateEventRequest> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
             {
-                var entity = await _context.Events.FindAsync(request.Id);
+                IdRequest data = request.Data;
+
+                var entity = await _context.Events.FindAsync(data.Id);
 
                 if (entity == null)
                 {
-                    throw new NotFoundException(nameof(Domain.Entities.Event), request.Id);
+                    throw new NotFoundException(nameof(Domain.Entities.Event), data.Id);
                 }
 
                 return UpdateEventRequest.Create(entity);

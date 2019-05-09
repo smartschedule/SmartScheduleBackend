@@ -5,7 +5,7 @@
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Persistence;
 
-    public class RejectFriendRequestCommandValidator : AbstractValidator<AcceptOrRejectFriendRequestRequest>
+    public class RejectFriendRequestCommandValidator : AbstractValidator<AcceptOrRejectFriendInvitationRequest>
     {
         public RejectFriendRequestCommandValidator(SmartScheduleDbContext context)
         {

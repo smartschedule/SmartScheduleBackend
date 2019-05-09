@@ -4,6 +4,8 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
@@ -22,12 +24,9 @@
         [Fact]
         public async Task DeleteEventsFromCalendarShouldRemoveThemInDbContext()
         {
-
-            var command = new DeleteEventsFromCalendarCommand
-            {
-                CalendarId = 2
-            };
-
+            var requestData = new IdRequest(2);
+            var command = new DeleteEventsFromCalendarCommand(requestData);
+      
             var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None);
@@ -40,16 +39,12 @@
         [Fact]
         public async Task DeleteEventsFromCalendarProvidingNotExistingCalendarIdShouldThrowException()
         {
-
-            var command = new DeleteEventsFromCalendarCommand
-            {
-                CalendarId = 200
-            };
+            var requestData = new IdRequest(200);
+            var command = new DeleteEventsFromCalendarCommand(requestData);
 
             var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
-
         }
 
     }
