@@ -7,7 +7,7 @@
 
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserRequest>
     {
-        private const int minPasswordLength = 6;
+        private const int minPasswordLength = 8;
 
         public UpdateUserCommandValidator(SmartScheduleDbContext context)
         {
