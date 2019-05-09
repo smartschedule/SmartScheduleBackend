@@ -70,7 +70,7 @@
 
             var commandHandler = new UpdateCalendarCommand.Handler(_context);
 
-            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
+            await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
 
         [Theory]
