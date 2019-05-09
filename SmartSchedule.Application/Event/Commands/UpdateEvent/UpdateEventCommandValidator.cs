@@ -11,6 +11,14 @@
         {
             RuleFor(x => x.StartDate).NotEmpty().WithMessage("You must set a start date");
             RuleFor(x => x.Duration).NotEmpty().WithMessage("You must set a duration");
+            RuleFor(x => x.RepeatsTo).Must((request, val) =>
+            {
+                if (val == null || val > request.StartDate)
+                    return true;
+
+                return true;
+            }).WithMessage("RepeatsTo must be greater than StartDate or equal null.");
+
             RuleFor(x => x.Type).IsInEnum().WithMessage("You must set a valid type of event");
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(x => x.Latitude).NotNull().InclusiveBetween(-90, 90).WithMessage("You must declare a valid latitude");

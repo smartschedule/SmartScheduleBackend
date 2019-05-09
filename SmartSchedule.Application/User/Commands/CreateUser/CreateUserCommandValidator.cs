@@ -11,6 +11,7 @@
 
         public CreateUserCommandValidator(SmartScheduleDbContext context)
         {
+            RuleFor(x => x.UserName).NotEmpty().WithMessage("You must set username");
             RuleFor(x => x.Email).EmailAddress().NotEmpty().MustAsync(async (request, val, token) =>
             {
                 var userResult = await context.Users.FirstOrDefaultAsync(x => x.Email.Equals(val));
