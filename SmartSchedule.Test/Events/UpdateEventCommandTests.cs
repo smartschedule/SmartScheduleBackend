@@ -86,7 +86,7 @@
         [Fact]
         public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongLatitude()
         {
-            var command = new UpdateEventCommand
+            var requestData = new UpdateEventRequest
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
@@ -101,6 +101,7 @@
                 Longitude = 59.27492F
             };
 
+            var command = new UpdateEventCommand(requestData);
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
@@ -109,7 +110,7 @@
         [Fact]
         public async Task UpdateEventShouldThrowExceptionAfterProvidingWrongLongitude()
         {
-            var command = new UpdateEventCommand
+            var requestData = new UpdateEventRequest
             {
                 Id = 1,
                 StartDate = DateTime.Now.AddDays(1),
@@ -124,6 +125,7 @@
                 Longitude = 91F
             };
 
+            var command = new UpdateEventCommand(requestData);
             var commandHandler = new UpdateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();

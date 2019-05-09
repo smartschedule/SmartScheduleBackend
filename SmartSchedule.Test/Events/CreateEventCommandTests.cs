@@ -35,7 +35,7 @@
                 ColorHex = "#ffffff",
                 CalendarId = 2,
                 Latitude = 37.38231F,
-                Longitude = F53.27492F
+                Longitude = 53.27492F
             };
             var command = new CreateEventCommand(requestData);
 
@@ -138,7 +138,7 @@
         [Fact]
         public async Task CreateEventShouldThrowExceptionAfterProvidingWrongLongitude()
         {
-            var command = new CreateEventCommand
+            var requestData = new CreateEventRequest
             {
                 StartDate = DateTime.Now,
                 Duration = TimeSpan.FromHours(2),
@@ -153,6 +153,7 @@
                 Longitude = 91F
             };
 
+            var command = new CreateEventCommand(requestData);
             var commandHandler = new CreateEventCommand.Handler(_context);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
