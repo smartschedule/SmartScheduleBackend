@@ -1,6 +1,5 @@
 namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
@@ -49,11 +48,8 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
                 };
                 _context.Calendars.Add(entityCalendar);
 
-                var time = DateTime.UtcNow;
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
-                    Created = time,
-                    Modified = time,
                     CalendarId = entityCalendar.Id,
                     UserId = data.UserId
                 };

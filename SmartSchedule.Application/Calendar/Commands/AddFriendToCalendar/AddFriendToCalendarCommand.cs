@@ -1,6 +1,5 @@
 namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
@@ -50,11 +49,8 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
                     throw new ValidationException(vResult.Errors);
                 }
 
-                var time = DateTime.UtcNow;
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
-                    Created = time,
-                    Modified = time,
                     CalendarId = data.CalendarId,
                     UserId = data.UserId
                 };

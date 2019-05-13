@@ -1,6 +1,5 @@
 namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
-    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -59,7 +58,6 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 
                 await _context.SaveChangesAsync(cancellationToken);
 
-                entityEvent.Modified = DateTime.UtcNow;
                 entityEvent.StartDate = data.StartDate;
                 entityEvent.Duration = data.Duration;
                 entityEvent.ReminderBefore = data.ReminderBefore;
