@@ -31,9 +31,9 @@
 
         [Authorize]
         [HttpPost("/api/user/update")]
-        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserCommand eventCommand)
+        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserCommand userCommand)
         {
-            return Ok(await Mediator.Send(eventCommand));
+            return Ok(await Mediator.Send(userCommand));
         }
 
         [Authorize]
