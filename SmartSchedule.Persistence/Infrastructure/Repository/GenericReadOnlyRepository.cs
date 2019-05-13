@@ -9,7 +9,7 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public class GenericReadOnlyRepository<TId, TContext> : IReadOnlyRepository<TId> where TContext : DbContext
+    public class GenericReadOnlyRepository<TId, TContext> : IGenericReadOnlyRepository<TId> where TContext : DbContext
     {
         protected readonly TContext context;
 
@@ -18,15 +18,11 @@
             this.context = context;
         }
 
-        protected virtual IQueryable<TEntity> GetQueryable<TEntity>(
+        public virtual IQueryable<TEntity> GetQueryable<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null,
-            int? skip = null,
-            int? take = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            includeProperties = includeProperties ?? string.Empty;
             IQueryable<TEntity> query = context.Set<TEntity>();
 
             if (filter != null)
@@ -34,104 +30,72 @@
                 query = query.Where(filter);
             }
 
-            foreach (var includeProperty in includeProperties.Split
-                (new char[] { ',' }, StringSplitOptions.RemoveEmptyEntries))
-            {
-                query = query.Include(includeProperty);
-            }
-
             if (orderBy != null)
             {
                 query = orderBy(query);
-            }
-
-            if (skip.HasValue)
-            {
-                query = query.Skip(skip.Value);
-            }
-
-            if (take.HasValue)
-            {
-                query = query.Take(take.Value);
             }
 
             return query;
         }
 
         public virtual IEnumerable<TEntity> GetAll<TEntity>(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null,
-            int? skip = null,
-            int? take = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(null, orderBy, includeProperties, skip, take).ToList();
+            return GetQueryable<TEntity>(null, orderBy).ToList();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null,
-            int? skip = null,
-            int? take = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(null, orderBy, includeProperties, skip, take).ToListAsync();
+            return await GetQueryable<TEntity>(null, orderBy).ToListAsync();
         }
 
         public virtual IEnumerable<TEntity> Get<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null,
-            int? skip = null,
-            int? take = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, orderBy, includeProperties, skip, take).ToList();
+            return GetQueryable<TEntity>(filter, orderBy).ToList();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAsync<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null,
-            int? skip = null,
-            int? take = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, orderBy, includeProperties, skip, take).ToListAsync();
+            return await GetQueryable<TEntity>(filter, orderBy).ToListAsync();
         }
 
         public virtual TEntity GetOne<TEntity>(
-            Expression<Func<TEntity, bool>> filter = null,
-            string includeProperties = "")
+            Expression<Func<TEntity, bool>> filter = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, null, includeProperties).SingleOrDefault();
+            return GetQueryable<TEntity>(filter, null).SingleOrDefault();
         }
 
         public virtual async Task<TEntity> GetOneAsync<TEntity>(
-            Expression<Func<TEntity, bool>> filter = null,
-            string includeProperties = null)
+            Expression<Func<TEntity, bool>> filter = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, null, includeProperties).SingleOrDefaultAsync();
+            return await GetQueryable<TEntity>(filter, null).SingleOrDefaultAsync();
         }
 
         public virtual TEntity GetFirst<TEntity>(
            Expression<Func<TEntity, bool>> filter = null,
-           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-           string includeProperties = "")
+           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
            where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, orderBy, includeProperties).FirstOrDefault();
+            return GetQueryable<TEntity>(filter, orderBy).FirstOrDefault();
         }
 
         public virtual async Task<TEntity> GetFirstAsync<TEntity>(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null,
-            string includeProperties = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
             where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, orderBy, includeProperties).FirstOrDefaultAsync();
+            return await GetQueryable<TEntity>(filter, orderBy).FirstOrDefaultAsync();
         }
 
         public virtual TEntity GetById<TEntity>(object id)

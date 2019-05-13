@@ -3,7 +3,7 @@
     using SmartSchedule.Domain.Entities.Base;
     using System.Threading.Tasks;
 
-    public interface IGenericRepository<TId> : IReadOnlyRepository<TId>
+    public interface IGenericRepository<TId> : IGenericReadOnlyRepository<TId>
     {
         void Create<TEntity>(TEntity entity)
             where TEntity : class, IBaseEntity<TId>;
