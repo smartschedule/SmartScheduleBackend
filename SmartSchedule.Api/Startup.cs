@@ -18,9 +18,11 @@
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
     using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
+    using SmartSchedule.Persistence.Infrastructure.UoW;
     using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup
@@ -76,6 +78,8 @@
             //Database connection
             services.AddDbContext<SmartScheduleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
+
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             services.AddTransient<IJwtService, JwtService>();
 
