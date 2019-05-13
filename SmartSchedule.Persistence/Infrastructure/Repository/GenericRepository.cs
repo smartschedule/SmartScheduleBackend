@@ -6,38 +6,35 @@
     using System;
     using System.Threading.Tasks;
 
-    public class GenericRepository<TId, TContext> : GenericReadOnlyRepository<TId, TContext>, IGenericRepository<TId>
-        where TContext : DbContext
+    public class GenericRepository<TEntity, TId> : GenericReadOnlyRepository<TEntity, TId>, IGenericRepository<TEntity, TId>
+        where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        public GenericRepository(TContext context) : base(context)
+        public GenericRepository(DbContext context) : base(context)
         {
 
         }
 
-        public virtual void Create<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual void Create(TEntity entity)
         {
             entity.Created = DateTime.UtcNow;
             context.Set<TEntity>().Add(entity);
         }
 
-        public virtual void Update<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual void Update(TEntity entity)
+
         {
             entity.Modified = DateTime.UtcNow;
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete<TEntity>(TId id)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual void Delete(TId id)
         {
             TEntity entity = context.Set<TEntity>().Find(id);
             Delete(entity);
         }
 
-        public virtual void Delete<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual void Delete(TEntity entity)
         {
             var dbSet = context.Set<TEntity>();
             if (context.Entry(entity).State == EntityState.Detached)

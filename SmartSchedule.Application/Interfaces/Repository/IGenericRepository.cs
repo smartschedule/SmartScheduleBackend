@@ -1,21 +1,19 @@
 ﻿namespace SmartSchedule.Application.Interfaces.Repository
 {
     using SmartSchedule.Domain.Entities.Base;
+    using System;
     using System.Threading.Tasks;
 
-    public interface IGenericRepository<TId> : IGenericReadOnlyRepository<TId>
+    public interface IGenericRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
+        where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        void Create<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>;
+        void Create(TEntity entity);
 
-        void Update<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>;
+        void Update(TEntity entity);
 
-        void Delete<TEntity>(TId id)
-            where TEntity : class, IBaseEntity<TId>;
+        void Delete(TId id);
 
-        void Delete<TEntity>(TEntity entity)
-            where TEntity : class, IBaseEntity<TId>;
+        void Delete(TEntity entity);
 
         void Save();
 

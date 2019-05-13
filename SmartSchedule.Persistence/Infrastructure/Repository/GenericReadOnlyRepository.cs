@@ -9,19 +9,19 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public class GenericReadOnlyRepository<TId, TContext> : IGenericReadOnlyRepository<TId> where TContext : DbContext
+    public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
+        where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        protected readonly TContext context;
+        protected readonly DbContext context;
 
-        public GenericReadOnlyRepository(TContext context)
+        public GenericReadOnlyRepository(DbContext context)
         {
             this.context = context;
         }
 
-        public virtual IQueryable<TEntity> GetQueryable<TEntity>(
+        public virtual IQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
             IQueryable<TEntity> query = context.Set<TEntity>();
 
@@ -38,100 +38,86 @@
             return query;
         }
 
-        public virtual IEnumerable<TEntity> GetAll<TEntity>(
+        public virtual IEnumerable<TEntity> GetAll(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(null, orderBy).ToList();
+            return GetQueryable(null, orderBy).ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(
+        public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(null, orderBy).ToListAsync();
+            return await GetQueryable(null, orderBy).ToListAsync();
         }
 
-        public virtual IEnumerable<TEntity> Get<TEntity>(
+        public virtual IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, orderBy).ToList();
+            return GetQueryable(filter, orderBy).ToList();
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetAsync<TEntity>(
+        public virtual async Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, orderBy).ToListAsync();
+            return await GetQueryable(filter, orderBy).ToListAsync();
         }
 
-        public virtual TEntity GetOne<TEntity>(
+        public virtual TEntity GetOne(
             Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, null).SingleOrDefault();
+            return GetQueryable(filter, null).SingleOrDefault();
         }
 
-        public virtual async Task<TEntity> GetOneAsync<TEntity>(
+        public virtual async Task<TEntity> GetOneAsync(
             Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, null).SingleOrDefaultAsync();
+            return await GetQueryable(filter, null).SingleOrDefaultAsync();
         }
 
-        public virtual TEntity GetFirst<TEntity>(
+        public virtual TEntity GetFirst(
            Expression<Func<TEntity, bool>> filter = null,
            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-           where TEntity : class, IBaseEntity<TId>
         {
-            return GetQueryable<TEntity>(filter, orderBy).FirstOrDefault();
+            return GetQueryable(filter, orderBy).FirstOrDefault();
         }
 
-        public virtual async Task<TEntity> GetFirstAsync<TEntity>(
+        public virtual async Task<TEntity> GetFirstAsync(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>
         {
-            return await GetQueryable<TEntity>(filter, orderBy).FirstOrDefaultAsync();
+            return await GetQueryable(filter, orderBy).FirstOrDefaultAsync();
         }
 
-        public virtual TEntity GetById<TEntity>(object id)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual TEntity GetById(object id)
         {
             return context.Set<TEntity>().Find(id);
         }
 
-        public virtual Task<TEntity> GetByIdAsync<TEntity>(object id)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual Task<TEntity> GetByIdAsync(object id)
         {
             return context.Set<TEntity>().FindAsync(id);
         }
 
-        public virtual int GetCount<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
         {
-            return GetQueryable<TEntity>(filter).Count();
+            return GetQueryable(filter).Count();
         }
 
-        public virtual Task<int> GetCountAsync<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            return GetQueryable<TEntity>(filter).CountAsync();
+            return GetQueryable(filter).CountAsync();
         }
 
-        public virtual bool GetExists<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual bool GetExists(Expression<Func<TEntity, bool>> filter = null)
         {
-            return GetQueryable<TEntity>(filter).Any();
+            return GetQueryable(filter).Any();
         }
 
-        public virtual Task<bool> GetExistsAsync<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>
+        public virtual Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>> filter = null)
         {
-            return GetQueryable<TEntity>(filter).AnyAsync();
+            return GetQueryable(filter).AnyAsync();
         }
     }
 }

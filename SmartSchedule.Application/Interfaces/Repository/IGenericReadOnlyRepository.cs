@@ -7,65 +7,51 @@
     using System.Linq.Expressions;
     using System.Threading.Tasks;
 
-    public interface IGenericReadOnlyRepository<TId>
+    public interface IGenericReadOnlyRepository<TEntity, TId>
+        where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        IQueryable<TEntity> GetQueryable<TEntity>(
+        IQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        IEnumerable<TEntity> GetAll<TEntity>(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+        IEnumerable<TEntity> GetAll(
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        Task<IEnumerable<TEntity>> GetAllAsync<TEntity>(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+        Task<IEnumerable<TEntity>> GetAllAsync(
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        IEnumerable<TEntity> Get<TEntity>(
+        IEnumerable<TEntity> Get(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        Task<IEnumerable<TEntity>> GetAsync<TEntity>(
+        Task<IEnumerable<TEntity>> GetAsync(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        TEntity GetOne<TEntity>(
-            Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        TEntity GetOne(
+            Expression<Func<TEntity, bool>> filter = null);
 
-        Task<TEntity> GetOneAsync<TEntity>(
-            Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        Task<TEntity> GetOneAsync(
+            Expression<Func<TEntity, bool>> filter = null);
 
-        TEntity GetFirst<TEntity>(
+        TEntity GetFirst(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        Task<TEntity> GetFirstAsync<TEntity>(
+        Task<TEntity> GetFirstAsync(
             Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-            where TEntity : class, IBaseEntity<TId>;
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 
-        TEntity GetById<TEntity>(object id)
-            where TEntity : class, IBaseEntity<TId>;
+        TEntity GetById(object id);
 
-        Task<TEntity> GetByIdAsync<TEntity>(object id)
-            where TEntity : class, IBaseEntity<TId>;
+        Task<TEntity> GetByIdAsync(object id);
 
-        int GetCount<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        int GetCount(Expression<Func<TEntity, bool>> filter = null);
 
-        Task<int> GetCountAsync<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
 
-        bool GetExists<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        bool GetExists(Expression<Func<TEntity, bool>> filter = null);
 
-        Task<bool> GetExistsAsync<TEntity>(Expression<Func<TEntity, bool>> filter = null)
-            where TEntity : class, IBaseEntity<TId>;
+        Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>> filter = null);
     }
 }
