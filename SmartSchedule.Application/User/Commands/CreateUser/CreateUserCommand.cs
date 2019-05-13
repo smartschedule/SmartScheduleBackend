@@ -1,5 +1,6 @@
 ﻿﻿namespace SmartSchedule.Application.User.Commands.CreateUser
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
@@ -36,9 +37,12 @@
                 CreateUserRequest data = request.Data;
 
                 await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
-                
+
+                var time = DateTime.UtcNow;
                 var entity = new Domain.Entities.User
                 {
+                    Created = time,
+                    Modified = time,
                     Email = data.Email,
                     Name = data.UserName,
                     Password = PasswordHelper.CreateHash(data.Password)

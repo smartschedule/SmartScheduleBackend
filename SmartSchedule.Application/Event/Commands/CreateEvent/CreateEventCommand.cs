@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
@@ -51,8 +52,11 @@
 
                 await _context.SaveChangesAsync(cancellationToken);
 
+                var time = DateTime.UtcNow;
                 var entityEvent = new Domain.Entities.Event
                 {
+                    Created = time,
+                    Modified = time,
                     StartDate = data.StartDate,
                     Duration = data.Duration,
                     ReminderBefore = data.ReminderBefore,

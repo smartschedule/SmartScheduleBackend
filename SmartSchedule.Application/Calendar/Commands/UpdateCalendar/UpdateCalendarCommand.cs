@@ -3,6 +3,7 @@
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Persistence;
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using ValidationException = FluentValidation.ValidationException;
@@ -40,8 +41,8 @@
                 {
                     throw new ValidationException(vResult.Errors);
                 }
-
                 var calendar = await _context.Calendars.FindAsync(data.Id);
+                calendar.Modified = DateTime.UtcNow;
                 calendar.Name = data.Name;
                 calendar.ColorHex = data.ColorHex;
 

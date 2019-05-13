@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Application.User.Commands.UpdateUser
 {
+    using System;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
@@ -48,6 +49,7 @@
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
+                user.Modified = DateTime.UtcNow;
                 user.Name = data.UserName;
                 user.Email = data.Email;
                 user.Password = PasswordHelper.CreateHash(data.Password);
