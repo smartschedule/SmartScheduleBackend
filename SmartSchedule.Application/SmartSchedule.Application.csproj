@@ -14,7 +14,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj" />
-    <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>
