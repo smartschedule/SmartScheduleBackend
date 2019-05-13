@@ -1,14 +1,13 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 {
     using FluentValidation;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class CreateCalendarCommandValidator : AbstractValidator<CreateCalendarRequest>
     {
-        public CreateCalendarCommandValidator(SmartScheduleDbContext context)
+        public CreateCalendarCommandValidator(IUnitOfWork context)
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>

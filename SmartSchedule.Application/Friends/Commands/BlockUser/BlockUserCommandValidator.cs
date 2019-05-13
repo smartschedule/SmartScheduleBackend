@@ -2,11 +2,11 @@
 {
     using FluentValidation;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class BlockUserCommandValidator : AbstractValidator<BlockUserRequest>
     {
-        public BlockUserCommandValidator(SmartScheduleDbContext context)
+        public BlockUserCommandValidator(IUnitOfWork context)
         {
 
         }

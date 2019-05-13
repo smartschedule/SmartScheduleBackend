@@ -6,7 +6,7 @@
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class GetEventDetailQuery : IRequest<UpdateEventRequest>
     {
@@ -24,9 +24,9 @@
 
         public class Handler : IRequestHandler<GetEventDetailQuery, UpdateEventRequest>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

@@ -6,11 +6,10 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class GetUserFriendRequestsQuery : IRequest<FriendsListResponse>
     {
@@ -28,10 +27,10 @@
 
         public class Handler : IRequestHandler<GetUserFriendRequestsQuery, FriendsListResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
             private readonly IMapper _mapper;
 
-            public Handler(SmartScheduleDbContext context, IMapper mapper)
+            public Handler(IUnitOfWork context, IMapper mapper)
             {
                 _context = context;
                 _mapper = mapper;

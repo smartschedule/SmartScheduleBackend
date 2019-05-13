@@ -4,9 +4,8 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class AddFriendToCalendarCommand : IRequest
     {
@@ -24,9 +23,9 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

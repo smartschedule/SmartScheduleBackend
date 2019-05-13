@@ -6,7 +6,7 @@
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class UpdateUserCommand : IRequest
     {
@@ -24,9 +24,9 @@
 
         public class Handler : IRequestHandler<UpdateUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

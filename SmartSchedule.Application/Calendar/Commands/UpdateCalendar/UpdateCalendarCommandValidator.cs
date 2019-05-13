@@ -3,11 +3,11 @@
     using FluentValidation;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarRequest>
     {
-        public UpdateCalendarCommandValidator(SmartScheduleDbContext context)
+        public UpdateCalendarCommandValidator(IUnitOfWork context)
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("You must set Id.");
             RuleFor(x => x.Id).MustAsync(async (request, val, token) =>

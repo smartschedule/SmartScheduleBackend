@@ -5,7 +5,7 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
     using MediatR;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateEventCommand : IRequest
@@ -24,9 +24,9 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 
         public class Handler : IRequestHandler<UpdateEventCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

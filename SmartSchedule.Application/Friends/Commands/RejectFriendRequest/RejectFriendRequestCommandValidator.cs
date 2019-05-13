@@ -1,13 +1,12 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.RejectFriendRequest
 {
     using FluentValidation;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class RejectFriendRequestCommandValidator : AbstractValidator<AcceptOrRejectFriendInvitationRequest>
     {
-        public RejectFriendRequestCommandValidator(SmartScheduleDbContext context)
+        public RejectFriendRequestCommandValidator(IUnitOfWork context)
         {
             RuleFor(x => x.RequestingUserId).NotEmpty().MustAsync(async (request, val, token) =>
             {

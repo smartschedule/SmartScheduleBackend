@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
-    using MediatR;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
     using System.Threading;
     using System.Threading.Tasks;
+    using MediatR;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
+    using SmartSchedule.Application.Interfaces.UoW;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateCalendarCommand : IRequest
@@ -23,9 +23,9 @@
 
         public class Handler : IRequestHandler<UpdateCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

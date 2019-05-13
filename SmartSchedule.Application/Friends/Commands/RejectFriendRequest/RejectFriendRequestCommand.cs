@@ -3,9 +3,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class RejectFriendRequestCommand : IRequest
     {
@@ -23,9 +22,9 @@
 
         public class Handler : IRequestHandler<RejectFriendRequestCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

@@ -6,7 +6,7 @@
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class GetUserDetailQuery : IRequest<GetUserDetailResponse>
     {
@@ -24,9 +24,9 @@
 
         public class Handler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

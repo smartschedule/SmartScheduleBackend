@@ -1,4 +1,4 @@
-﻿﻿namespace SmartSchedule.Application.User.Commands.CreateUser
+﻿namespace SmartSchedule.Application.User.Commands.CreateUser
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -6,7 +6,7 @@
     using MediatR;
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class CreateUserCommand : IRequest
     {
@@ -24,9 +24,9 @@
 
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }
@@ -36,7 +36,7 @@
                 CreateUserRequest data = request.Data;
 
                 await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
-                
+
                 var entity = new Domain.Entities.User
                 {
                     Email = data.Email,

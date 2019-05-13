@@ -6,6 +6,7 @@
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Persistence;
 
     public class DeleteEventCommand : IRequest
@@ -24,9 +25,9 @@
 
         public class Handler : IRequestHandler<DeleteEventCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

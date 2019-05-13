@@ -16,14 +16,17 @@
 
         public virtual void Create(TEntity entity)
         {
-            entity.Created = DateTime.UtcNow;
+            DateTime time = DateTime.UtcNow;
+            entity.Created = time;
+            entity.Modified = time;
+
             context.Set<TEntity>().Add(entity);
         }
 
         public virtual void Update(TEntity entity)
-
         {
             entity.Modified = DateTime.UtcNow;
+
             context.Set<TEntity>().Attach(entity);
             context.Entry(entity).State = EntityState.Modified;
         }
@@ -41,6 +44,7 @@
             {
                 dbSet.Attach(entity);
             }
+
             dbSet.Remove(entity);
         }
 

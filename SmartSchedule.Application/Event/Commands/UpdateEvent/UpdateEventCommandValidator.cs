@@ -3,11 +3,11 @@
     using FluentValidation;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class UpdateEventCommandValidator : AbstractValidator<UpdateEventRequest>
     {
-        public UpdateEventCommandValidator(SmartScheduleDbContext context)
+        public UpdateEventCommandValidator(IUnitOfWork context)
         {
             RuleFor(x => x.StartDate).NotEmpty().WithMessage("You must set a start date");
             RuleFor(x => x.Duration).NotEmpty().WithMessage("You must set a duration");

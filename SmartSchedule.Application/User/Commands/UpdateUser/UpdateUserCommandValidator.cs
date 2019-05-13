@@ -1,16 +1,15 @@
 ﻿namespace SmartSchedule.Application.User.Commands.UpdateUser
 {
     using FluentValidation;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.User.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserRequest>
     {
         private const int MIN_PASSWORD_LENGTH = 8;
         private const int MIN_USERNAME_LENGTH = 3;
 
-        public UpdateUserCommandValidator(SmartScheduleDbContext context)
+        public UpdateUserCommandValidator(IUnitOfWork context)
         {
             RuleFor(x => x.UserName).NotEmpty().WithMessage("You must set username");
             RuleFor(x => x.UserName).MinimumLength(MIN_USERNAME_LENGTH).WithMessage("Username must have 3 or more characters");

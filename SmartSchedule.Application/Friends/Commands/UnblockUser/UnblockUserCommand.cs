@@ -3,10 +3,9 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class UnblockUserCommand : IRequest
     {
@@ -24,9 +23,9 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 
         public class Handler : IRequestHandler<UnblockUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }

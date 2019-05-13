@@ -5,7 +5,7 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
     using FluentValidation;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces.UoW;
 
     public class CreateCalendarCommand : IRequest
     {
@@ -23,9 +23,9 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 
         public class Handler : IRequestHandler<CreateCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _context;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork context)
             {
                 _context = context;
             }
