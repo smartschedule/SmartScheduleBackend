@@ -1,14 +1,14 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
-    using System;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
+    using Application.DTO.Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.User.Commands.CreateUser;
+    using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
-    using Application.DTO.Common;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
 
     public class UserController : BaseController
     {
@@ -27,6 +27,13 @@
             var query = new GetUserDetailQuery(data);
 
             return Ok(await Mediator.Send(query));
+        }
+
+        [Authorize]
+        [HttpPost("/api/user/update")]
+        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserCommand eventCommand)
+        {
+            return Ok(await Mediator.Send(eventCommand));
         }
 
         [Authorize]
