@@ -3,11 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Interfaces.UoW;
-    using SmartSchedule.Persistence;
 
     public class DeleteEventCommand : IRequest
     {

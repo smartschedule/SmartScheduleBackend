@@ -1,11 +1,10 @@
-﻿
-namespace SmartSchedule.Application.Interfaces.UoW
+﻿namespace SmartSchedule.Application.Interfaces.UoW
 {
-    using SmartSchedule.Application.Interfaces.Repository;
-    using SmartSchedule.Domain.Entities.Base;
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using SmartSchedule.Application.Interfaces.Repository;
+    using SmartSchedule.Domain.Entities.Base;
 
     public interface IUnitOfWork : IDisposable
     {
@@ -22,3 +21,4 @@ namespace SmartSchedule.Application.Interfaces.UoW
         Task<int> SaveChangesAsync(CancellationToken cancellationToken);
     }
 }
+

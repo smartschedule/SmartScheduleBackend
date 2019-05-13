@@ -1,10 +1,10 @@
 ﻿namespace SmartSchedule.Persistence.Infrastructure.Repository
 {
+    using System;
+    using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.Interfaces.Repository;
     using SmartSchedule.Domain.Entities.Base;
-    using System;
-    using System.Threading.Tasks;
 
     public class GenericRepository<TEntity, TId> : GenericReadOnlyRepository<TEntity, TId>, IGenericRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
