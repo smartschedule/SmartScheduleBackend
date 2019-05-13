@@ -63,7 +63,7 @@
                 Id = 3,
                 UserName = "Zdzichu",
                 Email = "test2@test.com",
-                Password = "test123"
+                Password = "test1234"
             };
             var command = new UpdateUserCommand(requestData);
 

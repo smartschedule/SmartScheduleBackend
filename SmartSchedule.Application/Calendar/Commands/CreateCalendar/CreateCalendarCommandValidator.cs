@@ -10,7 +10,8 @@
     {
         public CreateCalendarCommandValidator(SmartScheduleDbContext context)
         {
-            RuleFor(x => x.UserId).NotEmpty().MustAsync(async (request, val, token) =>
+            RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
+            RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
                 var userResult = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
 
@@ -21,6 +22,7 @@
 
                 return true;
             }).WithMessage("This user does not exist.");
+
             RuleFor(x => x.Name).NotEmpty().WithMessage("Name cannot be empty");
             RuleFor(x => x.ColorHex).NotEmpty().WithMessage("ColorHex cannot be empty");
             RuleFor(x => x.ColorHex).Matches(ColorValidationHelper.HEX_RGB_REGEX).WithMessage("ColorHex must be in HEX.");

@@ -1,11 +1,10 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
-    using System.Threading;
-    using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
+    using System.Threading;
+    using System.Threading.Tasks;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateCalendarCommand : IRequest
@@ -35,13 +34,6 @@
             {
                 UpdateCalendarRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FindAsync(data.Id);
-
-                if (calendar == null)
-                {
-                    throw new NotFoundException("Calendar", data.Id);
-                }
-
                 var vResult = await new UpdateCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
@@ -49,6 +41,7 @@
                     throw new ValidationException(vResult.Errors);
                 }
 
+                var calendar = await _context.Calendars.FindAsync(data.Id);
                 calendar.Name = data.Name;
                 calendar.ColorHex = data.ColorHex;
 

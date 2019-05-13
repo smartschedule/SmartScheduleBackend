@@ -33,7 +33,7 @@
             {
                 UserName = "Zdzichu",
                 Email = "janusz73@gmail.com",
-                Password = "test123"
+                Password = "test1234"
             };
             var command = new CreateUserCommand(requestData);
 
