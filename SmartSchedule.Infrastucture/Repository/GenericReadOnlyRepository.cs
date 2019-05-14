@@ -19,7 +19,7 @@
             this.context = context;
         }
 
-        public virtual IQueryable<TEntity> GetQueryable(
+        protected virtual IQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {

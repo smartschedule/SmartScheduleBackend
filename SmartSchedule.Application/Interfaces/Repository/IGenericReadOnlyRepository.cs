@@ -10,10 +10,6 @@
     public interface IGenericReadOnlyRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        IQueryable<TEntity> GetQueryable(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
-
         IEnumerable<TEntity> GetAll(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
 

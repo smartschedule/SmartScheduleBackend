@@ -5,6 +5,7 @@
 
     public class AcceptFriendInvitationCommandValidator : AbstractValidator<AcceptOrRejectFriendInvitationRequest>
     {
+        //ToDo change friendRequest to uow - IUnitOfWork
         public AcceptFriendInvitationCommandValidator(Domain.Entities.Friends friendRequest)
         {
             RuleFor(x => x.RequestingUserId).NotEmpty().Must((request, val, token) =>
