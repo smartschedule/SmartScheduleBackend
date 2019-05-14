@@ -24,25 +24,26 @@
 
         public class Handler : IRequestHandler<SendFriendInvitationCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(SendFriendInvitationCommand request, CancellationToken cancellationToken)
             {
                 SendFriendInvitationRequest data = request.Data;
 
+
                 //TODO: Refactor XD
-                var friend = await _context.Users.FindAsync(data.FriendId);
+                var friend = await _uow.Users.FindAsync(data.FriendId);
                 if (friend == null)
                 {
                     throw new NotFoundException("User", data.FriendId);
                 }
 
-                var blockedList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.UserId) && x.SecoundUserId.Equals(data.FriendId)
+                var blockedList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.UserId) && x.SecoundUserId.Equals(data.FriendId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                          || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.FriendId)
@@ -54,7 +55,7 @@
                     throw new FluentValidation.ValidationException("The User whose you want to invite to friends is blocked or you are blocked by him!");
                 }
 
-                var vResult = await new SendFriendInvitationCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new SendFriendInvitationCommandValidator(_uow).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
@@ -66,8 +67,8 @@
                     Type = Domain.Enums.FriendshipTypes.pending_first_secound
                 };
 
-                _context.Friends.Add(entity);
-                await _context.SaveChangesAsync();
+                _uow.Friends.Add(entity);
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

@@ -13,12 +13,12 @@
     {
         public class Handler : IRequestHandler<GetUsersListQuery, GetUsersListResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -26,7 +26,7 @@
             {
                 return new GetUsersListResponse
                 {
-                    Users = await _context.Users.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Users = await _uow.Users.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

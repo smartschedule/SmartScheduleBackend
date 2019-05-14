@@ -23,26 +23,26 @@
 
         public class Handler : IRequestHandler<DeleteEventCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteEventCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var eventE = await _context.Events.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var eventE = await _uow.Events.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (eventE == null)
                 {
                     throw new NotFoundException("Event", data.Id);
                 }
 
-                _context.Events.Remove(eventE);
-                await _context.SaveChangesAsync(cancellationToken);
+                _uow.Events.Remove(eventE);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

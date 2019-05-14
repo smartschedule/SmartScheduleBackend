@@ -23,30 +23,30 @@
 
         public class Handler : IRequestHandler<BlockUserCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(BlockUserCommand request, CancellationToken cancellationToken)
             {
                 BlockUserRequest data = request.Data;
 
-                var vResult = await new BlockUserCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new BlockUserCommandValidator(_uow).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friend = await _context.Users.FindAsync(data.UserToBlock);
+                var friend = await _uow.Users.FindAsync(data.UserToBlock);
                 if (friend == null)
                 {
                     throw new NotFoundException("User", data.UserToBlock);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
                                                                                 && x.SecoundUserId.Equals(data.UserToBlock))
                                                                                 || (x.FirstUserId.Equals(data.UserToBlock)
                                                                                 && x.SecoundUserId.Equals(data.UserId)));
@@ -55,13 +55,13 @@
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_both;
-                    _context.Friends.Update(friendRequest);
+                    _uow.Friends.Update(friendRequest);
                 }
                 else if (friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                               || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_secound;
-                    _context.Friends.Update(friendRequest);
+                    _uow.Friends.Update(friendRequest);
                 }
                 else
                 {
@@ -73,7 +73,7 @@
                     };
                 }
 
-                await _context.SaveChangesAsync();
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

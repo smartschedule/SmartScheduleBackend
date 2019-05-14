@@ -13,12 +13,12 @@
     {
         public class Handler : IRequestHandler<GetEventListQuery, GetEventListResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -26,7 +26,7 @@
             {
                 return new GetEventListResponse
                 {
-                    Events = await _context.Events.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Events = await _uow.Events.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

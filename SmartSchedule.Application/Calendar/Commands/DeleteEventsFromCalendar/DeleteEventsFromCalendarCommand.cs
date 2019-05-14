@@ -23,18 +23,18 @@
 
         public class Handler : IRequestHandler<DeleteEventsFromCalendarCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteEventsFromCalendarCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var calendar = await _uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (calendar == null)
                 {
@@ -43,8 +43,8 @@
 
                 calendar.Events.Clear();
 
-                _context.Calendars.Update(calendar);
-                await _context.SaveChangesAsync(cancellationToken);
+                _uow.Calendars.Update(calendar);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

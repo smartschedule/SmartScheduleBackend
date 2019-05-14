@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Persistence.Infrastructure.UoW
+﻿namespace SmartSchedule.Infrastructure.UoW
 {
     using System;
     using System.Collections;
@@ -8,7 +8,7 @@
     using SmartSchedule.Application.Interfaces.Repository;
     using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Domain.Entities.Base;
-    using SmartSchedule.Persistence.Infrastructure.Repository;
+    using SmartSchedule.Infrastructure.Repository;
 
     public class UnitOfWork : IUnitOfWork
     {

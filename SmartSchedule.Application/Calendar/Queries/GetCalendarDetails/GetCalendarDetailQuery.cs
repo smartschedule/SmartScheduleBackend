@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<GetCalendarDetailQuery, GetCalendarDetailResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<GetCalendarDetailResponse> Handle(GetCalendarDetailQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var entity = await _context.Calendars.FindAsync(data.Id);
+                var entity = await _uow.Calendars.FindAsync(data.Id);
 
                 if (entity == null)
                 {

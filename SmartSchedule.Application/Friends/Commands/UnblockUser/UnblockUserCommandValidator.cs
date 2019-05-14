@@ -5,7 +5,7 @@
 
     public class UnblockUserCommandValidator : AbstractValidator<UnblockUserCommand>
     {
-        public UnblockUserCommandValidator(IUnitOfWork context)
+        public UnblockUserCommandValidator(IUnitOfWork uow)
         {
 
         }

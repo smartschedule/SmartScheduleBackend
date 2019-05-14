@@ -6,11 +6,11 @@
 
     public class SendFriendInvitationCommandValidator : AbstractValidator<SendFriendInvitationRequest>
     {
-        public SendFriendInvitationCommandValidator(IUnitOfWork context)
+        public SendFriendInvitationCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.FriendId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var friendRequest = await context.Friends.FirstOrDefaultAsync(x =>
+                var friendRequest = await uow.Friends.FirstOrDefaultAsync(x =>
                                         (x.FirstUserId.Equals(val) && x.SecoundUserId.Equals(request.UserId)));
 
                 if (friendRequest == null)
@@ -23,7 +23,7 @@
 
             RuleFor(x => x.UserId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var friendRequest = await context.Friends.FirstOrDefaultAsync(x =>
+                var friendRequest = await uow.Friends.FirstOrDefaultAsync(x =>
                                          (x.FirstUserId.Equals(val) && x.SecoundUserId.Equals(request.FriendId)));
 
                 if (friendRequest == null)

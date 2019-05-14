@@ -7,12 +7,12 @@
 
     public class CreateCalendarCommandValidator : AbstractValidator<CreateCalendarRequest>
     {
-        public CreateCalendarCommandValidator(IUnitOfWork context)
+        public CreateCalendarCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
-                var userResult = await context.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
+                var userResult = await uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
 
                 if (userResult == null)
                 {

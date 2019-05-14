@@ -7,7 +7,7 @@
 
     public class UpdateEventCommandValidator : AbstractValidator<UpdateEventRequest>
     {
-        public UpdateEventCommandValidator(IUnitOfWork context)
+        public UpdateEventCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.StartDate).NotEmpty().WithMessage("You must set a start date");
             RuleFor(x => x.Duration).NotEmpty().WithMessage("You must set a duration");

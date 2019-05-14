@@ -23,18 +23,18 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
 
         public class Handler : IRequestHandler<CreateCalendarCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(CreateCalendarCommand request, CancellationToken cancellationToken)
             {
                 CreateCalendarRequest data = request.Data;
 
-                var vResult = await new CreateCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new CreateCalendarCommandValidator(_uow).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -46,16 +46,16 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
                     Name = data.Name,
                     ColorHex = data.ColorHex
                 };
-                _context.Calendars.Add(entityCalendar);
+                _uow.Calendars.Add(entityCalendar);
 
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
                     CalendarId = entityCalendar.Id,
                     UserId = data.UserId
                 };
-                _context.UserCalendars.Add(entityUserCalendar);
+                _uow.UserCalendars.Add(entityUserCalendar);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

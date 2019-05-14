@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Persistence.Infrastructure.Repository
+﻿namespace SmartSchedule.Infrastructure.Repository
 {
     using System;
     using System.Threading.Tasks;

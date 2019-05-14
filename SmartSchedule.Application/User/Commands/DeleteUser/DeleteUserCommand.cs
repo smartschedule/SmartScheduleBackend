@@ -23,26 +23,26 @@
 
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var user = await _uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (user == null)
                 {
                     throw new NotFoundException("User", data.Id);
                 }
 
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                _uow.Users.Remove(user);
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

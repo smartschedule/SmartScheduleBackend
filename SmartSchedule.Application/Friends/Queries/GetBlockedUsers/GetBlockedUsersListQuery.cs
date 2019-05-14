@@ -27,12 +27,12 @@
 
         public class Handler : IRequestHandler<GetBlockedUsersListQuery, FriendsListResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -40,7 +40,7 @@
             {
                 IdRequest data = request.Data;
 
-                var blockedList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
+                var blockedList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                              || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                              || (x.SecoundUserId.Equals(data.Id)

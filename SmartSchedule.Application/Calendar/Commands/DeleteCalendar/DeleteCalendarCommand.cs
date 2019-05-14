@@ -23,26 +23,26 @@
 
         public class Handler : IRequestHandler<DeleteCalendarCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteCalendarCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var calendar = await _uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
 
                 if (calendar == null)
                 {
                     throw new NotFoundException("Calendar", data.Id);
                 }
 
-                _context.Calendars.Remove(calendar);
-                await _context.SaveChangesAsync(cancellationToken);
+                _uow.Calendars.Remove(calendar);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

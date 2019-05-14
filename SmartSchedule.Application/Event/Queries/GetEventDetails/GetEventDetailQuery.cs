@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<GetEventDetailQuery, UpdateEventRequest>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<UpdateEventRequest> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var entity = await _context.Events.FindAsync(data.Id);
+                var entity = await _uow.Events.FindAsync(data.Id);
 
                 if (entity == null)
                 {

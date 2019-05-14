@@ -6,7 +6,7 @@
 
     public class BlockUserCommandValidator : AbstractValidator<BlockUserRequest>
     {
-        public BlockUserCommandValidator(IUnitOfWork context)
+        public BlockUserCommandValidator(IUnitOfWork uow)
         {
 
         }

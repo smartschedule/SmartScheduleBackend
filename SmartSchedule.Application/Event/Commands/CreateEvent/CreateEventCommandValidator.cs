@@ -7,11 +7,11 @@
 
     public class CreateEventCommandValidator : AbstractValidator<CreateEventRequest>
     {
-        public CreateEventCommandValidator(IUnitOfWork context)
+        public CreateEventCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.CalendarId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var userResult = await context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(val));
+                var userResult = await uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(val));
 
                 if (userResult == null)
                 {

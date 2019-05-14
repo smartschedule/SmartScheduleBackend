@@ -13,12 +13,12 @@
     {
         public class Handler : IRequestHandler<GetCalendarsListQuery, GetCalendarListResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -26,7 +26,7 @@
             {
                 return new GetCalendarListResponse
                 {
-                    Calendars = await _context.Calendars.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Calendars = await _uow.Calendars.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

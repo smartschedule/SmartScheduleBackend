@@ -23,25 +23,25 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(AddFriendToCalendarCommand request, CancellationToken cancellationToken)
             {
                 AddFriendToCalendarRequest data = request.Data;
 
-                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                var userCalendar = await _uow.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
                                                                                        && x.UserId.Equals(data.UserId));
                 if (userCalendar != null)
                 {
                     throw new ValidationException("This user is already added to this calendar");
                 }
 
-                var vResult = await new AddFriendToCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new AddFriendToCalendarCommandValidator(_uow).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -53,9 +53,9 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
                     CalendarId = data.CalendarId,
                     UserId = data.UserId
                 };
-                _context.UserCalendars.Add(entityUserCalendar);
+                _uow.UserCalendars.Add(entityUserCalendar);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

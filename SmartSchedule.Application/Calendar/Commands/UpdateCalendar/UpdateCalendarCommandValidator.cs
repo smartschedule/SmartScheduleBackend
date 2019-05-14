@@ -7,12 +7,12 @@
 
     public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarRequest>
     {
-        public UpdateCalendarCommandValidator(IUnitOfWork context)
+        public UpdateCalendarCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("You must set Id.");
             RuleFor(x => x.Id).MustAsync(async (request, val, token) =>
             {
-                var userResult = await context.Calendars.FindAsync(val);
+                var userResult = await uow.Calendars.FindAsync(val);
 
                 if (userResult == null)
                 {

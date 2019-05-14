@@ -27,19 +27,19 @@
 
         public class Handler : IRequestHandler<GetUserFriendRequestsQuery, FriendsListResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(IUnitOfWork context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
             public async Task<FriendsListResponse> Handle(GetUserFriendRequestsQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var friendRequestList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
+                var friendRequestList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
                                                              && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
                                                              || (x.SecoundUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))))

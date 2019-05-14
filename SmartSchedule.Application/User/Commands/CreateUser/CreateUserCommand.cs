@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<CreateUserCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(CreateUserCommand request, CancellationToken cancellationToken)
             {
                 CreateUserRequest data = request.Data;
 
-                await new CreateUserCommandValidator(_context).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
+                await new CreateUserCommandValidator(_uow).ValidateAndThrowAsync(instance: data, cancellationToken: cancellationToken);
 
                 var entity = new Domain.Entities.User
                 {
@@ -43,9 +43,9 @@
                     Name = data.UserName,
                     Password = PasswordHelper.CreateHash(data.Password)
                 };
-                _context.Users.Add(entity);
+                _uow.Users.Add(entity);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

@@ -23,18 +23,18 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 
         public class Handler : IRequestHandler<UnblockUserCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(UnblockUserCommand request, CancellationToken cancellationToken)
             {
                 UnblockUserRequest data = request.Data;
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
                                                           && x.SecoundUserId.Equals(data.UserToUnblockId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
@@ -50,14 +50,14 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;
-                    _context.Friends.Update(friendRequest);
+                    _uow.Friends.Update(friendRequest);
                 }
                 else
                 {
-                    _context.Friends.Remove(friendRequest);
+                    _uow.Friends.Remove(friendRequest);
                 }
 
-                await _context.SaveChangesAsync();
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

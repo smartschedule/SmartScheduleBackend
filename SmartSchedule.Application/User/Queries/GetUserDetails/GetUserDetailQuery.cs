@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<GetUserDetailResponse> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var entity = await _context.Users.FindAsync(data.Id);
+                var entity = await _uow.Users.FindAsync(data.Id);
 
                 if (entity == null)
                 {

@@ -7,7 +7,7 @@ namespace SmartSchedule.Application.Friends.Commands.RemoveFriend
 
     public class RemoveFriendCommandValidator : AbstractValidator<RemoveFriendRequest>
     {
-        public RemoveFriendCommandValidator(IUnitOfWork context)
+        public RemoveFriendCommandValidator(IUnitOfWork uow)
         {
 
         }

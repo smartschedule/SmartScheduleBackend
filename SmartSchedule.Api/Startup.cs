@@ -22,7 +22,7 @@
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
-    using SmartSchedule.Persistence.Infrastructure.UoW;
+    using SmartSchedule.Infrastructure.UoW;
     using Swashbuckle.AspNetCore.Swagger;
 
     public class Startup

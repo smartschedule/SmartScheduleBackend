@@ -24,25 +24,25 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 
         public class Handler : IRequestHandler<UpdateEventCommand, Unit>
         {
-            private readonly IUnitOfWork _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(IUnitOfWork context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(UpdateEventCommand request, CancellationToken cancellationToken)
             {
                 UpdateEventRequest data = request.Data;
 
-                var entityEvent = await _context.Events.FindAsync(data.Id);
+                var entityEvent = await _uow.Events.FindAsync(data.Id);
 
                 if (entityEvent == null)
                 {
                     throw new NotFoundException("Event", data.Id);
                 }
 
-                var vResult = await new UpdateEventCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new UpdateEventCommandValidator(_uow).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -54,9 +54,9 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                     Latitude = data.Latitude,
                     Longitude = data.Longitude
                 };
-                var location = _context.Locations.Add(entityLocation);
+                var location = _uow.Locations.Add(entityLocation);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 entityEvent.StartDate = data.StartDate;
                 entityEvent.Duration = data.Duration;
@@ -69,9 +69,9 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                 entityEvent.CalendarId = data.CalendarId;
                 entityEvent.LocationId = location.Entity.Id;
 
-                _context.Events.Update(entityEvent);
+                _uow.Events.Update(entityEvent);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }
