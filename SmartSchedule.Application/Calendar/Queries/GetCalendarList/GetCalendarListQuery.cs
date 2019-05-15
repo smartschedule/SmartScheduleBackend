@@ -6,7 +6,7 @@
     using AutoMapper.QueryableExtensions;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Queries;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
 
     public class GetCalendarsListQuery : IRequest<GetCalendarListResponse>

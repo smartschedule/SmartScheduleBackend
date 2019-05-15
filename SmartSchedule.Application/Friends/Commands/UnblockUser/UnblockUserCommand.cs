@@ -5,7 +5,7 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
     using MediatR;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UnblockUserCommand : IRequest
     {

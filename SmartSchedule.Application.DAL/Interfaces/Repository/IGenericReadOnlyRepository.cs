@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.Interfaces.Repository
+﻿namespace SmartSchedule.Application.DAL.Interfaces.Repository
 {
     using System;
     using System.Collections.Generic;
@@ -10,9 +10,7 @@
     public interface IGenericReadOnlyRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        IQueryable<TEntity> GetQueryable(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);
+        IQueryable<TEntity> Query();
 
         IEnumerable<TEntity> GetAll(
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null);

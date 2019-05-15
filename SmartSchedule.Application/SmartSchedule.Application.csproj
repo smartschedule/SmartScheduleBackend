@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartSchedule.Application.DAL\SmartSchedule.Application.DAL.csproj" />
     <ProjectReference Include="..\SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj" />
   </ItemGroup>
 

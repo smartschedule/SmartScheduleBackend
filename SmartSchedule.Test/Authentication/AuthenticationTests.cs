@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;

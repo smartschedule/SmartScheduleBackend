@@ -2,7 +2,7 @@
 {
     using FluentValidation;
     using SmartSchedule.Application.DTO.User.Commands;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserRequest>
     {

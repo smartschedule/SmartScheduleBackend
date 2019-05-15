@@ -5,7 +5,7 @@
     using MediatR;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class DeleteEventCommand : IRequest
     {

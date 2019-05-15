@@ -7,7 +7,7 @@
     using MediatR;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Application.DTO.User.Queries;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class GetUsersListQuery : IRequest<GetUsersListResponse>
     {

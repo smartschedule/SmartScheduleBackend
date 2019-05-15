@@ -5,13 +5,43 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.Interfaces.Repository;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
     using SmartSchedule.Infrastructure.Repository;
 
     public class UnitOfWork : IUnitOfWork
     {
+        public IGenericRepository<Calendar, int> CalendarRepository
+        {
+            get => Repository<Calendar, int>();
+        }
+        public IGenericRepository<Event, int> EventRepository
+        {
+            get => Repository<Event, int>();
+        }
+        public IGenericRepository<Friends, int> FriendsRepository
+        {
+            get => Repository<Friends, int>();
+        }
+        public IGenericRepository<Location, int> LocationRepository
+        {
+            get => Repository<Location, int>();
+        }
+        public IGenericRepository<User, int> UserRepository
+        {
+            get => Repository<User, int>();
+        }
+        public IGenericRepository<UserCalendar, int> UserCalendarRepository
+        {
+            get => Repository<UserCalendar, int>();
+        }
+        public IGenericRepository<UserEvents, int> UserEventsRepository
+        {
+            get => Repository<UserEvents, int>();
+        }
+
         private readonly DbContext _context;
 
         private bool _disposed;

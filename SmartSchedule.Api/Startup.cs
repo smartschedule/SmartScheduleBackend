@@ -18,12 +18,14 @@
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
     using SmartSchedule.Application.Interfaces;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
     using SmartSchedule.Infrastructure.UoW;
     using Swashbuckle.AspNetCore.Swagger;
+    using SmartSchedule.Application.Interfaces.Repository;
+    using SmartSchedule.Infrastructure.Repository;
 
     public class Startup
     {
@@ -79,9 +81,10 @@
             services.AddDbContext<SmartScheduleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-
             services.AddTransient<IJwtService, JwtService>();
+
+            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Cors
             services.AddCors(options => //TODO: Change cors only to our server
