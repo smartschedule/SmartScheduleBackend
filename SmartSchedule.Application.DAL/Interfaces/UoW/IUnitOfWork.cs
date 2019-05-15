@@ -17,7 +17,6 @@
         IGenericRepository<UserCalendar, int> UserCalendarsRepository { get; }
         IGenericRepository<UserEvents, int> UserEventsRepository { get; }
 
-
         void Dispose(bool disposing);
 
         IGenericRepository<TEntity, int> Repository<TEntity>() where TEntity : class, IBaseEntity<int>;
