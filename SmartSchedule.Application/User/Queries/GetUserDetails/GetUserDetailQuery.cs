@@ -6,7 +6,7 @@
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class GetUserDetailQuery : IRequest<GetUserDetailResponse>
     {

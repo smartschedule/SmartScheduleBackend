@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateCalendarCommand : IRequest

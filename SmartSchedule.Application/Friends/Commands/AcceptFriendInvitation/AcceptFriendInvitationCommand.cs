@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class AcceptFriendInvitationCommand : IRequest
     {

@@ -6,7 +6,7 @@
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UpdateUserCommand : IRequest
     {

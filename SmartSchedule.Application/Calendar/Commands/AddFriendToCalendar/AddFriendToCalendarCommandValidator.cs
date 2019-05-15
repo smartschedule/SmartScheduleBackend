@@ -2,7 +2,7 @@
 {
     using FluentValidation;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Interfaces.UoW;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class AddFriendToCalendarCommandValidator : AbstractValidator<AddFriendToCalendarRequest>
     {

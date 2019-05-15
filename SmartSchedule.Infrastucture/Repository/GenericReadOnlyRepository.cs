@@ -12,18 +12,18 @@
     public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        protected readonly DbContext context;
+        protected readonly DbContext _context;
 
         public GenericReadOnlyRepository(DbContext context)
         {
-            this.context = context;
+            this._context = context;
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
-            IQueryable<TEntity> query = context.Set<TEntity>();
+            IQueryable<TEntity> query = _context.Set<TEntity>();
 
             if (filter != null)
             {
@@ -36,6 +36,11 @@
             }
 
             return query;
+        }
+
+        public IQueryable<TEntity> Query()
+        {
+            return _context.Set<TEntity>().AsQueryable();
         }
 
         public virtual IEnumerable<TEntity> GetAll(
@@ -92,12 +97,12 @@
 
         public virtual TEntity GetById(object id)
         {
-            return context.Set<TEntity>().Find(id);
+            return _context.Set<TEntity>().Find(id);
         }
 
         public virtual Task<TEntity> GetByIdAsync(object id)
         {
-            return context.Set<TEntity>().FindAsync(id);
+            return _context.Set<TEntity>().FindAsync(id);
         }
 
         public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
