@@ -5,19 +5,18 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
-    using SmartSchedule.Infrastructure.Repository;
 
     public class UnitOfWork : IUnitOfWork
     {
-        public IGenericRepository<Calendar, int> CalendarRepository
+        public IGenericRepository<Calendar, int> CalendarsRepository
         {
             get => Repository<Calendar, int>();
         }
-        public IGenericRepository<Event, int> EventRepository
+        public IGenericRepository<Event, int> EventsRepository
         {
             get => Repository<Event, int>();
         }
@@ -25,15 +24,15 @@
         {
             get => Repository<Friends, int>();
         }
-        public IGenericRepository<Location, int> LocationRepository
+        public IGenericRepository<Location, int> LocationsRepository
         {
             get => Repository<Location, int>();
         }
-        public IGenericRepository<User, int> UserRepository
+        public IGenericRepository<User, int> UsersRepository
         {
             get => Repository<User, int>();
         }
-        public IGenericRepository<UserCalendar, int> UserCalendarRepository
+        public IGenericRepository<UserCalendar, int> UserCalendarsRepository
         {
             get => Repository<UserCalendar, int>();
         }

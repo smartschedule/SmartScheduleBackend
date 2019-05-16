@@ -3,7 +3,7 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
 
@@ -11,7 +11,7 @@
     {
         IGenericRepository<Calendar, int> CalendarsRepository { get; }
         IGenericRepository<Event, int> EventsRepository { get; }
-        IGenericRepository<Friends, int> FriendssRepository { get; }
+        IGenericRepository<Friends, int> FriendsRepository { get; }
         IGenericRepository<Location, int> LocationsRepository { get; }
         IGenericRepository<User, int> UsersRepository { get; }
         IGenericRepository<UserCalendar, int> UserCalendarsRepository { get; }
