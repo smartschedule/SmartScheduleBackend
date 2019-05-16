@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.DAL.Interfaces.Repository
+﻿namespace SmartSchedule.Application.DAL.Interfaces.Repository.Generic
 {
     using System;
     using System.Threading.Tasks;

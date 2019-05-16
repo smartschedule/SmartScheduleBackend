@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Infrastructure.Repository
+﻿namespace SmartSchedule.Infrastructure.Repository.Generic
 {
     using System;
     using System.Threading.Tasks;
