@@ -27,3 +27,9 @@ steps:
   displayName: 'Run unit tests'
 - script: dotnet sonarscanner end /d:sonar.login="706c2a89d52059f9c0c70ffb2741e9263bcf39a4"
   displayName: 'Publish sonarcloud stats'
+
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'SmartScheduleDeployArtifact'
+    publishLocation: 'Container'
