@@ -6,6 +6,7 @@
     using MediatR;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
+    using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
 
     public class GetCalendarsListQuery : IRequest<GetCalendarListResponse>
     {
@@ -24,7 +25,7 @@
             {
                 return new GetCalendarListResponse
                 {
-                    Calendars = await _uow.CalendarsRepository.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Calendars = await _uow.CalendarsRepository.ProjectTo<CalendarLookupModel>(_mapper, cancellationToken)
                 };
             }
         }

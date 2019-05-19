@@ -2,10 +2,8 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.Extensions.Options;
     using Shouldly;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
-    using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Exceptions;
@@ -18,12 +16,10 @@
     public class UserCommandTests
     {
         private readonly IUnitOfWork _uow;
-        private readonly IOptions<JwtSettings> _jwtSettings;
 
         public UserCommandTests(TestFixture fixture)
         {
             _uow = fixture.UoW;
-            _jwtSettings = fixture.JwtSettings;
         }
 
         [Fact]

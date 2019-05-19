@@ -6,6 +6,8 @@
     using System.Linq.Expressions;
     using System.Threading;
     using System.Threading.Tasks;
+    using AutoMapper;
+    using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities.Base;
@@ -94,6 +96,11 @@
         public virtual Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             return GetQueryable(filter).AnyAsync();
+        }
+
+        public virtual async Task<IList<T>> ProjectTo<T>(IMapper mapper, CancellationToken cancellationToken)
+        {
+            return await _dbSet.ProjectTo<T>(mapper.ConfigurationProvider).ToListAsync(cancellationToken);
         }
     }
 }

@@ -6,6 +6,7 @@
     using MediatR;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Queries;
+    using static SmartSchedule.Application.DTO.Event.Queries.GetEventListResponse;
 
     public class GetEventListQuery : IRequest<GetEventListResponse>
     {
@@ -24,7 +25,7 @@
             {
                 return new GetEventListResponse
                 {
-                    Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper, cancellationToken)
                 };
             }
         }

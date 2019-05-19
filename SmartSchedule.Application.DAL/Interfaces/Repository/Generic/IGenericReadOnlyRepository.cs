@@ -6,6 +6,7 @@
     using System.Linq.Expressions;
     using System.Threading;
     using System.Threading.Tasks;
+    using AutoMapper;
     using SmartSchedule.Domain.Entities.Base;
 
     public interface IGenericReadOnlyRepository<TEntity, TId>
@@ -34,5 +35,8 @@
         Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null);
 
         Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>> filter = null);
+
+        Task<IList<T>> ProjectTo<T>(IMapper mapper, CancellationToken cancellationToken);
+
     }
 }
