@@ -24,7 +24,7 @@
             {
                 return new GetCalendarListResponse
                 {
-                    //Calendars = await _uow.CalendarsRepository.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Calendars = await _uow.CalendarsRepository.ProjectTo<CalendarLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

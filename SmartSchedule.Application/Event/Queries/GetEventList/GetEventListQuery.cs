@@ -24,7 +24,7 @@
             {
                 return new GetEventListResponse
                 {
-                    // Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }
