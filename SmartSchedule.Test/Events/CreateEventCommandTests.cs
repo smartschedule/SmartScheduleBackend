@@ -4,6 +4,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Persistence;
@@ -13,11 +14,11 @@
     [Collection("TestCollection")]
     public class CreateEventCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public CreateEventCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -39,11 +40,11 @@
             };
             var command = new CreateEventCommand(requestData);
 
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var eventE = await _context.Events.FindAsync(1);
+            var eventE = await _uow.EventsRepository.GetByIdAsync(1);
             eventE.ShouldNotBeNull();
 
             eventE.Name.ShouldBe(requestData.Name);
@@ -57,9 +58,9 @@
             eventE.RepeatsEvery.ShouldBe(requestData.RepeatsEvery);
             eventE.Location.Latitude.ShouldBe(requestData.Latitude);
 
-            var Location = await _context.Locations.FindAsync(1);
+            var Location = await _uow.LocationsRepository.GetByIdAsync(1);
 
-            var calendar = await _context.Calendars.FindAsync(2);
+            var calendar = await _uow.CalendarsRepository.GetByIdAsync(2);
 
             calendar.Events.ShouldNotBeEmpty();
             Location.ShouldNotBeNull();
@@ -83,7 +84,7 @@
                 Longitude = 53.27492F
             };
             var command = new CreateEventCommand(requestData);
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -106,7 +107,7 @@
                 Longitude = 53.27492F
             };
             var command = new CreateEventCommand(requestData);
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -130,7 +131,7 @@
             };
 
             var command = new CreateEventCommand(requestData);
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -154,7 +155,7 @@
             };
 
             var command = new CreateEventCommand(requestData);
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -185,7 +186,7 @@
                 Longitude = 53.27492F
             };
             var command = new CreateEventCommand(requestData);
-            var commandHandler = new CreateEventCommand.Handler(_context);
+            var commandHandler = new CreateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

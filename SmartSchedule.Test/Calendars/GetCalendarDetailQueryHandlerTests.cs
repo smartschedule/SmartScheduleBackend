@@ -5,6 +5,7 @@ namespace SmartSchedule.Test.Calendars
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
@@ -15,17 +16,17 @@ namespace SmartSchedule.Test.Calendars
     [Collection("TestCollection")]
     public class GetCalendarDetailQueryHandlerTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public GetCalendarDetailQueryHandlerTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
         public async Task GetCalendarDetail()
         {
-            var sut = new GetCalendarDetailQuery.Handler(_context);
+            var sut = new GetCalendarDetailQuery.Handler(_uow);
 
             var requestData = new IdRequest(2);
             var result = await sut.Handle(new GetCalendarDetailQuery(requestData), CancellationToken.None);

@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
@@ -68,6 +69,17 @@
         {
             return await GetQueryable(filter, orderBy).FirstOrDefaultAsync();
         }
+
+        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
+        }
+
+        public virtual async Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
+        {
+            return await _dbSet.FirstOrDefaultAsync(cancellationToken);
+        }
+
 
         public virtual Task<TEntity> GetByIdAsync(TId id)
         {

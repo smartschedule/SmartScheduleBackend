@@ -4,21 +4,20 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteEventsFromCalendar;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class DeleteEventsFromCalendarCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public DeleteEventsFromCalendarCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -26,12 +25,12 @@
         {
             var requestData = new IdRequest(2);
             var command = new DeleteEventsFromCalendarCommand(requestData);
-      
-            var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_context);
+
+            var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var calendar = await _context.Calendars.FindAsync(2);
+            var calendar = await _uow.CalendarsRepository.GetByIdAsync(2);
 
             calendar.Events.ShouldBeEmpty();
         }
@@ -42,7 +41,7 @@
             var requestData = new IdRequest(200);
             var command = new DeleteEventsFromCalendarCommand(requestData);
 
-            var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_context);
+            var commandHandler = new DeleteEventsFromCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
         }

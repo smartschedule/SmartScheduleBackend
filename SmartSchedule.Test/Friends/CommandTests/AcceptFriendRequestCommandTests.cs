@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.AcceptFriendInvitation;
     using SmartSchedule.Persistence;
@@ -13,11 +14,11 @@
     [Collection("FriendsTestCollection")]
     public class AcceptFriendRequestCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public AcceptFriendRequestCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -30,7 +31,7 @@
             };
             var command = new AcceptFriendInvitationCommand(requestData);
 
-            var commandHandler = new AcceptFriendInvitationCommand.Handler(_context);
+            var commandHandler = new AcceptFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None)
                 .ShouldThrowAsync<FluentValidation.ValidationException>();
@@ -46,11 +47,11 @@
             };
             var command = new AcceptFriendInvitationCommand(requestData);
 
-            var commandHandler = new AcceptFriendInvitationCommand.Handler(_context);
+            var commandHandler = new AcceptFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.RequestingUserId)
+            var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.RequestingUserId)
                                                                                 && x.SecoundUserId.Equals(requestData.RequestedUserId));
 
             friendRequest.ShouldNotBeNull();

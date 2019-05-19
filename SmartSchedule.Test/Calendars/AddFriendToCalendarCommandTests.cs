@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Persistence;
@@ -14,11 +15,11 @@
     [Collection("TestCollection")]
     public class AddFriendToCalendarCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public AddFriendToCalendarCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -31,11 +32,11 @@
             };
             var command = new AddFriendToCalendarCommand(requestData);
 
-            var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
+            var commandHandler = new AddFriendToCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == command.Data.CalendarId && x.UserId == command.Data.UserId);
+            var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId == command.Data.CalendarId && x.UserId == command.Data.UserId);
 
             userCalendar.ShouldNotBeNull();
             userCalendar.ShouldBeOfType<UserCalendar>();
@@ -51,7 +52,7 @@
             };
             var command = new AddFriendToCalendarCommand(requestData);
 
-            var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
+            var commandHandler = new AddFriendToCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
 
@@ -67,7 +68,7 @@
             };
             var command = new AddFriendToCalendarCommand(requestData);
 
-            var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
+            var commandHandler = new AddFriendToCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
 
@@ -83,7 +84,7 @@
             };
             var command = new AddFriendToCalendarCommand(requestData);
 
-            var commandHandler = new AddFriendToCalendarCommand.Handler(_context);
+            var commandHandler = new AddFriendToCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
 

@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Microsoft.Extensions.Options;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Commands;
@@ -17,12 +18,12 @@
     [Collection("TestCollection")]
     public class UserCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
         private readonly IOptions<JwtSettings> _jwtSettings;
 
         public UserCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
             _jwtSettings = fixture.JwtSettings;
         }
 
@@ -32,14 +33,14 @@
             var requestData = new IdRequest(2);
             var command = new DeleteUserCommand(requestData);
 
-            var deletedUser = await _context.Users.FindAsync(2);
+            var deletedUser = await _uow.UsersRepository.GetByIdAsync(2);
             deletedUser.ShouldNotBeNull();
 
-            var commandHandler = new DeleteUserCommand.Handler(_context);
+            var commandHandler = new DeleteUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            deletedUser = await _context.Users.FindAsync(2);
+            deletedUser = await _uow.UsersRepository.GetByIdAsync(2);
 
             deletedUser.ShouldBeNull();
         }
@@ -50,7 +51,7 @@
             var requestData = new IdRequest(2000);
             var command = new DeleteUserCommand(requestData);
 
-            var commandHandler = new DeleteUserCommand.Handler(_context);
+            var commandHandler = new DeleteUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
@@ -67,11 +68,11 @@
             };
             var command = new UpdateUserCommand(requestData);
 
-            var commandHandler = new UpdateUserCommand.Handler(_context);
+            var commandHandler = new UpdateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var updatedUser = await _context.Users.FindAsync(3);
+            var updatedUser = await _uow.UsersRepository.GetByIdAsync(3);
 
             updatedUser.Name.ShouldBe(requestData.UserName);
             updatedUser.Password.ShouldNotBe(requestData.Password);
@@ -91,7 +92,7 @@
             };
             var command = new UpdateUserCommand(requestData);
    
-            var commandHandler = new UpdateUserCommand.Handler(_context);
+            var commandHandler = new UpdateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -108,7 +109,7 @@
             };
             var command = new UpdateUserCommand(requestData);
 
-            var commandHandler = new UpdateUserCommand.Handler(_context);
+            var commandHandler = new UpdateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
