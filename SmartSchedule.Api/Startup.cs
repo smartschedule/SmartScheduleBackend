@@ -26,6 +26,7 @@
     using Swashbuckle.AspNetCore.Swagger;
     using SmartSchedule.Application.Interfaces.Repository;
     using SmartSchedule.Infrastructure.Repository;
+    using SmartSchedule.Application.DAL.Interfaces;
 
     public class Startup
     {
@@ -82,8 +83,6 @@
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
             services.AddTransient<IJwtService, JwtService>();
-
-            services.AddScoped(typeof(IGenericRepository<,>), typeof(GenericRepository<,>));
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Cors

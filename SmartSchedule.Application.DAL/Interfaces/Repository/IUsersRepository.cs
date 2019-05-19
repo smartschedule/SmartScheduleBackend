@@ -2,10 +2,9 @@
 {
     using System;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
-    using SmartSchedule.Domain.Entities.Base;
+    using SmartSchedule.Domain.Entities;
 
-    public interface IUsersRepository<TEntity, TId> : IGenericRepository<TEntity, TId>
-        where TEntity : class, IBaseEntity<TId> where TId : IComparable
+    public interface IUsersRepository : IGenericRepository<User, int>
     {
     }
 }
