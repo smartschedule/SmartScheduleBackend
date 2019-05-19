@@ -11,11 +11,9 @@
 
         void Update(TEntity entity);
 
-        void Remove(TId id);
+        Task Remove(TId id);
 
         void Remove(TEntity entity);
-
-        void Save();
 
         Task SaveAsync();
     }

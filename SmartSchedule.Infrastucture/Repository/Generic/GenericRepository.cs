@@ -33,9 +33,9 @@
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Remove(TId id)
+        public virtual async Task Remove(TId id)
         {
-            TEntity entity = _dbSet.Find(id);
+            TEntity entity = await _dbSet.FindAsync(id);
             Remove(entity);
         }
 
@@ -47,11 +47,6 @@
             }
 
             _dbSet.Remove(entity);
-        }
-
-        public virtual void Save()
-        {
-            _context.SaveChanges();
         }
 
         public virtual Task SaveAsync()
