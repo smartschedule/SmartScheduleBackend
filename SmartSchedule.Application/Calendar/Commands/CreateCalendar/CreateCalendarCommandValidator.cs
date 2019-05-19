@@ -12,7 +12,7 @@
             RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
-                var userResult = await uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
+                var userResult = await uow.UsersRepository.GetByIdAsync(val);
 
                 if (userResult == null)
                 {

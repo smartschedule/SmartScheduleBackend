@@ -40,15 +40,7 @@
             {
                 IdRequest data = request.Data;
 
-                var blockedList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
-                                                             && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
-                                                             || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
-                                                             || (x.SecoundUserId.Equals(data.Id)
-                                                             && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
-                                                             || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))))
-                                                             .Include(x => x.FirstUser)
-                                                             .Include(x => x.SecoundUser)
-                                                             .ToListAsync(cancellationToken);
+                var blockedList = await _uow.FriendsRepository.GetBlockedUsers(data.Id, cancellationToken);
                 var friendsViewModel = new FriendsListResponse
                 {
                     Users = new List<UserLookupModel>()
@@ -56,7 +48,7 @@
 
                 foreach (var item in blockedList)
                 {
-                    var user = item.Type == Domain.Enums.FriendshipTypes.block_first_secound ?
+                    var user = item.Type == Domain.Enums.FriendshipTypes.block_first_second ?
                         item.SecoundUser : item.FirstUser;
                     if (item.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                     {

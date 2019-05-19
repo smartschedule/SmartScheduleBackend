@@ -9,7 +9,7 @@
         public string Password { get; set; }
         public string Name { get; set; }
 
-        public ICollection<UserEvents> UserEvents { get; set; }
+        public ICollection<UserEvent> UserEvents { get; set; }
         public ICollection<UserCalendar> UserCalendars { get; set; }
     }
 }

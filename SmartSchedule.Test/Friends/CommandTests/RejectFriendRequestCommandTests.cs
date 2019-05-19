@@ -5,6 +5,7 @@
     using FluentValidation;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
     using SmartSchedule.Persistence;
@@ -14,10 +15,11 @@
     [Collection("FriendsTestCollection")]
     public class RejectFriendRequestCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
+
         public RejectFriendRequestCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -30,11 +32,11 @@
             };
             var command = new RejectFriendRequestCommand(requestData);
 
-            var commandHandler = new RejectFriendRequestCommand.Handler(_context);
+            var commandHandler = new RejectFriendRequestCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.RequestingUserId)
+            var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.RequestingUserId)
                                                                                 && x.SecoundUserId.Equals(requestData.RequestedUserId));
 
             friendRequest.ShouldBeNull();
@@ -50,7 +52,7 @@
             };
             var command = new RejectFriendRequestCommand(requestData);
 
-            var commandHandler = new RejectFriendRequestCommand.Handler(_context);
+            var commandHandler = new RejectFriendRequestCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<ValidationException>();
         }

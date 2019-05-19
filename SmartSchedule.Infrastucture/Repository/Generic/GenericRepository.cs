@@ -14,38 +14,39 @@
 
         }
 
-        public virtual void Create(TEntity entity)
+        public virtual TEntity Add(TEntity entity)
         {
             DateTime time = DateTime.UtcNow;
             entity.Created = time;
             entity.Modified = time;
 
-            _context.Set<TEntity>().Add(entity);
+            var createdEntity = _dbSet.Add(entity);
+            
+            return createdEntity.Entity;
         }
 
         public virtual void Update(TEntity entity)
         {
             entity.Modified = DateTime.UtcNow;
 
-            _context.Set<TEntity>().Attach(entity);
+            _dbSet.Attach(entity);
             _context.Entry(entity).State = EntityState.Modified;
         }
 
-        public virtual void Delete(TId id)
+        public virtual void Remove(TId id)
         {
-            TEntity entity = _context.Set<TEntity>().Find(id);
-            Delete(entity);
+            TEntity entity = _dbSet.Find(id);
+            Remove(entity);
         }
 
-        public virtual void Delete(TEntity entity)
+        public virtual void Remove(TEntity entity)
         {
-            var dbSet = _context.Set<TEntity>();
             if (_context.Entry(entity).State == EntityState.Detached)
             {
-                dbSet.Attach(entity);
+                _dbSet.Attach(entity);
             }
 
-            dbSet.Remove(entity);
+            _dbSet.Remove(entity);
         }
 
         public virtual void Save()

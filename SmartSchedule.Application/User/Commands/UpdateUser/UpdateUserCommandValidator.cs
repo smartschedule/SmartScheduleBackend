@@ -17,7 +17,7 @@
             RuleFor(x => x.Email).NotEmpty().WithMessage("You must set Email");
             RuleFor(x => x.Email).EmailAddress().MustAsync(async (request, val, token) =>
             {
-                var userResult = await uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(request.Id));
+                var userResult = await uow.UsersRepository.GetByIdAsync(request.Id);
 
                 if (userResult == null || userResult.Email.Equals(val))
                 {

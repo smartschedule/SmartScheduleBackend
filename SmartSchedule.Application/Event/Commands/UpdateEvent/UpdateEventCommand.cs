@@ -35,7 +35,7 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
             {
                 UpdateEventRequest data = request.Data;
 
-                var entityEvent = await _uow.Events.FindAsync(data.Id);
+                var entityEvent = await _uow.EventsRepository.GetByIdAsync(data.Id);
 
                 if (entityEvent == null)
                 {
@@ -54,7 +54,7 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                     Latitude = data.Latitude,
                     Longitude = data.Longitude
                 };
-                var location = _uow.Locations.Add(entityLocation);
+                var location = _uow.LocationsRepository.Add(entityLocation);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
@@ -67,9 +67,9 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
                 entityEvent.Name = data.Name;
                 entityEvent.ColorHex = data.ColorHex;
                 entityEvent.CalendarId = data.CalendarId;
-                entityEvent.LocationId = location.Entity.Id;
+                entityEvent.LocationId = location.Id;
 
-                _uow.Events.Update(entityEvent);
+                _uow.EventsRepository.Update(entityEvent);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

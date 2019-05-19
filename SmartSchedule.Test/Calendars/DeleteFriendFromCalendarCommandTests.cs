@@ -5,6 +5,7 @@ namespace SmartSchedule.Test.Calendars
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Persistence;
@@ -14,11 +15,11 @@ namespace SmartSchedule.Test.Calendars
     [Collection("TestCollection")]
     public class DeleteFriendFromCalendarCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public DeleteFriendFromCalendarCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -31,15 +32,15 @@ namespace SmartSchedule.Test.Calendars
             };
             var command = new DeleteFriendFromCalendarCommand(requestData);
 
-            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
+            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId == requestData.CalendarId && x.UserId == requestData.UserId);
+            var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId == requestData.CalendarId && x.UserId == requestData.UserId);
 
-            var user = await _context.Users.FindAsync(3);
+            var user = await _uow.UsersRepository.GetByIdAsync(3);
 
-            var calendar = await _context.Calendars.FindAsync(2);
+            var calendar = await _uow.CalendarsRepository.GetByIdAsync(2);
 
             calendar.ShouldNotBeNull();
             userCalendar.ShouldBeNull();
@@ -56,7 +57,7 @@ namespace SmartSchedule.Test.Calendars
             };
             var command = new DeleteFriendFromCalendarCommand(requestData);
 
-            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
+            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
         }
@@ -71,7 +72,7 @@ namespace SmartSchedule.Test.Calendars
             };
             var command = new DeleteFriendFromCalendarCommand(requestData);
 
-            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_context);
+            var commandHandler = new DeleteFriendFromCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>(); ;
         }

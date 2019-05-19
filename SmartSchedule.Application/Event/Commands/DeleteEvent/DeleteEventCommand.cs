@@ -34,14 +34,13 @@
             {
                 IdRequest data = request.Data;
 
-                var eventE = await _uow.Events.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
-
+                var eventE = await _uow.EventsRepository.GetByIdAsync(data.Id);
                 if (eventE == null)
                 {
                     throw new NotFoundException("Event", data.Id);
                 }
 
-                _uow.Events.Remove(eventE);
+                _uow.EventsRepository.Remove(eventE);
                 await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;

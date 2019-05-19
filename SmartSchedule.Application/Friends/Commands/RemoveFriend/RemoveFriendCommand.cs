@@ -40,7 +40,7 @@
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friendRequest = await _uow.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.UserId)
                                                                                 && x.SecoundUserId.Equals(data.FriendId))
                                                                                 || (x.FirstUserId.Equals(data.FriendId)
                                                                                 && x.SecoundUserId.Equals(data.UserId)))
@@ -51,7 +51,7 @@
                 }
                 else
                 {
-                    _uow.Friends.Remove(friendRequest);
+                    _uow.FriendsRepository.Remove(friendRequest);
                 }
 
                 await _uow.SaveChangesAsync();

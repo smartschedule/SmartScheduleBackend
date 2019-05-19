@@ -14,7 +14,7 @@
         public virtual DbSet<Calendar> Calendars { get; set; }
         public virtual DbSet<Location> Locations { get; set; }
         public virtual DbSet<UserCalendar> UserCalendars { get; set; }
-        public virtual DbSet<UserEvents> UserEvents { get; set; }
+        public virtual DbSet<UserEvent> UserEvents { get; set; }
         public virtual DbSet<Friends> Friends { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

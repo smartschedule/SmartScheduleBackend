@@ -35,7 +35,7 @@
             {
                 UpdateUserRequest data = request.Data;
 
-                var user = await _uow.Users.FindAsync(data.Id);
+                var user = await _uow.UsersRepository.GetByIdAsync(data.Id);
 
                 if (user == null)
                 {
@@ -52,7 +52,7 @@
                 user.Email = data.Email;
                 user.Password = PasswordHelper.CreateHash(data.Password);
 
-                _uow.Users.Update(user);
+                _uow.UsersRepository.Update(user);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

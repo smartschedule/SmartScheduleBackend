@@ -4,26 +4,30 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Linq.Expressions;
+    using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities.Base;
 
     public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
-        where TEntity : class, IBaseEntity<TId> where TId : IComparable
+        where TEntity : class, IBaseEntity<TId>
+        where TId : IComparable
     {
         protected readonly DbContext _context;
+        protected readonly DbSet<TEntity> _dbSet;
 
         public GenericReadOnlyRepository(DbContext context)
         {
             this._context = context;
+            this._dbSet = context.Set<TEntity>();
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(
             Expression<Func<TEntity, bool>> filter = null,
             Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
-            IQueryable<TEntity> query = _context.Set<TEntity>();
+            IQueryable<TEntity> query = _dbSet;
 
             if (filter != null)
             {
@@ -38,42 +42,19 @@
             return query;
         }
 
-        public IQueryable<TEntity> Query()
-        {
-            return _context.Set<TEntity>().AsQueryable();
-        }
-
-        public virtual IEnumerable<TEntity> GetAll(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-        {
-            return GetQueryable(null, orderBy).ToList();
-        }
-
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+       Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             return await GetQueryable(null, orderBy).ToListAsync();
         }
 
-        public virtual IEnumerable<TEntity> Get(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-        {
-            return GetQueryable(filter, orderBy).ToList();
-        }
-
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
-            Expression<Func<TEntity, bool>> filter = null,
-            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+        Expression<Func<TEntity, bool>> filter = null,
+        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             return await GetQueryable(filter, orderBy).ToListAsync();
         }
 
-        public virtual TEntity GetOne(
-            Expression<Func<TEntity, bool>> filter = null)
-        {
-            return GetQueryable(filter, null).SingleOrDefault();
-        }
 
         public virtual async Task<TEntity> GetOneAsync(
             Expression<Func<TEntity, bool>> filter = null)
@@ -81,12 +62,6 @@
             return await GetQueryable(filter, null).SingleOrDefaultAsync();
         }
 
-        public virtual TEntity GetFirst(
-           Expression<Func<TEntity, bool>> filter = null,
-           Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
-        {
-            return GetQueryable(filter, orderBy).FirstOrDefault();
-        }
 
         public virtual async Task<TEntity> GetFirstAsync(
             Expression<Func<TEntity, bool>> filter = null,
@@ -95,29 +70,25 @@
             return await GetQueryable(filter, orderBy).FirstOrDefaultAsync();
         }
 
-        public virtual TEntity GetById(object id)
+        public virtual async Task<TEntity> FirstOrDefaultAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken cancellationToken = default)
         {
-            return _context.Set<TEntity>().Find(id);
+            return await _dbSet.FirstOrDefaultAsync(predicate, cancellationToken);
         }
 
-        public virtual Task<TEntity> GetByIdAsync(object id)
+        public virtual async Task<TEntity> FirstOrDefaultAsync(CancellationToken cancellationToken = default)
         {
-            return _context.Set<TEntity>().FindAsync(id);
+            return await _dbSet.FirstOrDefaultAsync(cancellationToken);
         }
 
-        public virtual int GetCount(Expression<Func<TEntity, bool>> filter = null)
+        public virtual Task<TEntity> GetByIdAsync(TId id)
         {
-            return GetQueryable(filter).Count();
+            return _dbSet.FindAsync(id);
+            //return _dbSet.FirstOrDefaultAsync(x => x.Id.Equals(id));
         }
 
         public virtual Task<int> GetCountAsync(Expression<Func<TEntity, bool>> filter = null)
         {
             return GetQueryable(filter).CountAsync();
-        }
-
-        public virtual bool GetExists(Expression<Func<TEntity, bool>> filter = null)
-        {
-            return GetQueryable(filter).Any();
         }
 
         public virtual Task<bool> GetExistsAsync(Expression<Func<TEntity, bool>> filter = null)

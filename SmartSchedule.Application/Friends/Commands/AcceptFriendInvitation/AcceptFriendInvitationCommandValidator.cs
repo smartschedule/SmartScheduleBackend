@@ -10,7 +10,7 @@
         {
             RuleFor(x => x.RequestingUserId).NotEmpty().Must((request, val, token) =>
             {
-                if (friendRequest != null && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
+                if (friendRequest != null && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_second))
                 {
                     return true;
                 }

@@ -40,12 +40,7 @@
             {
                 IdRequest data = request.Data;
 
-                var friendsList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
-                                                             || x.SecoundUserId.Equals(data.Id))
-                                                             && x.Type.Equals(Domain.Enums.FriendshipTypes.friends))
-                                                             .Include(x => x.FirstUser)
-                                                             .Include(x => x.SecoundUser)
-                                                             .ToListAsync(cancellationToken);
+                var friendsList = await _uow.FriendsRepository.GetFriends(data.Id, cancellationToken);
                 var friendsViewModel = new FriendsListResponse
                 {
                     Users = new List<UserLookupModel>()

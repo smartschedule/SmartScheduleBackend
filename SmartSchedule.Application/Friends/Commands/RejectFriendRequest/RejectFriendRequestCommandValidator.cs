@@ -10,12 +10,12 @@
         {
             RuleFor(x => x.RequestingUserId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var friendRequest = await uow.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.RequestingUserId)
+                var friendRequest = await uow.FriendsRepository.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(request.RequestingUserId)
                                                                                 && x.SecoundUserId.Equals(request.RequestedUserId)
-                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_second))
                                                                                 || (x.FirstUserId.Equals(request.RequestedUserId)
                                                                                 && x.SecoundUserId.Equals(request.RequestingUserId)
-                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first)));
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_second_first)));
 
                 if (friendRequest != null)
                 {

@@ -5,40 +5,43 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.Repository;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
+    using SmartSchedule.Infrastructure.Repository;
+    using SmartSchedule.Infrastructure.Repository.Generic;
 
     public class UnitOfWork : IUnitOfWork
     {
-        public IGenericRepository<Calendar, int> CalendarsRepository
+        public ICalendarsRepository CalendarsRepository
         {
-            get => Repository<Calendar, int>();
+            get => Repository<CalendarsRepository, Calendar, int>();
         }
-        public IGenericRepository<Event, int> EventsRepository
+        public IEventsRepository EventsRepository
         {
-            get => Repository<Event, int>();
+            get => Repository<EventsRepository, Event, int>();
         }
-        public IGenericRepository<Friends, int> FriendsRepository
+        public IFriendsRepository FriendsRepository
         {
-            get => Repository<Friends, int>();
+            get => Repository<FriendsRepository, Friends, int>();
         }
-        public IGenericRepository<Location, int> LocationsRepository
+        public ILocationsRepository LocationsRepository
         {
-            get => Repository<Location, int>();
+            get => Repository<LocationsRepository, Location, int>();
         }
-        public IGenericRepository<User, int> UsersRepository
+        public IUsersRepository UsersRepository
         {
-            get => Repository<User, int>();
+            get => Repository<UsersRepository, User, int>();
         }
-        public IGenericRepository<UserCalendar, int> UserCalendarsRepository
+        public IUserCalendarsRepository UserCalendarsRepository
         {
-            get => Repository<UserCalendar, int>();
+            get => Repository<UserCalendarsRepository, UserCalendar, int>();
         }
-        public IGenericRepository<UserEvents, int> UserEventsRepository
+        public IUserEventsRepository UserEventsRepository
         {
-            get => Repository<UserEvents, int>();
+            get => Repository<UserEventsRepository, UserEvent, int>();
         }
 
         private readonly DbContext _context;
@@ -75,12 +78,15 @@
             _disposed = true;
         }
 
-        public IGenericRepository<TEntity, int> Repository<TEntity>() where TEntity : class, IBaseEntity<int>
+        public IGenericRepository<TEntity, int> Repository<TEntity>()
+            where TEntity : class, IBaseEntity<int>
         {
             return Repository<TEntity, int>();
         }
 
-        public IGenericRepository<TEntity, TId> Repository<TEntity, TId>() where TEntity : class, IBaseEntity<TId> where TId : IComparable
+        public IGenericRepository<TEntity, TId> Repository<TEntity, TId>()
+            where TEntity : class, IBaseEntity<TId>
+            where TId : IComparable
         {
             if (_repositories == null)
             {
@@ -95,6 +101,26 @@
 
             _repositories.Add(type, Activator.CreateInstance(typeof(GenericRepository<TEntity, TId>), _context));
             return (IGenericRepository<TEntity, TId>)_repositories[type];
+        }
+
+        public TSpecificRepository Repository<TSpecificRepository, TEntity, TId>()
+            where TSpecificRepository : IGenericReadOnlyRepository<TEntity, TId>
+            where TEntity : class, IBaseEntity<TId>
+            where TId : IComparable
+        {
+            if (_repositories == null)
+            {
+                _repositories = new Hashtable();
+            }
+
+            var type = typeof(TEntity).Name;
+            if (_repositories.ContainsKey(type))
+            {
+                return (TSpecificRepository)_repositories[type];
+            }
+
+            _repositories.Add(type, Activator.CreateInstance(typeof(TSpecificRepository), _context));
+            return (TSpecificRepository)_repositories[type];
         }
 
         public int SaveChanges()

@@ -34,14 +34,14 @@
             {
                 IdRequest data = request.Data;
 
-                var user = await _uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var user = await _uow.UsersRepository.GetByIdAsync(data.Id);
 
                 if (user == null)
                 {
                     throw new NotFoundException("User", data.Id);
                 }
 
-                _uow.Users.Remove(user);
+                _uow.UsersRepository.Remove(user);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

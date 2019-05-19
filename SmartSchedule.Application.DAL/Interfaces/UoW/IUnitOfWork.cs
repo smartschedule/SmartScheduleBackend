@@ -3,19 +3,20 @@
     using System;
     using System.Threading;
     using System.Threading.Tasks;
+    using SmartSchedule.Application.DAL.Interfaces.Repository;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
 
     public interface IUnitOfWork : IDisposable
     {
-        IGenericRepository<Calendar, int> CalendarsRepository { get; }
-        IGenericRepository<Event, int> EventsRepository { get; }
-        IGenericRepository<Friends, int> FriendsRepository { get; }
-        IGenericRepository<Location, int> LocationsRepository { get; }
-        IGenericRepository<User, int> UsersRepository { get; }
-        IGenericRepository<UserCalendar, int> UserCalendarsRepository { get; }
-        IGenericRepository<UserEvents, int> UserEventsRepository { get; }
+        ICalendarsRepository CalendarsRepository { get; }
+        IEventsRepository EventsRepository { get; }
+        IFriendsRepository FriendsRepository { get; }
+        ILocationsRepository LocationsRepository { get; }
+        IUsersRepository UsersRepository { get; }
+        IUserCalendarsRepository UserCalendarsRepository { get; }
+        IUserEventsRepository UserEventsRepository { get; }
 
         void Dispose(bool disposing);
 

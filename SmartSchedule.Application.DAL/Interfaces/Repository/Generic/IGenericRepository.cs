@@ -7,13 +7,13 @@
     public interface IGenericRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        void Create(TEntity entity);
+        TEntity Add(TEntity entity);
 
         void Update(TEntity entity);
 
-        void Delete(TId id);
+        void Remove(TId id);
 
-        void Delete(TEntity entity);
+        void Remove(TEntity entity);
 
         void Save();
 

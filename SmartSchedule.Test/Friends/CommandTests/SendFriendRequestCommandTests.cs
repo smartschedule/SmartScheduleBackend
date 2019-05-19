@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Friends.Commands.SendFriendInvitation;
@@ -14,10 +15,11 @@
     [Collection("FriendsTestCollection")]
     public class SendFriendRequestCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
+
         public SendFriendRequestCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -30,15 +32,15 @@
             };
             var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(requestData.FriendId) && x.SecoundUserId.Equals(requestData.UserId))
+            var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(requestData.FriendId) && x.SecoundUserId.Equals(requestData.UserId))
                                                                             || (x.FirstUserId.Equals(requestData.UserId) && x.SecoundUserId.Equals(requestData.FriendId)));
 
             friendRequest.ShouldNotBeNull();
-            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.pending_first_secound);
+            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.pending_first_second);
         }
 
         [Fact]
@@ -51,7 +53,7 @@
             };
             var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }
@@ -66,7 +68,7 @@
             };
             var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -81,7 +83,7 @@
             };
             var command = new SendFriendInvitationCommand(requestData);
 
-            var commandHandler = new SendFriendInvitationCommand.Handler(_context);
+            var commandHandler = new SendFriendInvitationCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
