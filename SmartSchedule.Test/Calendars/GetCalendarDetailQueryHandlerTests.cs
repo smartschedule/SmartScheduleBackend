@@ -9,7 +9,6 @@ namespace SmartSchedule.Test.Calendars
     using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

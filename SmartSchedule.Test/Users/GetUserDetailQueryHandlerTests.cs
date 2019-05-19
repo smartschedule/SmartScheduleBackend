@@ -7,7 +7,6 @@ namespace SmartSchedule.Test.Users
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

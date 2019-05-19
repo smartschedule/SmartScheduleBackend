@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.User.Commands.UpdateUser
 {
     using FluentValidation;
-    using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.User.Commands;
 
     public class UpdateUserCommandValidator : AbstractValidator<UpdateUserRequest>
     {

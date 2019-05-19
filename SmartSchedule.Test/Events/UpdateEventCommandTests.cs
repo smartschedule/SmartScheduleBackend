@@ -8,7 +8,6 @@
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

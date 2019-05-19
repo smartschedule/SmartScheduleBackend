@@ -3,8 +3,8 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Friends.Commands;
 
     public class RejectFriendRequestCommand : IRequest
     {

@@ -6,8 +6,6 @@
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
@@ -31,7 +29,7 @@
                 ColorHex = "#aabbcc"
             };
             var command = new UpdateCalendarCommand(requestData);
-       
+
             var commandHandler = new UpdateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);

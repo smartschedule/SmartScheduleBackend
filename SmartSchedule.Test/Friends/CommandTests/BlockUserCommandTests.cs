@@ -2,13 +2,11 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Friends.Commands.BlockUser;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
@@ -31,7 +29,7 @@
                 UserToBlock = 2
             };
             var command = new BlockUserCommand(requestData);
- 
+
             var commandHandler = new BlockUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);

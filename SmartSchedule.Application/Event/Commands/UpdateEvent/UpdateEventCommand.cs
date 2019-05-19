@@ -3,9 +3,9 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using ValidationException = FluentValidation.ValidationException;
 
     public class UpdateEventCommand : IRequest

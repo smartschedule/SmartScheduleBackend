@@ -4,7 +4,6 @@ namespace SmartSchedule.Api.Controllers
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.DTO.Common;
-    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;

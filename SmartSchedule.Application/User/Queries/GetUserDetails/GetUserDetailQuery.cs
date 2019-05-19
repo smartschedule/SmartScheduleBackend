@@ -3,10 +3,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class GetUserDetailQuery : IRequest<GetUserDetailResponse>
     {

@@ -1,12 +1,11 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.SendFriendInvitation
 {
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class SendFriendInvitationCommand : IRequest
     {

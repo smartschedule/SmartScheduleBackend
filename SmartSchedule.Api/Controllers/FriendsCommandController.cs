@@ -39,7 +39,7 @@ namespace SmartSchedule.Api.Controllers
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
                 RequestingUserId = requestingUserId
             };
-            var command = new AcceptFriendInvitationCommand(requestData);      
+            var command = new AcceptFriendInvitationCommand(requestData);
 
             return Ok(await Mediator.Send(command));
         }

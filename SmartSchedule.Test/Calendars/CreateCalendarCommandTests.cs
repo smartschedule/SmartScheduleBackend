@@ -2,12 +2,10 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
@@ -31,7 +29,7 @@
                 UserId = 8
             };
             var command = new CreateCalendarCommand(requestData);
-    
+
             var commandHandler = new CreateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);

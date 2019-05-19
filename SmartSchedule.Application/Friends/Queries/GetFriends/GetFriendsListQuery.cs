@@ -1,15 +1,14 @@
 ﻿namespace SmartSchedule.Application.Friends.Queries.GetFriends
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class GetFriendsListQuery : IRequest<FriendsListResponse>
     {

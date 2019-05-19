@@ -1,9 +1,9 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.UpdateEvent
 {
     using FluentValidation;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UpdateEventCommandValidator : AbstractValidator<UpdateEventRequest>
     {

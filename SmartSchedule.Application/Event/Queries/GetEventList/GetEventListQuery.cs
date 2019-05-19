@@ -3,11 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
-    using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
-    using static SmartSchedule.Application.DTO.Event.Queries.GetEventListResponse;
+    using SmartSchedule.Application.DTO.Event.Queries;
 
     public class GetEventListQuery : IRequest<GetEventListResponse>
     {
@@ -26,7 +24,7 @@
             {
                 return new GetEventListResponse
                 {
-                   // Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    // Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

@@ -4,8 +4,8 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Event.Commands;
 
     public class CreateEventCommand : IRequest
     {

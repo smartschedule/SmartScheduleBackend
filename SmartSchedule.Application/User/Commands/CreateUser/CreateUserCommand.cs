@@ -4,9 +4,9 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class CreateUserCommand : IRequest
     {

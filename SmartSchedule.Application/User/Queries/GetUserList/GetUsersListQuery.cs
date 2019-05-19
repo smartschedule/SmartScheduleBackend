@@ -3,11 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
-    using SmartSchedule.Application.DTO.User;
-    using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.User.Queries;
 
     public class GetUsersListQuery : IRequest<GetUsersListResponse>
     {
@@ -26,7 +24,7 @@
             {
                 return new GetUsersListResponse
                 {
-                   // Users = await _uow.UsersRepository.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    // Users = await _uow.UsersRepository.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
                 };
             }
         }

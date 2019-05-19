@@ -21,7 +21,7 @@
             entity.Modified = time;
 
             var createdEntity = _dbSet.Add(entity);
-            
+
             return createdEntity.Entity;
         }
 

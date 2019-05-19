@@ -1,14 +1,13 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
-    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using Application.DTO.Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
-    using Application.DTO.Common;
 
     public class UserController : BaseController
     {

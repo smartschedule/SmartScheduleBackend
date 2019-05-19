@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 {
     using FluentValidation;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
 
     public class AddFriendToCalendarCommandValidator : AbstractValidator<AddFriendToCalendarRequest>
     {

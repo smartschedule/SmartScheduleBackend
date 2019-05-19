@@ -1,8 +1,8 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.SendFriendInvitation
 {
     using FluentValidation;
-    using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Friends.Commands;
 
     public class SendFriendInvitationCommandValidator : AbstractValidator<SendFriendInvitationRequest>
     {

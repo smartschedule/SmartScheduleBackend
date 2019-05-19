@@ -11,7 +11,6 @@
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.User.Commands.DeleteUser;
     using SmartSchedule.Application.User.Commands.UpdateUser;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
@@ -91,7 +90,7 @@
                 Password = "123"
             };
             var command = new UpdateUserCommand(requestData);
-   
+
             var commandHandler = new UpdateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();

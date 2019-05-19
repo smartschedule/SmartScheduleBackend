@@ -4,8 +4,8 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Calendar.Commands;
 
     public class AddFriendToCalendarCommand : IRequest
     {

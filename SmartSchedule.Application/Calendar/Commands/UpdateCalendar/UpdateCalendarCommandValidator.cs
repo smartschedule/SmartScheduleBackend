@@ -1,9 +1,9 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
     using FluentValidation;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarRequest>
     {

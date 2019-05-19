@@ -5,7 +5,6 @@
     using System.Threading.Tasks;
     using SmartSchedule.Application.DAL.Interfaces.Repository;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
-    using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
 
     public interface IUnitOfWork : IDisposable

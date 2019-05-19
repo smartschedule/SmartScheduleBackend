@@ -7,7 +7,6 @@ namespace SmartSchedule.Test.Calendars
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

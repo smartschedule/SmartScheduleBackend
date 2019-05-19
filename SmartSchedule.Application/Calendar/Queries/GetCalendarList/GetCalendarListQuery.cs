@@ -3,11 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
-    using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
-    using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
+    using SmartSchedule.Application.DTO.Calendar.Queries;
 
     public class GetCalendarsListQuery : IRequest<GetCalendarListResponse>
     {

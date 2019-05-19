@@ -8,7 +8,6 @@
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.DTO.User.Commands;
     using SmartSchedule.Application.User.Commands.CreateUser;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

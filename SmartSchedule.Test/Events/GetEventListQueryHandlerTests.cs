@@ -7,7 +7,6 @@ namespace SmartSchedule.Test.Events
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Event.Queries.GetEventList;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 

@@ -3,12 +3,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using FluentValidation;
-    using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
