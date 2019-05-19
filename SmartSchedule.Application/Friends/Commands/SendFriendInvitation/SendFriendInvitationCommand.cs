@@ -43,13 +43,7 @@
                     throw new NotFoundException("User", data.FriendId);
                 }
 
-                var blockedList = await _uow.FriendsRepository.Where(x => (x.FirstUserId.Equals(data.UserId) && x.SecoundUserId.Equals(data.FriendId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
-                                                         || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
-                                                         || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.FriendId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
-                                                         || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))))
-                                                         .ToListAsync(cancellationToken);
+                var blockedList = await _uow.FriendsRepository.GetBlockedFriends(data.UserId, data.FriendId, cancellationToken);
                 if (blockedList.Count != 0)
                 {
                     throw new FluentValidation.ValidationException("The User whose you want to invite to friends is blocked or you are blocked by him!");

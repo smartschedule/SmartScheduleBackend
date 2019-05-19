@@ -40,13 +40,7 @@
             {
                 IdRequest data = request.Data;
 
-                var pendingList = await _uow.FriendsRepository.Where(x => (x.FirstUserId.Equals(data.Id)
-                                                             && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))
-                                                             || (x.SecoundUserId.Equals(data.Id)
-                                                             && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))))
-                                                             .Include(x => x.FirstUser)
-                                                             .Include(x => x.SecoundUser)
-                                                             .ToListAsync(cancellationToken);
+                var pendingList = await _uow.FriendsRepository.GetPendingFriends(data.Id, cancellationToken);
                 var friendsViewModel = new FriendsListResponse
                 {
                     Users = new List<UserLookupModel>()

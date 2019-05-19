@@ -80,7 +80,6 @@
             return await _dbSet.FirstOrDefaultAsync(cancellationToken);
         }
 
-
         public virtual Task<TEntity> GetByIdAsync(TId id)
         {
             return _dbSet.FindAsync(id);
