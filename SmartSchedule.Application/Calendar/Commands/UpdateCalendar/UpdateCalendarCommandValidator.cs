@@ -12,7 +12,7 @@
             RuleFor(x => x.Id).NotEmpty().WithMessage("You must set Id.");
             RuleFor(x => x.Id).MustAsync(async (request, val, token) =>
             {
-                var userResult = await uow.Calendars.FindAsync(val);
+                var userResult = await uow.CalendarsRepository.GetByIdAsync(val);
 
                 if (userResult == null)
                 {

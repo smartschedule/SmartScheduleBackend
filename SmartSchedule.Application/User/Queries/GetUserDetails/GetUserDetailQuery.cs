@@ -35,7 +35,7 @@
             {
                 IdRequest data = request.Data;
 
-                var entity = await _uow.Users.FindAsync(data.Id);
+                var entity = await _uow.UsersRepository.GetByIdAsync(data.Id);
 
                 if (entity == null)
                 {

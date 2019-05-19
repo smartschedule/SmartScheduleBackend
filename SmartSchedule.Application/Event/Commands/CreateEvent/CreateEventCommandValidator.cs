@@ -11,7 +11,7 @@
         {
             RuleFor(x => x.CalendarId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var userResult = await uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(val));
+                var userResult = await uow.CalendarsRepository.GetByIdAsync(val);
 
                 if (userResult == null)
                 {

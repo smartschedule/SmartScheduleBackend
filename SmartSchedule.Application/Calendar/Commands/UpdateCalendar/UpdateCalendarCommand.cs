@@ -41,11 +41,11 @@
                     throw new ValidationException(vResult.Errors);
                 }
 
-                var calendar = await _uow.Calendars.FindAsync(data.Id);
+                var calendar = await _uow.CalendarsRepository.GetByIdAsync(data.Id);
                 calendar.Name = data.Name;
                 calendar.ColorHex = data.ColorHex;
 
-                _uow.Calendars.Update(calendar);
+                _uow.CalendarsRepository.Update(calendar);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

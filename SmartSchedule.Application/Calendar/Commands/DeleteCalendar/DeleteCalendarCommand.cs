@@ -34,14 +34,13 @@
             {
                 IdRequest data = request.Data;
 
-                var calendar = await _uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
-
+                var calendar = await _uow.CalendarsRepository.GetByIdAsync(data.Id);
                 if (calendar == null)
                 {
                     throw new NotFoundException("Calendar", data.Id);
                 }
 
-                _uow.Calendars.Remove(calendar);
+                _uow.CalendarsRepository.Remove(calendar);
                 await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;

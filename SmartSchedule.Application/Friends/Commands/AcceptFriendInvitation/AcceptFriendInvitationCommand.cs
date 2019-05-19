@@ -32,7 +32,7 @@
             {
                 AcceptOrRejectFriendInvitationRequest data = request.Data;
 
-                var friendRequest = await _uow.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.RequestingUserId)
+                var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.RequestingUserId)
                                                                                 && x.SecoundUserId.Equals(data.RequestedUserId)
                                                                                 && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
                                                                                 || (x.FirstUserId.Equals(data.RequestedUserId)
@@ -46,7 +46,7 @@
                 }
 
                 friendRequest.Type = Domain.Enums.FriendshipTypes.friends;
-                _uow.Update(friendRequest);
+                _uow.FriendsRepository.Update(friendRequest);
 
                 await _uow.SaveChangesAsync();
 

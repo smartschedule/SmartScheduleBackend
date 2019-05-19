@@ -34,7 +34,7 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
             {
                 UnblockUserRequest data = request.Data;
 
-                var friendRequest = await _uow.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
                                                           && x.SecoundUserId.Equals(data.UserToUnblockId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
@@ -50,11 +50,11 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;
-                    _uow.Friends.Update(friendRequest);
+                    _uow.FriendsRepository.Update(friendRequest);
                 }
                 else
                 {
-                    _uow.Friends.Remove(friendRequest);
+                    _uow.FriendsRepository.Remove(friendRequest);
                 }
 
                 await _uow.SaveChangesAsync();

@@ -35,7 +35,7 @@
             {
                 IdRequest data = request.Data;
 
-                var entity = await _uow.Calendars.FindAsync(data.Id);
+                var entity = await _uow.CalendarsRepository.GetByIdAsync(data.Id);
 
                 if (entity == null)
                 {

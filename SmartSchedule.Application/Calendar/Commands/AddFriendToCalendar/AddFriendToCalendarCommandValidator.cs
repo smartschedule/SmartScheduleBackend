@@ -11,8 +11,7 @@
             RuleFor(x => x.UserId).NotEmpty().WithMessage("You must set UserId.");
             RuleFor(x => x.UserId).MustAsync(async (request, val, token) =>
             {
-                var userResult = await uow.Users.FirstOrDefaultAsync(x => x.Id.Equals(val));
-
+                var userResult = await uow.UsersRepository.GetByIdAsync(val);
                 if (userResult == null)
                 {
                     return false;
@@ -24,7 +23,7 @@
             RuleFor(x => x.CalendarId).NotEmpty().WithMessage("You must set CalendarId.");
             RuleFor(x => x.CalendarId).MustAsync(async (request, val, token) =>
             {
-                var calendarResult = await uow.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(val));
+                var calendarResult = await uow.CalendarsRepository.GetByIdAsync(val);
 
                 if (calendarResult == null)
                 {

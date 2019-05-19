@@ -34,7 +34,7 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
             {
                 AddFriendToCalendarRequest data = request.Data;
 
-                var userCalendar = await _uow.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
                                                                                        && x.UserId.Equals(data.UserId));
                 if (userCalendar != null)
                 {
@@ -53,7 +53,7 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
                     CalendarId = data.CalendarId,
                     UserId = data.UserId
                 };
-                _uow.UserCalendars.Add(entityUserCalendar);
+                _uow.UserCalendarsRepository.Add(entityUserCalendar);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

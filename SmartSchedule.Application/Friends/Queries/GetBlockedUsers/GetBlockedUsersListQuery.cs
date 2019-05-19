@@ -40,7 +40,7 @@
             {
                 IdRequest data = request.Data;
 
-                var blockedList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
+                var blockedList = await _uow.FriendsRepository.Where(x => (x.FirstUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                              || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                              || (x.SecoundUserId.Equals(data.Id)

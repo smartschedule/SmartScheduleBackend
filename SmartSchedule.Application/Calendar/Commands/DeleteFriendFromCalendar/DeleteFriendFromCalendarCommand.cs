@@ -34,7 +34,7 @@
             {
                 DeleteFriendFromCalendarRequest data = request.Data;
 
-                var userCalendar = await _uow.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
                                                                                     && x.UserId.Equals(data.UserId));
 
                 if (userCalendar == null)
@@ -42,7 +42,7 @@
                     throw new NotFoundException("UserCalendar", request);
                 }
 
-                _uow.UserCalendars.Remove(userCalendar);
+                _uow.UserCalendarsRepository.Remove(userCalendar);
                 await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;

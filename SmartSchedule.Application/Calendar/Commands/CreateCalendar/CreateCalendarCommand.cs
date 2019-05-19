@@ -46,14 +46,14 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
                     Name = data.Name,
                     ColorHex = data.ColorHex
                 };
-                _uow.Calendars.Add(entityCalendar);
+                _uow.CalendarsRepository.Add(entityCalendar);
 
                 var entityUserCalendar = new Domain.Entities.UserCalendar
                 {
                     CalendarId = entityCalendar.Id,
                     UserId = data.UserId
                 };
-                _uow.UserCalendars.Add(entityUserCalendar);
+                _uow.UserCalendarsRepository.Add(entityUserCalendar);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

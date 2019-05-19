@@ -37,13 +37,13 @@
 
 
                 //TODO: Refactor XD
-                var friend = await _uow.Users.FindAsync(data.FriendId);
+                var friend = await _uow.UsersRepository.GetByIdAsync(data.FriendId);
                 if (friend == null)
                 {
                     throw new NotFoundException("User", data.FriendId);
                 }
 
-                var blockedList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.UserId) && x.SecoundUserId.Equals(data.FriendId)
+                var blockedList = await _uow.FriendsRepository.Where(x => (x.FirstUserId.Equals(data.UserId) && x.SecoundUserId.Equals(data.FriendId)
                                                          && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                          || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.FriendId)
@@ -67,7 +67,7 @@
                     Type = Domain.Enums.FriendshipTypes.pending_first_secound
                 };
 
-                _uow.Friends.Add(entity);
+                _uow.FriendsRepository.Add(entity);
                 await _uow.SaveChangesAsync();
 
                 return await Unit.Task;

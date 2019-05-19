@@ -39,7 +39,7 @@
             {
                 IdRequest data = request.Data;
 
-                var friendRequestList = await _uow.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
+                var friendRequestList = await _uow.FriendsRepository.Where(x => (x.FirstUserId.Equals(data.Id)
                                                              && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
                                                              || (x.SecoundUserId.Equals(data.Id)
                                                              && (x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first))))

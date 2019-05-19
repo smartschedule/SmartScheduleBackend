@@ -47,7 +47,7 @@
                     Longitude = data.Longitude
                 };
 
-                var location = _uow.Locations.Add(entityLocation);
+                var location = _uow.LocationsRepository.Add(entityLocation);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
@@ -62,10 +62,10 @@
                     Name = data.Name,
                     ColorHex = data.ColorHex,
                     CalendarId = data.CalendarId,
-                    LocationId = location.Entity.Id
+                    LocationId = location.Id
                 };
 
-                _uow.Events.Add(entityEvent);
+                _uow.EventsRepository.Add(entityEvent);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 

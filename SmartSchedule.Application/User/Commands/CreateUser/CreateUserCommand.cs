@@ -43,7 +43,7 @@
                     Name = data.UserName,
                     Password = PasswordHelper.CreateHash(data.Password)
                 };
-                _uow.Users.Add(entity);
+                _uow.UsersRepository.Add(entity);
 
                 await _uow.SaveChangesAsync(cancellationToken);
 
