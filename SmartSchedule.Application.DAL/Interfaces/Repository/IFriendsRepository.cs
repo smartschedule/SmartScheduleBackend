@@ -12,5 +12,6 @@
         Task<List<Friends>> GetBlockedUsers(int userId, CancellationToken cancellationToken);
         Task<List<Friends>> GetFriends(int userId, CancellationToken cancellationToken);
         Task<List<Friends>> GetPendingFriends(int userId, CancellationToken cancellationToken);
+        Task<List<Friends>> GetPendingUserFriends(int userId, CancellationToken cancellationToken);
     }
 }

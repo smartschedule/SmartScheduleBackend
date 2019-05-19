@@ -40,7 +40,7 @@
                                                                             || (x.FirstUserId.Equals(requestData.UserId) && x.SecoundUserId.Equals(requestData.FriendId)));
 
             friendRequest.ShouldNotBeNull();
-            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.pending_first_secound);
+            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.pending_first_second);
         }
 
         [Fact]

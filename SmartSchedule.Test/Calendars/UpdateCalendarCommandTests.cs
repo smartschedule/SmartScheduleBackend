@@ -18,7 +18,7 @@
 
         public UpdateCalendarCommandTests(TestFixture fixture)
         {
-            _uow = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]

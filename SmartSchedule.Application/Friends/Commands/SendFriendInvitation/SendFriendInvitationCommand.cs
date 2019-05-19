@@ -58,7 +58,7 @@
                 {
                     FirstUserId = data.UserId,
                     SecoundUserId = data.FriendId,
-                    Type = Domain.Enums.FriendshipTypes.pending_first_secound
+                    Type = Domain.Enums.FriendshipTypes.pending_first_second
                 };
 
                 _uow.FriendsRepository.Add(entity);

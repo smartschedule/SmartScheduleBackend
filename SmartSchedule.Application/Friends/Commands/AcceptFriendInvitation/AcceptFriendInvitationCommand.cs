@@ -34,10 +34,10 @@
 
                 var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.RequestingUserId)
                                                                                 && x.SecoundUserId.Equals(data.RequestedUserId)
-                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_secound))
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_first_second))
                                                                                 || (x.FirstUserId.Equals(data.RequestedUserId)
                                                                                 && x.SecoundUserId.Equals(data.RequestingUserId))
-                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_secound_first)), cancellationToken);
+                                                                                && x.Type.Equals(Domain.Enums.FriendshipTypes.pending_second_first)), cancellationToken);
 
                 var vResult = new AcceptFriendInvitationCommandValidator(friendRequest).Validate(data);
                 if (!vResult.IsValid)

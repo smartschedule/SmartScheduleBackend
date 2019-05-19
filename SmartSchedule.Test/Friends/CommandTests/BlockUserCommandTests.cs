@@ -40,7 +40,7 @@
                                                                                 && x.SecoundUserId.Equals(requestData.UserToBlock));
 
             friendRequest.ShouldNotBeNull();
-            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.block_first_secound);
+            friendRequest.Type.ShouldBe(Domain.Enums.FriendshipTypes.block_first_second);
         }
 
         [Fact]

@@ -48,7 +48,7 @@
 
                 foreach (var item in pendingList)
                 {
-                    var user = item.Type == Domain.Enums.FriendshipTypes.pending_secound_first ?
+                    var user = item.Type == Domain.Enums.FriendshipTypes.pending_second_first ?
                         item.SecoundUser : item.FirstUser;
 
                     friendsViewModel.Users.Add(_mapper.Map<UserLookupModel>(user));

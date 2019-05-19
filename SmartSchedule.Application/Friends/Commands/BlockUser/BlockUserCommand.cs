@@ -51,16 +51,16 @@
                                                                                 || (x.FirstUserId.Equals(data.UserToBlock)
                                                                                 && x.SecoundUserId.Equals(data.UserId)));
 
-                if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
-                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
+                if (friendRequest != null && (friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_second)
+                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_second_first)))
                 {
                     friendRequest.Type = Domain.Enums.FriendshipTypes.block_both;
                     _uow.FriendsRepository.Update(friendRequest);
                 }
-                else if (friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
-                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)))
+                else if (friendRequest != null && !(friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_first_second)
+                                              || friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_second_first)))
                 {
-                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_secound;
+                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_first_second;
                     _uow.FriendsRepository.Update(friendRequest);
                 }
                 else
@@ -69,7 +69,7 @@
                     {
                         FirstUserId = data.UserId,
                         SecoundUserId = data.UserToBlock,
-                        Type = Domain.Enums.FriendshipTypes.block_scound_first
+                        Type = Domain.Enums.FriendshipTypes.block_second_first
                     };
                 }
 

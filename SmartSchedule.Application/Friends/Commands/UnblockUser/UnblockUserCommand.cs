@@ -36,10 +36,10 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 
                 var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
                                                           && x.SecoundUserId.Equals(data.UserToUnblockId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
+                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_second)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                          || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.UserToUnblockId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
+                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_second_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))));
 
                 if (friendRequest == null)
@@ -49,7 +49,7 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
                 else if (friendRequest.FirstUserId.Equals(data.UserId)
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
-                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;
+                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_second_first;
                     _uow.FriendsRepository.Update(friendRequest);
                 }
                 else

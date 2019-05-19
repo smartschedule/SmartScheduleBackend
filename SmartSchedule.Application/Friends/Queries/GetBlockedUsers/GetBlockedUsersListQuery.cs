@@ -48,7 +48,7 @@
 
                 foreach (var item in blockedList)
                 {
-                    var user = item.Type == Domain.Enums.FriendshipTypes.block_first_secound ?
+                    var user = item.Type == Domain.Enums.FriendshipTypes.block_first_second ?
                         item.SecoundUser : item.FirstUser;
                     if (item.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                     {
