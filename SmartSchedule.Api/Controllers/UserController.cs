@@ -6,10 +6,11 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.User.Commands.CreateUser;
+    using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
 
-    public class UserController : BaseController
+   public class UserController : BaseController
     {
         [HttpPost("/api/register")]
         public async Task<IActionResult> Registration([FromBody]CreateUserCommand user)
@@ -26,6 +27,13 @@
             var query = new GetUserDetailQuery(data);
 
             return Ok(await Mediator.Send(query));
+        }
+
+        [Authorize]
+        [HttpPost("/api/user/update")]
+        public async Task<IActionResult> UpdateUser([FromBody]UpdateUserCommand userCommand)
+        {
+            return Ok(await Mediator.Send(userCommand));
         }
 
         [Authorize]
