@@ -15,10 +15,12 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Api.Filters;
+    using SmartSchedule.Application.DAL.Interfaces;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
-    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
+    using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Persistence;
     using Swashbuckle.AspNetCore.Swagger;
@@ -70,7 +72,6 @@
                     IssuerSigningKey = new SymmetricSecurityKey(key),
                     ValidateIssuer = false,
                     ValidateAudience = false
-
                 };
             });
 
@@ -79,6 +80,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
             services.AddTransient<IJwtService, JwtService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Cors
             services.AddCors(options => //TODO: Change cors only to our server

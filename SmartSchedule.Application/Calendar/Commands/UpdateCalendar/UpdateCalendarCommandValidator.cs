@@ -1,18 +1,18 @@
 ﻿namespace SmartSchedule.Application.Calendar.Commands.UpdateCalendar
 {
     using FluentValidation;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
 
     public class UpdateCalendarCommandValidator : AbstractValidator<UpdateCalendarRequest>
     {
-        public UpdateCalendarCommandValidator(SmartScheduleDbContext context)
+        public UpdateCalendarCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.Id).NotEmpty().WithMessage("You must set Id.");
             RuleFor(x => x.Id).MustAsync(async (request, val, token) =>
             {
-                var userResult = await context.Calendars.FindAsync(val);
+                var userResult = await uow.CalendarsRepository.GetByIdAsync(val);
 
                 if (userResult == null)
                 {

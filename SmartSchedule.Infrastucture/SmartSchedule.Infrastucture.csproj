@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <ProjectGuid>{5D549240-BCA2-47D9-8776-D2C30886BA43}</ProjectGuid>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>

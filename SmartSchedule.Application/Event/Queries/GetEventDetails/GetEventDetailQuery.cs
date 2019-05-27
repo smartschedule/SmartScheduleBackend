@@ -3,10 +3,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class GetEventDetailQuery : IRequest<UpdateEventRequest>
     {
@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<GetEventDetailQuery, UpdateEventRequest>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<UpdateEventRequest> Handle(GetEventDetailQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var entity = await _context.Events.FindAsync(data.Id);
+                var entity = await _uow.EventsRepository.GetByIdAsync(data.Id);
 
                 if (entity == null)
                 {

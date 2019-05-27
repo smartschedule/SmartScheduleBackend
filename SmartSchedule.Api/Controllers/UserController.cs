@@ -1,5 +1,7 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
     using Application.DTO.Common;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -7,10 +9,8 @@
     using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
-    using System.Security.Claims;
-    using System.Threading.Tasks;
 
-    public class UserController : BaseController
+   public class UserController : BaseController
     {
         [HttpPost("/api/register")]
         public async Task<IActionResult> Registration([FromBody]CreateUserCommand user)

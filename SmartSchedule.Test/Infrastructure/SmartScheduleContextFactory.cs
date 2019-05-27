@@ -32,21 +32,21 @@
 
             context.Friends.AddRange(new[]
             {
-                new Domain.Entities.Friends {FirstUserId = 3, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.pending_first_secound},
-                new Domain.Entities.Friends {FirstUserId = 4, SecoundUserId = 2, Type = Domain.Enums.FriendshipTypes.pending_first_secound},
-                new Domain.Entities.Friends {FirstUserId = 2, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.pending_secound_first},
+                new Domain.Entities.Friends {FirstUserId = 3, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.pending_first_second},
+                new Domain.Entities.Friends {FirstUserId = 4, SecoundUserId = 2, Type = Domain.Enums.FriendshipTypes.pending_first_second},
+                new Domain.Entities.Friends {FirstUserId = 2, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.pending_second_first},
                 new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.friends },
                 new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.friends },
-                new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 2, Type = Domain.Enums.FriendshipTypes.block_first_secound },
-                new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 6, Type = Domain.Enums.FriendshipTypes.block_scound_first },
+                new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 2, Type = Domain.Enums.FriendshipTypes.block_first_second },
+                new Domain.Entities.Friends {FirstUserId = 5, SecoundUserId = 6, Type = Domain.Enums.FriendshipTypes.block_second_first },
                 new Domain.Entities.Friends {FirstUserId = 6, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.block_both },
                 new Domain.Entities.Friends {FirstUserId = 6, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.block_both },
                 new Domain.Entities.Friends {FirstUserId = 6, SecoundUserId = 2, Type = Domain.Enums.FriendshipTypes.friends },
-                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.pending_first_secound},
-                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 5, Type = Domain.Enums.FriendshipTypes.pending_first_secound},
-                new Domain.Entities.Friends {FirstUserId = 6, SecoundUserId = 7, Type = Domain.Enums.FriendshipTypes.pending_secound_first},
-                new Domain.Entities.Friends {FirstUserId = 2, SecoundUserId = 7, Type = Domain.Enums.FriendshipTypes.pending_first_secound},
-                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.pending_secound_first},
+                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 4, Type = Domain.Enums.FriendshipTypes.pending_first_second},
+                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 5, Type = Domain.Enums.FriendshipTypes.pending_first_second},
+                new Domain.Entities.Friends {FirstUserId = 6, SecoundUserId = 7, Type = Domain.Enums.FriendshipTypes.pending_second_first},
+                new Domain.Entities.Friends {FirstUserId = 2, SecoundUserId = 7, Type = Domain.Enums.FriendshipTypes.pending_first_second},
+                new Domain.Entities.Friends {FirstUserId = 7, SecoundUserId = 3, Type = Domain.Enums.FriendshipTypes.pending_second_first},
             });
 
             context.Calendars.AddRange(new[]

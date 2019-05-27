@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
+	<LangVersion>latest</LangVersion>
     <ProjectGuid>{614E1FA6-8DD0-4409-84D8-D7A51CDEE26A}</ProjectGuid>
   </PropertyGroup>
 
@@ -13,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\SmartSchedule.Application.DAL\SmartSchedule.Application.DAL.csproj" />
     <ProjectReference Include="..\SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj" />
-    <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

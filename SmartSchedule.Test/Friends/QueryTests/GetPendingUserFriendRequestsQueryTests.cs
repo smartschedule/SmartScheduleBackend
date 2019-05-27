@@ -4,29 +4,29 @@ namespace SmartSchedule.Test.Friends.QueryTests
     using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.Friends.Queries.GetPendingUserFriendRequests;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("FriendsTestCollection")]
     public class GetPendingUserFriendRequestsQueryTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
         private readonly IMapper _mapper;
 
         public GetPendingUserFriendRequestsQueryTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
             _mapper = fixture.Mapper;
         }
 
         [Fact]
         public async Task GetPendingUserFriendRequests()
         {
-            var sut = new GetPendingUserFriendRequestsQuery.Handler(_context, _mapper);
+            var sut = new GetPendingUserFriendRequestsQuery.Handler(_uow, _mapper);
 
             var result = await sut.Handle(new GetPendingUserFriendRequestsQuery(new IdRequest(7)), CancellationToken.None);
 

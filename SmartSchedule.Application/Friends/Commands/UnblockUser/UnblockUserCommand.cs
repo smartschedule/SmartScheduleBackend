@@ -3,10 +3,9 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class UnblockUserCommand : IRequest
     {
@@ -24,23 +23,23 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 
         public class Handler : IRequestHandler<UnblockUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(UnblockUserCommand request, CancellationToken cancellationToken)
             {
                 UnblockUserRequest data = request.Data;
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => (x.FirstUserId.Equals(data.UserId)
                                                           && x.SecoundUserId.Equals(data.UserToUnblockId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_secound)
+                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_first_second)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both)))
                                                          || (x.SecoundUserId.Equals(data.UserId) && x.FirstUserId.Equals(data.UserToUnblockId)
-                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_scound_first)
+                                                         && (x.Type.Equals(Domain.Enums.FriendshipTypes.block_second_first)
                                                          || x.Type.Equals(Domain.Enums.FriendshipTypes.block_both))));
 
                 if (friendRequest == null)
@@ -50,15 +49,15 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
                 else if (friendRequest.FirstUserId.Equals(data.UserId)
                     && friendRequest.Type.Equals(Domain.Enums.FriendshipTypes.block_both))
                 {
-                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_scound_first;
-                    _context.Friends.Update(friendRequest);
+                    friendRequest.Type = Domain.Enums.FriendshipTypes.block_second_first;
+                    _uow.FriendsRepository.Update(friendRequest);
                 }
                 else
                 {
-                    _context.Friends.Remove(friendRequest);
+                    _uow.FriendsRepository.Remove(friendRequest);
                 }
 
-                await _context.SaveChangesAsync();
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

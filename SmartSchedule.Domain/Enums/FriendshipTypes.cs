@@ -2,11 +2,11 @@
 {
     public enum FriendshipTypes
     {
-        pending_first_secound,
-        pending_secound_first,
+        pending_first_second,
+        pending_second_first,
         friends,
-        block_first_secound,
-        block_scound_first,
+        block_first_second,
+        block_second_first,
         block_both
     }
 }

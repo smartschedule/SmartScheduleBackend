@@ -9,10 +9,10 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
+    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Persistence;
 
     public class JwtService : IJwtService

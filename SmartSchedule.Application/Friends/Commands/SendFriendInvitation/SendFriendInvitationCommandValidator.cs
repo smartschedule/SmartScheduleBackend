@@ -1,17 +1,16 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.SendFriendInvitation
 {
     using FluentValidation;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
-    using SmartSchedule.Persistence;
 
     public class SendFriendInvitationCommandValidator : AbstractValidator<SendFriendInvitationRequest>
     {
-        public SendFriendInvitationCommandValidator(SmartScheduleDbContext context)
+        public SendFriendInvitationCommandValidator(IUnitOfWork uow)
         {
             RuleFor(x => x.FriendId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var friendRequest = await context.Friends.FirstOrDefaultAsync(x =>
+                var friendRequest = await uow.FriendsRepository.FirstOrDefaultAsync(x =>
                                         (x.FirstUserId.Equals(val) && x.SecoundUserId.Equals(request.UserId)));
 
                 if (friendRequest == null)
@@ -24,7 +23,7 @@
 
             RuleFor(x => x.UserId).NotEmpty().MustAsync(async (request, val, token) =>
             {
-                var friendRequest = await context.Friends.FirstOrDefaultAsync(x =>
+                var friendRequest = await uow.FriendsRepository.FirstOrDefaultAsync(x =>
                                          (x.FirstUserId.Equals(val) && x.SecoundUserId.Equals(request.FriendId)));
 
                 if (friendRequest == null)

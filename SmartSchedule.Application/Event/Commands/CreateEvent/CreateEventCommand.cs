@@ -4,8 +4,8 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
-    using SmartSchedule.Persistence;
 
     public class CreateEventCommand : IRequest
     {
@@ -23,18 +23,18 @@
 
         public class Handler : IRequestHandler<CreateEventCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(CreateEventCommand request, CancellationToken cancellationToken)
             {
                 CreateEventRequest data = request.Data;
 
-                var vResult = await new CreateEventCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new CreateEventCommandValidator(_uow).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -47,9 +47,9 @@
                     Longitude = data.Longitude
                 };
 
-                var location = _context.Locations.Add(entityLocation);
+                var location = _uow.LocationsRepository.Add(entityLocation);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 var entityEvent = new Domain.Entities.Event
                 {
@@ -62,12 +62,12 @@
                     Name = data.Name,
                     ColorHex = data.ColorHex,
                     CalendarId = data.CalendarId,
-                    LocationId = location.Entity.Id
+                    LocationId = location.Id
                 };
 
-                _context.Events.Add(entityEvent);
+                _uow.EventsRepository.Add(entityEvent);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

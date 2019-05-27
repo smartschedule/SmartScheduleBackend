@@ -2,22 +2,21 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.CreateCalendar;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class CreateCalendarCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public CreateCalendarCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -30,13 +29,13 @@
                 UserId = 8
             };
             var command = new CreateCalendarCommand(requestData);
-    
-            var commandHandler = new CreateCalendarCommand.Handler(_context);
+
+            var commandHandler = new CreateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Name.Equals(command.Data.Name));
-            var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.UserId.Equals(command.Data.UserId));
+            var calendar = await _uow.CalendarsRepository.FirstOrDefaultAsync(x => x.Name.Equals(command.Data.Name));
+            var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.UserId.Equals(command.Data.UserId));
 
             calendar.ShouldNotBeNull();
             userCalendar.ShouldNotBeNull();
@@ -53,7 +52,7 @@
             };
             var command = new CreateCalendarCommand(requestData);
 
-            var commandHandler = new CreateCalendarCommand.Handler(_context);
+            var commandHandler = new CreateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -69,7 +68,7 @@
             };
             var command = new CreateCalendarCommand(requestData);
 
-            var commandHandler = new CreateCalendarCommand.Handler(_context);
+            var commandHandler = new CreateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -93,7 +92,7 @@
             };
             var command = new CreateCalendarCommand(requestData);
 
-            var commandHandler = new CreateCalendarCommand.Handler(_context);
+            var commandHandler = new CreateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

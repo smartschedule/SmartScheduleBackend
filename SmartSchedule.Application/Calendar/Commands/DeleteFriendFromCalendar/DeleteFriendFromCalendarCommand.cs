@@ -3,10 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class DeleteFriendFromCalendarCommand : IRequest
     {
@@ -24,18 +23,18 @@
 
         public class Handler : IRequestHandler<DeleteFriendFromCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteFriendFromCalendarCommand request, CancellationToken cancellationToken)
             {
                 DeleteFriendFromCalendarRequest data = request.Data;
 
-                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
                                                                                     && x.UserId.Equals(data.UserId));
 
                 if (userCalendar == null)
@@ -43,8 +42,8 @@
                     throw new NotFoundException("UserCalendar", request);
                 }
 
-                _context.UserCalendars.Remove(userCalendar);
-                await _context.SaveChangesAsync(cancellationToken);
+                _uow.UserCalendarsRepository.Remove(userCalendar);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

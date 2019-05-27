@@ -3,21 +3,21 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class DeleteEventCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public DeleteEventCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -26,14 +26,14 @@
             var requestData = new IdRequest(2);
             var command = new DeleteEventCommand(requestData);
 
-            var eventE = await _context.Events.FindAsync(1);
+            var eventE = await _uow.EventsRepository.GetByIdAsync(1);
             eventE.ShouldNotBeNull();
 
-            var commandHandler = new DeleteEventCommand.Handler(_context);
+            var commandHandler = new DeleteEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var deletedEvent = await _context.Events.FindAsync(2);
+            var deletedEvent = await _uow.EventsRepository.GetByIdAsync(2);
 
             deletedEvent.ShouldBeNull();
         }
@@ -44,7 +44,7 @@
             var requestData = new IdRequest(100);
             var command = new DeleteEventCommand(requestData);
 
-            var commandHandler = new DeleteEventCommand.Handler(_context);
+            var commandHandler = new DeleteEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }

@@ -3,10 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class DeleteUserCommand : IRequest
     {
@@ -24,26 +23,26 @@
 
         public class Handler : IRequestHandler<DeleteUserCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var user = await _context.Users.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
+                var user = await _uow.UsersRepository.GetByIdAsync(data.Id);
 
                 if (user == null)
                 {
                     throw new NotFoundException("User", data.Id);
                 }
 
-                _context.Users.Remove(user);
-                await _context.SaveChangesAsync();
+                _uow.UsersRepository.Remove(user);
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

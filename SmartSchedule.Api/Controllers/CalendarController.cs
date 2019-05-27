@@ -13,7 +13,6 @@
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.DTO.Common;
 
     public class CalendarController : BaseController

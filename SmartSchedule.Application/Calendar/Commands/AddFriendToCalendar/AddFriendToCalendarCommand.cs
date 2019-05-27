@@ -4,9 +4,8 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Persistence;
 
     public class AddFriendToCalendarCommand : IRequest
     {
@@ -24,25 +23,25 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
 
         public class Handler : IRequestHandler<AddFriendToCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(AddFriendToCalendarCommand request, CancellationToken cancellationToken)
             {
                 AddFriendToCalendarRequest data = request.Data;
 
-                var userCalendar = await _context.UserCalendars.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
+                var userCalendar = await _uow.UserCalendarsRepository.FirstOrDefaultAsync(x => x.CalendarId.Equals(data.CalendarId)
                                                                                        && x.UserId.Equals(data.UserId));
                 if (userCalendar != null)
                 {
                     throw new ValidationException("This user is already added to this calendar");
                 }
 
-                var vResult = await new AddFriendToCalendarCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new AddFriendToCalendarCommandValidator(_uow).ValidateAsync(data, cancellationToken);
 
                 if (!vResult.IsValid)
                 {
@@ -54,9 +53,9 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
                     CalendarId = data.CalendarId,
                     UserId = data.UserId
                 };
-                _context.UserCalendars.Add(entityUserCalendar);
+                _uow.UserCalendarsRepository.Add(entityUserCalendar);
 
-                await _context.SaveChangesAsync(cancellationToken);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }
