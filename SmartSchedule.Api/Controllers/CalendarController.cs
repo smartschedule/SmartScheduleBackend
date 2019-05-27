@@ -18,7 +18,7 @@
     public class CalendarController : BaseController
     {
         [Authorize]
-        [HttpPost("/api/CreateCalendar")]
+        [HttpPost("/api/calendar/create")]
         public async Task<IActionResult> CreateCalendar([FromBody]CreateCalendarRequest calendar)
         {
             var command = new CreateCalendarCommand(calendar);
@@ -30,7 +30,7 @@
         }
 
         [Authorize]
-        [HttpPost("/api/DeleteCalendar")]
+        [HttpPost("/api/calendar/delete")]
         public async Task<IActionResult> DeleteCalendar([FromBody]IdRequest calendar)
         {
             var command = new DeleteCalendarCommand(calendar);
@@ -39,7 +39,7 @@
         }
 
         [Authorize]
-        [HttpPost("/api/UpdateCalendar")]
+        [HttpPost("/api/calendar/update")]
         public async Task<IActionResult> UpdateCalendar([FromBody]UpdateCalendarRequest calendar)
         {
             var command = new UpdateCalendarCommand(calendar);
@@ -48,7 +48,7 @@
         }
 
         [Authorize]
-        [HttpPost("/api/AddFriendToCalendar")]
+        [HttpPost("/api/calendar/addFriend")]
         public async Task<IActionResult> AddFriendToCalendar([FromBody]AddFriendToCalendarRequest calendar)
         {
             var command = new AddFriendToCalendarCommand(calendar);
@@ -57,7 +57,7 @@
         }
 
         [Authorize]
-        [HttpPost("/api/DeleteFriendFromCalendar")]
+        [HttpPost("/api/calendar/deleteFriend")]
         public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarRequest calendar)
         {
             var command = new DeleteFriendFromCalendarCommand(calendar);
@@ -66,7 +66,7 @@
         }
 
         [Authorize]
-        [HttpPost("/api/DeleteEventsFromCalendar")]
+        [HttpPost("/api/calendar/deleteEvents")]
         public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]IdRequest calendar)
         {
             var command = new DeleteEventsFromCalendarCommand(calendar);
