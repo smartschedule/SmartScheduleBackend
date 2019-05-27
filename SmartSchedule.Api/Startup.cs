@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Api
 {
+    using System.Collections.Generic;
     using System.Net;
     using System.Reflection;
     using System.Text;
@@ -106,12 +107,17 @@
                     Description = "Backend Api for SmartSchedule site",
                     TermsOfService = "None"
                 });
-                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+
+                c.AddSecurityDefinition("jwt", new ApiKeyScheme
                 {
-                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Description = "JWT Authorization header using the Bearer scheme. Use /api/login endpoint below to retrive token, then paste it to the textbox below in the following schema \"Bearer {token}\". Example: \"Bearer abcefghi12345\"",
                     Name = "Authorization",
                     In = "header",
                     Type = "apiKey"
+                });
+                c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                {
+                    {"jwt", new string[] { }},
                 });
             });
         }
