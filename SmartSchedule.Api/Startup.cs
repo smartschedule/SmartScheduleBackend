@@ -80,6 +80,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
             services.AddTransient<IJwtService, JwtService>();
+            services.AddScoped<DbContext, SmartScheduleDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             //Cors
@@ -104,6 +105,13 @@
                     Title = "SmartSchedule Api",
                     Description = "Backend Api for SmartSchedule site",
                     TermsOfService = "None"
+                });
+                c.AddSecurityDefinition("Bearer", new ApiKeyScheme
+                {
+                    Description = "JWT Authorization header using the Bearer scheme. Example: \"Authorization: Bearer {token}\"",
+                    Name = "Authorization",
+                    In = "header",
+                    Type = "apiKey"
                 });
             });
         }

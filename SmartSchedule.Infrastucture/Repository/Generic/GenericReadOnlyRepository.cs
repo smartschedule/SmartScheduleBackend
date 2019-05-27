@@ -12,12 +12,14 @@
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities.Base;
 
-    public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>
+    public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>, IDisposable
         where TEntity : class, IBaseEntity<TId>
         where TId : IComparable
     {
         protected readonly DbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
+
+        private bool _disposed;
 
         public GenericReadOnlyRepository(DbContext context)
         {
@@ -101,6 +103,12 @@
         public virtual async Task<IList<T>> ProjectTo<T>(IMapper mapper, CancellationToken cancellationToken)
         {
             return await _dbSet.ProjectTo<T>(mapper.ConfigurationProvider).ToListAsync(cancellationToken);
+        }
+
+        public void Dispose()
+        {
+            _disposed = true;
+            //_context.Dispose();
         }
     }
 }
