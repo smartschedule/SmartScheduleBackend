@@ -13,21 +13,21 @@ namespace SmartSchedule.Api.Controllers
     public class EventController : BaseController
     {
         [Authorize]
-        [HttpPost("/api/CreateEvent")]
+        [HttpPost("/api/event/create")]
         public async Task<IActionResult> CreateEvent([FromBody]CreateEventCommand eventCommand)
         {
             return Ok(await Mediator.Send(eventCommand));
         }
 
         [Authorize]
-        [HttpPost("/api/UpdateEvent")]
+        [HttpPost("/api/event/update")]
         public async Task<IActionResult> UpdateEvent([FromBody]UpdateEventCommand eventCommand)
         {
             return Ok(await Mediator.Send(eventCommand));
         }
 
         [Authorize]
-        [HttpPost("/api/DeleteEvent")]
+        [HttpPost("/api/event/delete")]
         public async Task<IActionResult> DeleteEvent([FromBody]DeleteEventCommand eventCommand)
         {
             return Ok(await Mediator.Send(eventCommand));
