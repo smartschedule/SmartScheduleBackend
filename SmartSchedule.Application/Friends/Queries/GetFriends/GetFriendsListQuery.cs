@@ -1,16 +1,14 @@
 ﻿namespace SmartSchedule.Application.Friends.Queries.GetFriends
 {
     using System.Collections.Generic;
-    using System.Linq;
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Queries;
     using SmartSchedule.Application.DTO.User;
-    using SmartSchedule.Persistence;
 
     public class GetFriendsListQuery : IRequest<FriendsListResponse>
     {
@@ -28,12 +26,12 @@
 
         public class Handler : IRequestHandler<GetFriendsListQuery, FriendsListResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(SmartScheduleDbContext context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -41,12 +39,7 @@
             {
                 IdRequest data = request.Data;
 
-                var friendsList = await _context.Friends.Where(x => (x.FirstUserId.Equals(data.Id)
-                                                             || x.SecoundUserId.Equals(data.Id))
-                                                             && x.Type.Equals(Domain.Enums.FriendshipTypes.friends))
-                                                             .Include(x => x.FirstUser)
-                                                             .Include(x => x.SecoundUser)
-                                                             .ToListAsync(cancellationToken);
+                var friendsList = await _uow.FriendsRepository.GetFriends(data.Id, cancellationToken);
                 var friendsViewModel = new FriendsListResponse
                 {
                     Users = new List<UserLookupModel>()

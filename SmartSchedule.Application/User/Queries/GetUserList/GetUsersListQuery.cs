@@ -3,23 +3,21 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.User;
     using SmartSchedule.Application.DTO.User.Queries;
-    using SmartSchedule.Persistence;
 
     public class GetUsersListQuery : IRequest<GetUsersListResponse>
     {
         public class Handler : IRequestHandler<GetUsersListQuery, GetUsersListResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(SmartScheduleDbContext context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -27,9 +25,10 @@
             {
                 return new GetUsersListResponse
                 {
-                    Users = await _context.Users.ProjectTo<UserLookupModel>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Users = await _uow.UsersRepository.ProjectTo<UserLookupModel>(_mapper, cancellationToken)
                 };
             }
         }
     }
 }
+

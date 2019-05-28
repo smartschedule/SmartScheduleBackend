@@ -1,11 +1,11 @@
 ﻿namespace SmartSchedule.Application.Friends.Commands.UnblockUser
 {
     using FluentValidation;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
 
     public class UnblockUserCommandValidator : AbstractValidator<UnblockUserCommand>
     {
-        public UnblockUserCommandValidator(SmartScheduleDbContext context)
+        public UnblockUserCommandValidator(IUnitOfWork uow)
         {
 
         }

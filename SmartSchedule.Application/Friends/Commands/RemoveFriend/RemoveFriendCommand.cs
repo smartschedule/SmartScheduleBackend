@@ -3,10 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class RemoveFriendCommand : IRequest
     {
@@ -24,24 +23,24 @@
 
         public class Handler : IRequestHandler<RemoveFriendCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(RemoveFriendCommand request, CancellationToken cancellationToken)
             {
                 RemoveFriendRequest data = request.Data;
 
-                var vResult = await new RemoveFriendCommandValidator(_context).ValidateAsync(data, cancellationToken);
+                var vResult = await new RemoveFriendCommandValidator(_uow).ValidateAsync(data, cancellationToken);
                 if (!vResult.IsValid)
                 {
                     throw new FluentValidation.ValidationException(vResult.Errors);
                 }
 
-                var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.UserId)
+                var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => ((x.FirstUserId.Equals(data.UserId)
                                                                                 && x.SecoundUserId.Equals(data.FriendId))
                                                                                 || (x.FirstUserId.Equals(data.FriendId)
                                                                                 && x.SecoundUserId.Equals(data.UserId)))
@@ -52,10 +51,10 @@
                 }
                 else
                 {
-                    _context.Friends.Remove(friendRequest);
+                    _uow.FriendsRepository.Remove(friendRequest);
                 }
 
-                await _context.SaveChangesAsync();
+                await _uow.SaveChangesAsync();
 
                 return await Unit.Task;
             }

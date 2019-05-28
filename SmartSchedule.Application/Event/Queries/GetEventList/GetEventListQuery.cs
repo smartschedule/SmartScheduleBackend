@@ -3,23 +3,21 @@
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
-    using AutoMapper.QueryableExtensions;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Queries;
-    using SmartSchedule.Persistence;
     using static SmartSchedule.Application.DTO.Event.Queries.GetEventListResponse;
 
     public class GetEventListQuery : IRequest<GetEventListResponse>
     {
         public class Handler : IRequestHandler<GetEventListQuery, GetEventListResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
 
-            public Handler(SmartScheduleDbContext context, IMapper mapper)
+            public Handler(IUnitOfWork uow, IMapper mapper)
             {
-                _context = context;
+                _uow = uow;
                 _mapper = mapper;
             }
 
@@ -27,7 +25,7 @@
             {
                 return new GetEventListResponse
                 {
-                    Events = await _context.Events.ProjectTo<EventDetails>(_mapper.ConfigurationProvider).ToListAsync(cancellationToken)
+                    Events = await _uow.EventsRepository.ProjectTo<EventDetails>(_mapper, cancellationToken)
                 };
             }
         }

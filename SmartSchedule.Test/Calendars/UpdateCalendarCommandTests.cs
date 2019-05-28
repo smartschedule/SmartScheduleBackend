@@ -4,20 +4,19 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class UpdateCalendarCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public UpdateCalendarCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -30,12 +29,12 @@
                 ColorHex = "#aabbcc"
             };
             var command = new UpdateCalendarCommand(requestData);
-       
-            var commandHandler = new UpdateCalendarCommand.Handler(_context);
+
+            var commandHandler = new UpdateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var calendar = await _context.Calendars.FindAsync(2);
+            var calendar = await _uow.CalendarsRepository.GetByIdAsync(2);
 
             calendar.Name.ShouldBe(command.Data.Name);
             calendar.ColorHex.ShouldBe(command.Data.ColorHex);
@@ -52,7 +51,7 @@
             };
             var command = new UpdateCalendarCommand(requestData);
 
-            var commandHandler = new UpdateCalendarCommand.Handler(_context);
+            var commandHandler = new UpdateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -68,7 +67,7 @@
             };
             var command = new UpdateCalendarCommand(requestData);
 
-            var commandHandler = new UpdateCalendarCommand.Handler(_context);
+            var commandHandler = new UpdateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -92,7 +91,7 @@
             };
             var command = new UpdateCalendarCommand(requestData);
 
-            var commandHandler = new UpdateCalendarCommand.Handler(_context);
+            var commandHandler = new UpdateCalendarCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

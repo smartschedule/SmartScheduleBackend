@@ -2,23 +2,22 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.EntityFrameworkCore;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Friends.Commands.UnblockUser;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("FriendsTestCollection")]
     public class UnblockUserCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public UnblockUserCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -31,11 +30,11 @@
             };
             var command = new UnblockUserCommand(requestData);
 
-            var commandHandler = new UnblockUserCommand.Handler(_context);
+            var commandHandler = new UnblockUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var friendRequest = await _context.Friends.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.UserId)
+            var friendRequest = await _uow.FriendsRepository.FirstOrDefaultAsync(x => x.FirstUserId.Equals(requestData.UserId)
                                                                                 && x.SecoundUserId.Equals(requestData.UserToUnblockId));
 
             friendRequest.ShouldBeNull();
@@ -50,8 +49,8 @@
                 UserToUnblockId = 222
             };
             var command = new UnblockUserCommand(requestData);
-          
-            var commandHandler = new UnblockUserCommand.Handler(_context);
+
+            var commandHandler = new UnblockUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
         }

@@ -2,28 +2,21 @@
 {
     using System.Threading;
     using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
     using Shouldly;
-    using SmartSchedule.Application.DTO.Authentication;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.User.Commands;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.User.Commands.CreateUser;
-    using SmartSchedule.Infrastucture.Authentication;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class CreateUserCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
-        private readonly IOptions<JwtSettings> _jwtSettings;
+        private readonly IUnitOfWork _uow;
+
         public CreateUserCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
-            _jwtSettings = fixture.JwtSettings;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -37,11 +30,11 @@
             };
             var command = new CreateUserCommand(requestData);
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
+            var commandHandler = new CreateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var user = await _context.Users.FindAsync(1);
+            var user = await _uow.UsersRepository.GetByIdAsync(1);
             user.ShouldNotBeNull();
             user.Name.ShouldBe(requestData.UserName);
         }
@@ -57,7 +50,7 @@
             };
             var command = new CreateUserCommand(requestData);
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
+            var commandHandler = new CreateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -73,7 +66,7 @@
             };
             var command = new CreateUserCommand(requestData);
 
-            var commandHandler = new CreateUserCommand.Handler(_context);
+            var commandHandler = new CreateUserCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }

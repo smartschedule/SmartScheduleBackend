@@ -3,10 +3,10 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.User.Queries;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class GetUserDetailQuery : IRequest<GetUserDetailResponse>
     {
@@ -24,18 +24,18 @@
 
         public class Handler : IRequestHandler<GetUserDetailQuery, GetUserDetailResponse>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<GetUserDetailResponse> Handle(GetUserDetailQuery request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var entity = await _context.Users.FindAsync(data.Id);
+                var entity = await _uow.UsersRepository.GetByIdAsync(data.Id);
 
                 if (entity == null)
                 {

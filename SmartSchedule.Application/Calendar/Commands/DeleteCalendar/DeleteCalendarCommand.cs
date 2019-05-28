@@ -3,10 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
 
     public class DeleteCalendarCommand : IRequest
     {
@@ -24,26 +23,25 @@
 
         public class Handler : IRequestHandler<DeleteCalendarCommand, Unit>
         {
-            private readonly SmartScheduleDbContext _context;
+            private readonly IUnitOfWork _uow;
 
-            public Handler(SmartScheduleDbContext context)
+            public Handler(IUnitOfWork uow)
             {
-                _context = context;
+                _uow = uow;
             }
 
             public async Task<Unit> Handle(DeleteCalendarCommand request, CancellationToken cancellationToken)
             {
                 IdRequest data = request.Data;
 
-                var calendar = await _context.Calendars.FirstOrDefaultAsync(x => x.Id.Equals(data.Id));
-
+                var calendar = await _uow.CalendarsRepository.GetByIdAsync(data.Id);
                 if (calendar == null)
                 {
                     throw new NotFoundException("Calendar", data.Id);
                 }
 
-                _context.Calendars.Remove(calendar);
-                await _context.SaveChangesAsync(cancellationToken);
+                _uow.CalendarsRepository.Remove(calendar);
+                await _uow.SaveChangesAsync(cancellationToken);
 
                 return await Unit.Task;
             }

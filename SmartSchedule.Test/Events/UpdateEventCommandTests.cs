@@ -4,21 +4,21 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Persistence;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]
     public class UpdateEventCommandTests
     {
-        private readonly SmartScheduleDbContext _context;
+        private readonly IUnitOfWork _uow;
 
         public UpdateEventCommandTests(TestFixture fixture)
         {
-            _context = fixture.Context;
+            _uow = fixture.UoW;
         }
 
         [Fact]
@@ -39,11 +39,11 @@
                 Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-            var commandHandler = new UpdateEventCommand.Handler(_context);
+            var commandHandler = new UpdateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None);
 
-            var eventE = await _context.Events.FindAsync(1);
+            var eventE = await _uow.EventsRepository.GetByIdAsync(1);
             eventE.ShouldNotBeNull();
 
             eventE.Name.ShouldBe(requestData.Name);
@@ -77,7 +77,7 @@
                 Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-            var commandHandler = new UpdateEventCommand.Handler(_context);
+            var commandHandler = new UpdateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<NotFoundException>();
 
@@ -102,7 +102,7 @@
             };
 
             var command = new UpdateEventCommand(requestData);
-            var commandHandler = new UpdateEventCommand.Handler(_context);
+            var commandHandler = new UpdateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -126,7 +126,7 @@
             };
 
             var command = new UpdateEventCommand(requestData);
-            var commandHandler = new UpdateEventCommand.Handler(_context);
+            var commandHandler = new UpdateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
@@ -157,7 +157,7 @@
                 Longitude = 59.27492F
             };
             var command = new UpdateEventCommand(requestData);
-            var commandHandler = new UpdateEventCommand.Handler(_context);
+            var commandHandler = new UpdateEventCommand.Handler(_uow);
 
             await commandHandler.Handle(command, CancellationToken.None).ShouldThrowAsync<FluentValidation.ValidationException>();
         }
