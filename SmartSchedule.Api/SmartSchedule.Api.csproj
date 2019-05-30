@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\SmartSchedule.Application.DTO\SmartSchedule.Application.DTO.csproj" />
     <ProjectReference Include="..\SmartSchedule.Application\SmartSchedule.Application.csproj" />
+    <ProjectReference Include="..\SmartSchedule.Common\SmartSchedule.Common.csproj" />
     <ProjectReference Include="..\SmartSchedule.Infrastucture\SmartSchedule.Infrastucture.csproj" />
     <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
