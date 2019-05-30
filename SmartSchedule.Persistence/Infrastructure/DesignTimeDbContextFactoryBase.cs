@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Design;
     using Microsoft.Extensions.Configuration;
+    using SmartSchedule.Common;
 
     public abstract class DesignTimeDbContextFactoryBase<TContext> :
          IDesignTimeDbContextFactory<TContext> where TContext : DbContext
@@ -24,15 +25,22 @@
         private TContext Create(string basePath, string environmentName)
         {
 
-            var configuration = new ConfigurationBuilder()
-                .SetBasePath(basePath)
-                .AddJsonFile("appsettings.json")    //Jeżeli pracujemy lokalnie, to zmieniamy na appsettings.Development.json
-                .AddJsonFile($"appsettings.Local.json", optional: true)
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
+                .SetBasePath(basePath);
+
+#pragma warning disable CS0162 // Unreachable code detected
+            if (GlobalConfig.DEBUG)
+                configurationBuilder.AddJsonFile("appsettings.Development.json");
+            else
+                configurationBuilder.AddJsonFile("appsettings.json");
+#pragma warning restore CS0162 // Unreachable code detected
+
+            var configurationRoot = configurationBuilder.AddJsonFile($"appsettings.Local.json", optional: true)
                 .AddJsonFile($"appsettings.{environmentName}.json", optional: true)
                 .AddEnvironmentVariables()
                 .Build();
 
-            var connectionString = configuration.GetConnectionString(ConnectionStringName);
+            var connectionString = configurationRoot.GetConnectionString(ConnectionStringName);
 
             return Create(connectionString);
         }
