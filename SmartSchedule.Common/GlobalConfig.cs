@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace SmartSchedule.Common
+﻿namespace SmartSchedule.Common
 {
     public static class GlobalConfig
     {
-        public const bool DEBUG = true;
+        public const bool DEV_MODE = false;
 
+        public const bool LOG_EVERYTHING_IN_DEV = false;
     }
 }

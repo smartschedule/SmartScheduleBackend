@@ -29,7 +29,7 @@
                 .SetBasePath(basePath);
 
 #pragma warning disable CS0162 // Unreachable code detected
-            if (GlobalConfig.DEBUG)
+            if (GlobalConfig.DEV_MODE)
                 configurationBuilder.AddJsonFile("appsettings.Development.json");
             else
                 configurationBuilder.AddJsonFile("appsettings.json");
