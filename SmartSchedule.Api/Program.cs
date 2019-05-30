@@ -5,7 +5,7 @@
     using Microsoft.AspNetCore.Hosting;
     using Serilog;
     using Serilog.Events;
-    using Serilog.Formatting.Json;
+    using Serilog.Exceptions;
     using Serilog.Sinks.SystemConsole.Themes;
     using SmartSchedule.Common;
 
@@ -19,9 +19,9 @@
         private static void Main(string[] args)
         {
             var loggerConfiguration = new LoggerConfiguration()
+                                         .Enrich.WithExceptionDetails()
                                          .Enrich.FromLogContext()
-                                         .Enrich.WithThreadId()
-                                         .Enrich.WithMemoryUsage();
+                                         .Enrich.WithThreadId();
 
 #pragma warning disable CS0162 // Unreachable code detected
             if (GlobalConfig.DEBUG)
@@ -30,7 +30,7 @@
                                    .MinimumLevel.Override("Microsoft", LogEventLevel.Verbose)
                                    .WriteTo.Async(a => a.Console(outputTemplate: SERILOG_CONSOLE_OUTPUT_TEMPLATE,
                                                                  theme: SystemConsoleTheme.Colored))
-                                   .WriteTo.Async(a => a.File("logs/smartschedule.log",
+                                   .WriteTo.Async(a => a.File("logs/dev.log",
                                                      outputTemplate: SERILOG_FILE_OUTPUT_TEMPLATE,
                                                      fileSizeLimitBytes: 1_000_000,
                                                      rollingInterval: RollingInterval.Day,
@@ -43,7 +43,7 @@
             {
                 loggerConfiguration.MinimumLevel.Verbose()
                                     .MinimumLevel.Override("Microsoft", LogEventLevel.Information)
-                                    .WriteTo.Async(a => a.File("logs/smartschedule.log",
+                                    .WriteTo.Async(a => a.File("logs/production.log",
                                                       outputTemplate: SERILOG_FILE_OUTPUT_TEMPLATE,
                                                       fileSizeLimitBytes: 1_000_000,
                                                       rollingInterval: RollingInterval.Day,
