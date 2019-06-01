@@ -19,8 +19,6 @@
         protected readonly DbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        private bool _disposed;
-
         public GenericReadOnlyRepository(DbContext context)
         {
             this._context = context;
@@ -47,14 +45,14 @@
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAllAsync(
-       Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             return await GetQueryable(null, orderBy).ToListAsync();
         }
 
         public virtual async Task<IEnumerable<TEntity>> GetAsync(
-        Expression<Func<TEntity, bool>> filter = null,
-        Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
+            Expression<Func<TEntity, bool>> filter = null,
+            Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>> orderBy = null)
         {
             return await GetQueryable(filter, orderBy).ToListAsync();
         }
@@ -107,7 +105,6 @@
 
         public void Dispose()
         {
-            _disposed = true;
             //_context.Dispose();
         }
     }
