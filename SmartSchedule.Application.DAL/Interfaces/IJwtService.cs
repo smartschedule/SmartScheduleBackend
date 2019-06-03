@@ -6,6 +6,6 @@
 
     public interface IJwtService
     {
-        Task<IActionResult> Login(LoginRequest model);
+        JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin);
     }
 }

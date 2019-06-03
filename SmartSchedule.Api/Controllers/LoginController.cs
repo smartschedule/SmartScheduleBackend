@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
+    using SmartSchedule.Application.User.Queries.Authentication;
 
     public class LoginController : BaseController
     {
@@ -17,7 +18,7 @@
         [HttpPost("/api/login")]
         public async Task<IActionResult> Login([FromBody]LoginRequest model)
         {
-            return await _jwt.Login(model);
+            return Ok(await Mediator.Send(new GetValidTokenQuery(model)));
         }
     }
 }

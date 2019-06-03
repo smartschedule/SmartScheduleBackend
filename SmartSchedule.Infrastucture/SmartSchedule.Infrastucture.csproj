@@ -18,7 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\SmartSchedule.Application\SmartSchedule.Application.csproj" />
-    <ProjectReference Include="..\SmartSchedule.Persistence\SmartSchedule.Persistence.csproj" />
   </ItemGroup>
 
   <ItemGroup>

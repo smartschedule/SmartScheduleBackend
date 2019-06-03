@@ -4,49 +4,24 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Security.Claims;
     using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
 
     public class JwtService : IJwtService
     {
-        private readonly SmartScheduleDbContext _context;
-        private readonly IOptions<JwtSettings> _jwt;
+        private readonly IOptions<JwtSettings> _settings;
 
-        public JwtService(SmartScheduleDbContext context, IOptions<JwtSettings> jwt)
+        public JwtService(IOptions<JwtSettings> settings)
         {
-            _context = context;
-            _jwt = jwt;
+            _settings = settings;
         }
 
-        public async Task<IActionResult> Login(LoginRequest model)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(model.Email));
-            if (user == null)
-            {
-                throw new NotFoundException(model.Email, -1);
-            }
-            else if (!PasswordHelper.ValidatePassword(model.Password, user.Password))
-            {
-                return new UnauthorizedResult();
-            }
-            else
-            {
-                return new ObjectResult(GenerateJwtToken(model.Email, user.Id, false));
-            }
-        }
-
-        private JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)
+        public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwt.Value.Key);
+            var key = Encoding.ASCII.GetBytes(_settings.Value.Key);
 
             var claims = new ClaimsIdentity(new Claim[]
                 {
@@ -56,7 +31,6 @@
             if (isAdmin)
             {
                 claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-                claims.AddClaim(new Claim(ClaimTypes.Role, "SuperAdmin"));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor
