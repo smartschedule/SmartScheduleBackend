@@ -6,12 +6,19 @@
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using SmartSchedule.Application.User.Commands.CreateUser;
+    using SmartSchedule.Application.User.Commands.ResetPassword;
     using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
 
    public class UserController : BaseController
     {
+        [HttpPost("/api/resetPassword/{token}")]
+        public async Task<IActionResult> ResetPassword(string token, [FromBody]string password)
+        {
+            return Ok(await Mediator.Send(new ResetPasswordCommand { Token = token, Password = password }));
+        }
+
         [HttpPost("/api/register")]
         public async Task<IActionResult> Registration([FromBody]CreateUserCommand user)
         {
@@ -22,6 +29,7 @@
         [HttpGet("/api/user/details")]
         public async Task<IActionResult> GetUserDetails()
         {
+            
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var data = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
             var query = new GetUserDetailQuery(data);
