@@ -35,7 +35,7 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpGet("/api/events")]
-        public async Task<IActionResult> GetCalendarsList()
+        public async Task<IActionResult> GetEventsList()
         {
             return Ok(await Mediator.Send(new GetEventListQuery()));
         }
