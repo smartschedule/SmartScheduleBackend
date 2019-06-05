@@ -2,8 +2,8 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.User.Queries.Authentication;
 
     public class LoginController : BaseController

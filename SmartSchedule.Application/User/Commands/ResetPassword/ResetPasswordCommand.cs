@@ -3,9 +3,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using MediatR;
-    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.Helpers;
+    using SmartSchedule.Application.Interfaces;
 
     public class ResetPasswordCommand : IRequest
     {
@@ -30,6 +30,8 @@
                 //TODO: ValidatePassword
 
                 user.Password = PasswordHelper.CreateHash(request.Password);
+                _uow.UsersRepository.Update(user);
+                await _uow.SaveChangesAsync();
 
                 return Unit.Value;
             }

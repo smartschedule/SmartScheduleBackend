@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using MediatR;
-using SmartSchedule.Application.DAL.Interfaces;
 using SmartSchedule.Application.DAL.Interfaces.UoW;
 using SmartSchedule.Application.DTO.Authentication;
 using SmartSchedule.Application.Exceptions;
 using SmartSchedule.Application.Helpers;
+using SmartSchedule.Application.Interfaces;
 
 namespace SmartSchedule.Application.User.Queries.Authentication
 {
@@ -20,7 +17,7 @@ namespace SmartSchedule.Application.User.Queries.Authentication
         {
             Login = login;
         }
-        public class Handler : IRequestHandler<GetValidTokenQuery,JwtTokenModel>
+        public class Handler : IRequestHandler<GetValidTokenQuery, JwtTokenModel>
         {
             private IUnitOfWork _uow;
             private IJwtService _jwt;

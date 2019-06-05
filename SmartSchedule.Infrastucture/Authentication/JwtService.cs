@@ -7,8 +7,8 @@
     using System.Text;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
+    using SmartSchedule.Application.Interfaces;
 
     public class JwtService : IJwtService
     {
@@ -24,7 +24,7 @@
 
         }
 
-        public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)
+        public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin = false, bool isReset = false)
         {
             var claims = new ClaimsIdentity(new Claim[]
                 {
@@ -35,6 +35,14 @@
             {
                 claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
             }
+            else if (isReset)
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, "ResetPassword"));
+            }
+            else
+            {
+                new Claim(ClaimTypes.Role, "User");
+            }
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
@@ -44,6 +52,7 @@
                 SecurityAlgorithms.HmacSha256Signature)
             };
             var result = _handler.CreateToken(tokenDescriptor);
+
 
             return new JwtTokenModel { Token = _handler.WriteToken(result), ValidTo = result.ValidTo };
         }

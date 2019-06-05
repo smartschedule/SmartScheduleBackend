@@ -16,10 +16,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Api.Filters;
-    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Infrastucture.Authentication;

@@ -8,11 +8,18 @@
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Application.User.Commands.ResetPassword;
     using SmartSchedule.Application.User.Commands.UpdateUser;
+    using SmartSchedule.Application.User.Queries.GetResetPasswordToken;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Application.User.Queries.GetUserList;
 
-   public class UserController : BaseController
+    public class UserController : BaseController
     {
+        [HttpPost("/api/resetPassword")]
+        public async Task<IActionResult> ResetPassword([FromBody]string email)
+        {
+            return Ok(Mediator.Send(new GetResetPasswordTokenQuery {Email = email }));
+        }
+
         [HttpPost("/api/resetPassword/{token}")]
         public async Task<IActionResult> ResetPassword(string token, [FromBody]string password)
         {
