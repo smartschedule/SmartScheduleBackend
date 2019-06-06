@@ -2,10 +2,10 @@
 {
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.Authentication.Commands.ResetPassword;
+    using SmartSchedule.Application.Authentication.Queries.Authentication;
+    using SmartSchedule.Application.Authentication.Queries.GetResetPasswordToken;
     using SmartSchedule.Application.DTO.Authentication.Queries;
-    using SmartSchedule.Application.User.Commands.ResetPassword;
-    using SmartSchedule.Application.User.Queries.Authentication;
-    using SmartSchedule.Application.User.Queries.GetResetPasswordToken;
 
     public class AuthenticationController : BaseController
     {

@@ -121,6 +121,7 @@
                     In = "header",
                     Type = "apiKey"
                 });
+
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 {
                     {"jwt", new string[] { }},

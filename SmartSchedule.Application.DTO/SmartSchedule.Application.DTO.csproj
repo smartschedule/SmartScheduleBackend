@@ -13,4 +13,8 @@
     <ProjectReference Include="..\SmartSchedule.Domain\SmartSchedule.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authentication\Commands\" />
+  </ItemGroup>
+
 </Project>
