@@ -1,14 +1,15 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using MediatR;
-using SmartSchedule.Application.DAL.Interfaces.UoW;
-using SmartSchedule.Application.DTO.Authentication;
-using SmartSchedule.Application.Exceptions;
-using SmartSchedule.Application.Helpers;
-using SmartSchedule.Application.Interfaces;
-
-namespace SmartSchedule.Application.User.Queries.Authentication
+﻿namespace SmartSchedule.Application.Authentication.Queries.Authentication
 {
+    using System.Threading;
+    using System.Threading.Tasks;
+    using MediatR;
+    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.DTO.Authentication;
+    using SmartSchedule.Application.DTO.Authentication.Queries;
+    using SmartSchedule.Application.Exceptions;
+    using SmartSchedule.Application.Helpers;
+    using SmartSchedule.Application.Interfaces;
+
     public class GetValidTokenQuery : IRequest<JwtTokenModel>
     {
         public LoginRequest Login { get; set; }

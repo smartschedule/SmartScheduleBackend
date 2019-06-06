@@ -1,5 +1,6 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
+    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -17,6 +18,7 @@
 
     public class CalendarController : BaseController
     {
+        #region Common
         [Authorize]
         [HttpPost("/api/calendar/create")]
         public async Task<IActionResult> CreateCalendar([FromBody]CreateCalendarRequest calendar)
@@ -51,27 +53,21 @@
         [HttpPost("/api/calendar/addFriend")]
         public async Task<IActionResult> AddFriendToCalendar([FromBody]AddFriendToCalendarRequest calendar)
         {
-            var command = new AddFriendToCalendarCommand(calendar);
-
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new AddFriendToCalendarCommand(calendar)));
         }
 
         [Authorize]
         [HttpPost("/api/calendar/deleteFriend")]
         public async Task<IActionResult> DeleteFriendFromCalendar([FromBody]DeleteFriendFromCalendarRequest calendar)
         {
-            var command = new DeleteFriendFromCalendarCommand(calendar);
-
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new DeleteFriendFromCalendarCommand(calendar)));
         }
 
         [Authorize]
         [HttpPost("/api/calendar/deleteEvents")]
         public async Task<IActionResult> DeleteEventsFromCalendar([FromBody]IdRequest calendar)
         {
-            var command = new DeleteEventsFromCalendarCommand(calendar);
-
-            return Ok(await Mediator.Send(command));
+            return Ok(await Mediator.Send(new DeleteEventsFromCalendarCommand(calendar)));
         }
 
         [Authorize]
@@ -89,5 +85,33 @@
 
             return Ok(await Mediator.Send(query));
         }
+        #endregion
+
+        #region Admin
+        [Authorize(Roles = "Admin")]
+        [HttpPost("/api/admin/calendar/create")]
+        public async Task<IActionResult> AdminCreateCalendar([FromBody]CreateCalendarRequest calendar)
+        {
+            return Ok(await Mediator.Send(new CreateCalendarCommand(calendar)));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/api/admin/calendars")]
+        public async Task<IActionResult> AdminGetAllCalendarsList()
+        {
+            //TODO
+            throw new NotImplementedException();
+            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/api/admin/user/calendars")]
+        public async Task<IActionResult> AdminGetUserCalendarsList([FromBody]IdRequest user)
+        {
+            //TODO
+            throw new NotImplementedException();
+            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+        }
+        #endregion
     }
 }

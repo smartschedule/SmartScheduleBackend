@@ -4,6 +4,7 @@ namespace SmartSchedule.Api.Controllers
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
+    using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.AcceptFriendInvitation;
     using SmartSchedule.Application.Friends.Commands.BlockUser;
@@ -14,15 +15,16 @@ namespace SmartSchedule.Api.Controllers
 
     public class FriendsCommandController : BaseController
     {
+        #region Common
         [Authorize]
         [HttpPost("/api/user/friendRequest")]
-        public async Task<IActionResult> CreateFriendRequest([FromBody]int friendId)
+        public async Task<IActionResult> CreateFriendRequest([FromBody]IdRequest friend)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new SendFriendInvitationRequest
             {
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                FriendId = friendId
+                FriendId = friend.Id
             };
             var command = new SendFriendInvitationCommand(requestData);
 
@@ -31,13 +33,13 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpPost("/api/user/acceptFriendRequest")]
-        public async Task<IActionResult> AcceptFriendRequest([FromBody]int requestingUserId)
+        public async Task<IActionResult> AcceptFriendRequest([FromBody]IdRequest requestingUser)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                RequestingUserId = requestingUserId
+                RequestingUserId = requestingUser.Id
             };
             var command = new AcceptFriendInvitationCommand(requestData);
 
@@ -46,13 +48,13 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpPost("/api/user/rejectFriendRequest")]
-        public async Task<IActionResult> RejectFriendRequest([FromBody]int requestingUserId)
+        public async Task<IActionResult> RejectFriendRequest([FromBody]IdRequest requestingUser)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new AcceptOrRejectFriendInvitationRequest
             {
                 RequestedUserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                RequestingUserId = requestingUserId
+                RequestingUserId = requestingUser.Id
             };
             var command = new RejectFriendRequestCommand(requestData);
 
@@ -61,13 +63,13 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpPost("/api/user/removeFriend")]
-        public async Task<IActionResult> RemoveFriend([FromBody]int friendId)
+        public async Task<IActionResult> RemoveFriend([FromBody]IdRequest friend)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new RemoveFriendRequest
             {
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                FriendId = friendId
+                FriendId = friend.Id
             };
             var command = new RemoveFriendCommand(requestData);
 
@@ -76,13 +78,13 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpPost("/api/user/blockUser")]
-        public async Task<IActionResult> BlockUser([FromBody]int userId)
+        public async Task<IActionResult> BlockUser([FromBody]IdRequest user)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new BlockUserRequest
             {
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                UserToBlock = userId
+                UserToBlock = user.Id
             };
             var command = new BlockUserCommand(requestData);
 
@@ -91,17 +93,18 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpPost("/api/user/unblockUser")]
-        public async Task<IActionResult> UnblockUser([FromBody]int userId)
+        public async Task<IActionResult> UnblockUser([FromBody]IdRequest user)
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var requestData = new UnblockUserRequest
             {
                 UserId = int.Parse(identity.FindFirst(ClaimTypes.UserData).Value),
-                UserToUnblockId = userId
+                UserToUnblockId = user.Id
             };
             var command = new UnblockUserCommand(requestData);
 
             return Ok(await Mediator.Send(command));
         }
+        #endregion
     }
 }

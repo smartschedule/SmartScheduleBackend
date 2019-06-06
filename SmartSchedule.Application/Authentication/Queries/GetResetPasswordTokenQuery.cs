@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.User.Queries.GetResetPasswordToken
+﻿namespace SmartSchedule.Application.Authentication.Queries.GetResetPasswordToken
 {
     using System;
     using System.Threading;

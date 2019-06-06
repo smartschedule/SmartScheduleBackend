@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.User.Commands.ResetPassword
+﻿namespace SmartSchedule.Application.Authentication.Commands.ResetPassword
 {
     using System.Threading;
     using System.Threading.Tasks;
