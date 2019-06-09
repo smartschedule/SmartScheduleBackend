@@ -31,6 +31,7 @@
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.UserData, id.ToString())
                 });
+
             if (isAdmin)
             {
                 claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
@@ -41,7 +42,7 @@
             }
             else
             {
-                new Claim(ClaimTypes.Role, "User");
+                claims.AddClaim(new Claim(ClaimTypes.Role, "User"));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor
@@ -51,6 +52,7 @@
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var result = _handler.CreateToken(tokenDescriptor);
 
 
@@ -76,9 +78,17 @@
         public int GetUserIdFromToken(string token)
         {
             var secToken = _handler.ReadJwtToken(token);
-            var claim = secToken.Claims.FirstOrDefault(x => x.Type.Equals(ClaimTypes.UserData));
+            var claim = secToken.Claims.FirstOrDefault(x => x.Type.Equals("userdata") || x.Type.Equals(ClaimTypes.UserData));
 
             return int.Parse(claim.Value);
+        }
+
+        public bool IsResetPasswordToken(string token)
+        {
+            var jwtToken = _handler.ReadJwtToken(token);
+            var claim = jwtToken.Claims.Where(x => x.Type.Equals("role") || x.Type.Equals(ClaimTypes.Role)).ToList();
+
+            return claim.FirstOrDefault(x => x.Value.Equals("ResetPassword")) != null;           
         }
     }
 }

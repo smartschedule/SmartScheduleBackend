@@ -15,15 +15,17 @@
     public class UserController : BaseController
     {
         [HttpPost("/api/resetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody]string email)
+        public async Task<IActionResult> ResetPassword([FromBody]GetResetPasswordTokenQuery request)
         {
-            return Ok(Mediator.Send(new GetResetPasswordTokenQuery {Email = email }));
+            return Ok(await Mediator.Send(request));
         }
 
         [HttpPost("/api/resetPassword/{token}")]
-        public async Task<IActionResult> ResetPassword(string token, [FromBody]string password)
+        public async Task<IActionResult> ResetPassword(string token, [FromBody]ResetPasswordCommand request)
         {
-            return Ok(await Mediator.Send(new ResetPasswordCommand { Token = token, Password = password }));
+            request.Token = token;
+
+            return Ok(await Mediator.Send(request));
         }
 
         [HttpPost("/api/register")]
@@ -32,7 +34,7 @@
             return Ok(await Mediator.Send(user));
         }
 
-        [Authorize]
+        [Authorize(Roles = "User")]
         [HttpGet("/api/user/details")]
         public async Task<IActionResult> GetUserDetails()
         {

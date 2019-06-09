@@ -4,6 +4,7 @@
     using System.Threading.Tasks;
     using MediatR;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Helpers;
     using SmartSchedule.Application.Interfaces;
 
@@ -25,6 +26,11 @@
             public async Task<Unit> Handle(ResetPasswordCommand request, CancellationToken cancellationToken)
             {
                 _jwt.ValidateStringToken(request.Token);
+                if(!_jwt.IsResetPasswordToken(request.Token))
+                {
+                    throw new ValidationException();
+                }
+
                 int userId = _jwt.GetUserIdFromToken(request.Token);
                 var user = await _uow.UsersRepository.FirstOrDefaultAsync(x => x.Id.Equals(userId));
                 //TODO: ValidatePassword

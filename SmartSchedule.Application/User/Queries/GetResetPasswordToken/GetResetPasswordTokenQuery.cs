@@ -15,15 +15,18 @@
 
         public class Handler : IRequestHandler<GetResetPasswordTokenQuery, string>
         {
-            private IUnitOfWork _uow;
-            private IHttpContextAccessor _context;
-            private IJwtService _jwt;
-            public Handler(IUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt)
+            private readonly IUnitOfWork _uow;
+            private readonly IHttpContextAccessor _context;
+            private readonly IJwtService _jwt;
+            private readonly IEmailService _email;
+            public Handler(IUnitOfWork uow, IHttpContextAccessor context, IJwtService jwt, IEmailService email)
             {
                 _context = context;
                 _uow = uow;
                 _jwt = jwt;
+                _email = email;
             }
+
             public async Task<string> Handle(GetResetPasswordTokenQuery request, CancellationToken cancellationToken)
             {
                 var uri = GetAbsoluteUri();
@@ -34,6 +37,7 @@
                     throw new NotFoundException("GetResetPasswordTokenQuery", request.Email);
                 }
                 string token = _jwt.GenerateJwtToken(user.Email, user.Id, false, true).Token;
+                await _email.SendEmail(user.Email, "Reset Password", uri.AbsoluteUri + "/" + token);
 
                 return uri.AbsoluteUri + "/" + token;
             }

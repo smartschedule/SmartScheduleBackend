@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Reflection;
+    using System.Security.Claims;
     using System.Text;
     using AutoMapper;
     using MediatR;
@@ -23,6 +24,7 @@
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Infrastucture.Authentication;
+    using SmartSchedule.Infrastucture.Email;
     using SmartSchedule.Persistence;
     using Swashbuckle.AspNetCore.Swagger;
 
@@ -76,6 +78,7 @@
                 };
             });
 
+
             //Database connection
             services.AddDbContext<SmartScheduleDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
@@ -83,6 +86,9 @@
             services.AddTransient<IJwtService, JwtService>();
             services.AddScoped<DbContext, SmartScheduleDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddTransient<IEmailService, EmailService>();
+
+            services.AddHttpContextAccessor();
 
             //Cors
             services.AddCors(options => //TODO: Change cors only to our server
