@@ -13,20 +13,6 @@
 
     public class UserController : BaseController
     {
-        [HttpPost("/api/resetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody]GetResetPasswordTokenQuery request)
-        {
-            return Ok(await Mediator.Send(request));
-        }
-
-        [HttpPost("/api/resetPassword/{token}")]
-        public async Task<IActionResult> ResetPassword(string token, [FromBody]ResetPasswordCommand request)
-        {
-            request.Token = token;
-
-            return Ok(await Mediator.Send(request));
-        }
-
         #region Common
         [HttpPost("/api/register")]
         public async Task<IActionResult> Registration([FromBody]CreateUserRequest user)

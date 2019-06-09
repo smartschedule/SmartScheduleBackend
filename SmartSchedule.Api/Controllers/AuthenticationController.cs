@@ -16,15 +16,17 @@
         }
 
         [HttpPost("/api/resetPassword")]
-        public async Task<IActionResult> ResetPassword([FromBody]string email)
+        public async Task<IActionResult> ResetPassword([FromBody]GetResetPasswordTokenQuery request)
         {
-            return Ok(await Mediator.Send(new GetResetPasswordTokenQuery { Email = email }));
+            return Ok(await Mediator.Send(request));
         }
 
         [HttpPost("/api/resetPassword/{token}")]
-        public async Task<IActionResult> ResetPassword(string token, [FromBody]string password)
+        public async Task<IActionResult> ResetPassword(string token, [FromBody]ResetPasswordCommand request)
         {
-            return Ok(await Mediator.Send(new ResetPasswordCommand(token, password)));
+            request.Token = token;
+
+            return Ok(await Mediator.Send(request));
         }
     }
 }
