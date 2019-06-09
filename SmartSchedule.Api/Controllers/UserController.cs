@@ -40,7 +40,6 @@
         [Authorize]
         [HttpGet("/api/friend/details/{id}")]
         [HttpGet("/api/user/details/{id}")]
-        [HttpGet("/api/admin/user/details/{id}")]
         public async Task<IActionResult> GetFriendDetails(int id)
         {
             var query = new GetUserDetailsQuery(new IdRequest(id));
