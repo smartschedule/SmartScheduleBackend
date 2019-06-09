@@ -12,11 +12,6 @@
     {
         public CreateUserRequest Data { get; set; }
 
-        public CreateUserCommand()
-        {
-
-        }
-
         public CreateUserCommand(CreateUserRequest data)
         {
             this.Data = data;

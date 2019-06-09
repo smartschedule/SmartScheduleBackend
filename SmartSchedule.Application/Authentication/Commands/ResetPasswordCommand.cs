@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.User.Commands.ResetPassword
+﻿namespace SmartSchedule.Application.Authentication.Commands.ResetPassword
 {
     using System.Threading;
     using System.Threading.Tasks;
@@ -12,6 +12,12 @@
     {
         public string Token { get; set; }
         public string Password { get; set; }
+
+        public ResetPasswordCommand(string token, string password)
+        {
+            Token = token;
+            Password = password;
+        }
 
         public class Handler : IRequestHandler<ResetPasswordCommand>
         {

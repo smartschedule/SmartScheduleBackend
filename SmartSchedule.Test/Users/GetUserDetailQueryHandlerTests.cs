@@ -23,9 +23,9 @@ namespace SmartSchedule.Test.Users
         [Fact]
         public async Task GetUserDetail()
         {
-            var sut = new GetUserDetailQuery.Handler(_uow);
+            var sut = new GetUserDetailsQuery.Handler(_uow);
 
-            var result = await sut.Handle(new GetUserDetailQuery(new IdRequest(2)), CancellationToken.None);
+            var result = await sut.Handle(new GetUserDetailsQuery(new IdRequest(2)), CancellationToken.None);
 
             result.ShouldBeOfType<GetUserDetailResponse>();
             result.Id.ShouldBe(2);

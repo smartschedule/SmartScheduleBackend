@@ -50,7 +50,7 @@
             });
 
             //Mediator
-            services.AddMediatR(typeof(GetUserDetailQuery.Handler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
@@ -121,6 +121,7 @@
                     In = "header",
                     Type = "apiKey"
                 });
+
                 c.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 {
                     {"jwt", new string[] { }},

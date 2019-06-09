@@ -12,6 +12,7 @@
 
     public class FriendsQueryController : BaseController
     {
+        #region Common
         [Authorize]
         [HttpGet("/api/user/getFriendsList")]
         public async Task<IActionResult> GetFriendsList()
@@ -55,5 +56,36 @@
 
             return Ok(await Mediator.Send(command));
         }
+        #endregion
+
+        #region Admin
+        [Authorize(Roles = "Admin")]
+        [HttpPost("/api/admin/user/getFriendsList")]
+        public async Task<IActionResult> AdminGetFriendsList([FromBody]IdRequest user)
+        {
+            return Ok(await Mediator.Send(new GetFriendsListQuery(user)));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("/api/admin/user/getBlockedUsers")]
+        public async Task<IActionResult> AdminGetBlockedUsersList([FromBody]IdRequest user)
+        {
+            return Ok(await Mediator.Send(new GetBlockedUsersListQuery(user)));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("/api/admin/user/getPendingUserFriendRequests")]
+        public async Task<IActionResult> AdminGetPendingUserFriendRequests([FromBody]IdRequest user)
+        {
+            return Ok(await Mediator.Send(new GetPendingUserFriendRequestsQuery(user)));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpPost("/api/admin/user/getUsersFriendRequests")]
+        public async Task<IActionResult> AdminGetUserFriendRequests([FromBody]IdRequest user)
+        {
+            return Ok(await Mediator.Send(new GetUserFriendRequestsQuery(user)));
+        }
+        #endregion
     }
 }

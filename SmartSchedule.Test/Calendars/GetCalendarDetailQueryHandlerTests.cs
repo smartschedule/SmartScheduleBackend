@@ -25,10 +25,10 @@ namespace SmartSchedule.Test.Calendars
         [Fact]
         public async Task GetCalendarDetail()
         {
-            var sut = new GetCalendarDetailQuery.Handler(_uow);
+            var sut = new GetCalendarDetailsQuery.Handler(_uow);
 
             var requestData = new IdRequest(2);
-            var result = await sut.Handle(new GetCalendarDetailQuery(requestData), CancellationToken.None);
+            var result = await sut.Handle(new GetCalendarDetailsQuery(requestData), CancellationToken.None);
 
             result.ShouldBeOfType<GetCalendarDetailResponse>();
             result.Id.ShouldBe(2);

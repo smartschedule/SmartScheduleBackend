@@ -10,11 +10,6 @@
     {
         public AcceptOrRejectFriendInvitationRequest Data { get; set; }
 
-        public AcceptFriendInvitationCommand()
-        {
-
-        }
-
         public AcceptFriendInvitationCommand(AcceptOrRejectFriendInvitationRequest data)
         {
             this.Data = data;

@@ -11,11 +11,6 @@
     {
         public UpdateCalendarRequest Data { get; set; }
 
-        public UpdateCalendarCommand()
-        {
-
-        }
-
         public UpdateCalendarCommand(UpdateCalendarRequest data)
         {
             this.Data = data;

@@ -11,11 +11,6 @@
     {
         public DeleteFriendFromCalendarRequest Data { get; set; }
 
-        public DeleteFriendFromCalendarCommand()
-        {
-
-        }
-
         public DeleteFriendFromCalendarCommand(DeleteFriendFromCalendarRequest data)
         {
             this.Data = data;

@@ -6,7 +6,7 @@ namespace SmartSchedule.Test.Events
     using Shouldly;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Queries;
-    using SmartSchedule.Application.Event.Queries.GetEventList;
+    using SmartSchedule.Application.Event.Queries.GetEvents;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
@@ -25,9 +25,9 @@ namespace SmartSchedule.Test.Events
         [Fact]
         public async Task GetEventsTest()
         {
-            var sut = new GetEventListQuery.Handler(_uow, _mapper);
+            var sut = new GetEventsQuery.Handler(_uow, _mapper);
 
-            var result = await sut.Handle(new GetEventListQuery(), CancellationToken.None);
+            var result = await sut.Handle(new GetEventsQuery(), CancellationToken.None);
 
             result.ShouldBeOfType<GetEventListResponse>();
         }

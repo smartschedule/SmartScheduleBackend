@@ -12,11 +12,6 @@
     {
         public UpdateUserRequest Data { get; set; }
 
-        public UpdateUserCommand()
-        {
-
-        }
-
         public UpdateUserCommand(UpdateUserRequest data)
         {
             this.Data = data;

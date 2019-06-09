@@ -11,11 +11,6 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
     {
         public CreateCalendarRequest Data { get; set; }
 
-        public CreateCalendarCommand()
-        {
-
-        }
-
         public CreateCalendarCommand(CreateCalendarRequest data)
         {
             this.Data = data;

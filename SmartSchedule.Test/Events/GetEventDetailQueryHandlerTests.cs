@@ -23,9 +23,9 @@ namespace SmartSchedule.Test.Events
         [Fact]
         public async Task GetEventDetail()
         {
-            var sut = new GetEventDetailQuery.Handler(_uow);
+            var sut = new GetEventDetailsQuery.Handler(_uow);
 
-            var result = await sut.Handle(new GetEventDetailQuery(new IdRequest(3)), CancellationToken.None);
+            var result = await sut.Handle(new GetEventDetailsQuery(new IdRequest(3)), CancellationToken.None);
 
             result.ShouldBeOfType<UpdateEventRequest>();
             result.Id.ShouldBe(3);
