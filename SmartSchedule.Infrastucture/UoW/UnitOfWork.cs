@@ -50,7 +50,7 @@
 
         private Hashtable _repositories;
 
-        public UnitOfWork(DbContext context)
+        public UnitOfWork(DbContext context) //IDbContext do napisania w Application i implementacja w Persistance
         {
             _context = context;
         }

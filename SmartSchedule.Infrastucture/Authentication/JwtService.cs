@@ -2,73 +2,93 @@
 {
     using System;
     using System.IdentityModel.Tokens.Jwt;
+    using System.Linq;
     using System.Security.Claims;
     using System.Text;
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
-    using SmartSchedule.Application.DAL.Interfaces;
     using SmartSchedule.Application.DTO.Authentication;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.Helpers;
-    using SmartSchedule.Persistence;
+    using SmartSchedule.Application.Interfaces;
 
     public class JwtService : IJwtService
     {
-        private readonly SmartScheduleDbContext _context;
-        private readonly IOptions<JwtSettings> _jwt;
+        private readonly IOptions<JwtSettings> _settings;
+        private JwtSecurityTokenHandler _handler;
+        private byte[] _key;
 
-        public JwtService(SmartScheduleDbContext context, IOptions<JwtSettings> jwt)
+        public JwtService(IOptions<JwtSettings> settings)
         {
-            _context = context;
-            _jwt = jwt;
+            _settings = settings;
+            _handler = new JwtSecurityTokenHandler();
+            _key = Encoding.ASCII.GetBytes(_settings.Value.Key);
+
         }
 
-        public async Task<IActionResult> Login(LoginRequest model)
+        public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin = false, bool isReset = false)
         {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email.Equals(model.Email));
-            if (user == null)
-            {
-                throw new NotFoundException(model.Email, -1);
-            }
-            else if (!PasswordHelper.ValidatePassword(model.Password, user.Password))
-            {
-                return new UnauthorizedResult();
-            }
-            else
-            {
-                return new ObjectResult(GenerateJwtToken(model.Email, user.Id, false));
-            }
-        }
-
-        private JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin)
-        {
-            var tokenHandler = new JwtSecurityTokenHandler();
-            var key = Encoding.ASCII.GetBytes(_jwt.Value.Key);
-
             var claims = new ClaimsIdentity(new Claim[]
                 {
                     new Claim(ClaimTypes.Email, email),
                     new Claim(ClaimTypes.UserData, id.ToString())
                 });
+
             if (isAdmin)
             {
                 claims.AddClaim(new Claim(ClaimTypes.Role, "Admin"));
-                claims.AddClaim(new Claim(ClaimTypes.Role, "SuperAdmin"));
+            }
+            else if (isReset)
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, "ResetPassword"));
+            }
+            else
+            {
+                claims.AddClaim(new Claim(ClaimTypes.Role, "User"));
             }
 
             var tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = claims,
                 Expires = DateTime.UtcNow.AddMinutes(20),
-                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key),
+                SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_key),
                 SecurityAlgorithms.HmacSha256Signature)
             };
-            var result = tokenHandler.CreateToken(tokenDescriptor);
+            JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+            var result = _handler.CreateToken(tokenDescriptor);
 
-            return new JwtTokenModel { Token = tokenHandler.WriteToken(result), ValidTo = result.ValidTo };
+
+            return new JwtTokenModel { Token = _handler.WriteToken(result), ValidTo = result.ValidTo };
+        }
+
+        public bool ValidateStringToken(string token)
+        {
+            var parameters = new TokenValidationParameters
+            {
+                ValidateLifetime = false,
+                ValidateAudience = false,
+                ValidateIssuer = false,
+                IssuerSigningKey = new SymmetricSecurityKey(_key)
+            };
+            SecurityToken securityToken;
+
+            _handler.ValidateToken(token, parameters, out securityToken);
+
+            return true;
+        }
+
+        public int GetUserIdFromToken(string token)
+        {
+            var secToken = _handler.ReadJwtToken(token);
+            var claim = secToken.Claims.FirstOrDefault(x => x.Type.Equals("userdata") || x.Type.Equals(ClaimTypes.UserData));
+
+            return int.Parse(claim.Value);
+        }
+
+        public bool IsResetPasswordToken(string token)
+        {
+            var jwtToken = _handler.ReadJwtToken(token);
+            var claim = jwtToken.Claims.Where(x => x.Type.Equals("role") || x.Type.Equals(ClaimTypes.Role)).ToList();
+
+            return claim.FirstOrDefault(x => x.Value.Equals("ResetPassword")) != null;           
         }
     }
 }
