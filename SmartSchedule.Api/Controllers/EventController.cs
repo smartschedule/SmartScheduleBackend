@@ -9,7 +9,7 @@ namespace SmartSchedule.Api.Controllers
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
     using SmartSchedule.Application.Event.Queries.GetEventDetails;
-    using SmartSchedule.Application.Event.Queries.GetEventList;
+    using SmartSchedule.Application.Event.Queries.GetEvents;
 
     public class EventController : BaseController
     {
@@ -39,7 +39,7 @@ namespace SmartSchedule.Api.Controllers
         [HttpGet("/api/events")]
         public async Task<IActionResult> GetEventsList()
         {
-            return Ok(await Mediator.Send(new GetEventListQuery()));
+            return Ok(await Mediator.Send(new GetEventsQuery()));
         }
 
         [Authorize]

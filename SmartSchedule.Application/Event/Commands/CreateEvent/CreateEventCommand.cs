@@ -11,11 +11,6 @@
     {
         public CreateEventRequest Data { get; set; }
 
-        public CreateEventCommand()
-        {
-
-        }
-
         public CreateEventCommand(CreateEventRequest data)
         {
             this.Data = data;

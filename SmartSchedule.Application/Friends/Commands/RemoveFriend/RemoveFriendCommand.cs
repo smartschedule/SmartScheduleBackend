@@ -11,11 +11,6 @@
     {
         public RemoveFriendRequest Data { get; set; }
 
-        public RemoveFriendCommand()
-        {
-
-        }
-
         public RemoveFriendCommand(RemoveFriendRequest data)
         {
             this.Data = data;

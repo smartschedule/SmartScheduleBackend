@@ -14,11 +14,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetPendingUserFriendRequestsQuery()
-        {
-
-        }
-
         public GetPendingUserFriendRequestsQuery(IdRequest data)
         {
             this.Data = data;

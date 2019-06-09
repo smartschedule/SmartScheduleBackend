@@ -12,11 +12,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetUserDetailQuery()
-        {
-
-        }
-
         public GetUserDetailQuery(IdRequest data)
         {
             this.Data = data;

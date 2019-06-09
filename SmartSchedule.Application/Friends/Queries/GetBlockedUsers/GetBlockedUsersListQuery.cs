@@ -14,11 +14,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetBlockedUsersListQuery()
-        {
-
-        }
-
         public GetBlockedUsersListQuery(IdRequest data)
         {
             this.Data = data;

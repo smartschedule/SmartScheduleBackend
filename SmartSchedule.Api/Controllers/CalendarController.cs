@@ -12,7 +12,8 @@
     using SmartSchedule.Application.Calendar.Commands.DeleteFriendFromCalendar;
     using SmartSchedule.Application.Calendar.Commands.UpdateCalendar;
     using SmartSchedule.Application.Calendar.Queries.GetCalendarDetails;
-    using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using SmartSchedule.Application.Calendar.Queries.GetCalendars;
+    using SmartSchedule.Application.Calendar.Queries.GetUserCalendars;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Application.DTO.Common;
 
@@ -74,7 +75,10 @@
         [HttpGet("/api/calendars")]
         public async Task<IActionResult> GetCalendarsList()
         {
-            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var userId = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+
+            return Ok(await Mediator.Send(new GetUserCalendarsQuery(userId)));
         }
 
         [Authorize]
@@ -99,7 +103,7 @@
         [HttpGet("/api/admin/calendars")]
         public async Task<IActionResult> AdminGetAllCalendarsList()
         {
-            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+            return Ok(await Mediator.Send(new GetCalendarsQuery()));
         }
 
         [Authorize(Roles = "Admin")]
@@ -108,7 +112,7 @@
         {
             //TODO
             throw new NotImplementedException();
-            return Ok(await Mediator.Send(new GetCalendarsListQuery()));
+            return Ok(await Mediator.Send(new GetCalendarsQuery()));
         }
         #endregion
     }

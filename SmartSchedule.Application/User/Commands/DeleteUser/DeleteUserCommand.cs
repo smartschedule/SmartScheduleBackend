@@ -11,11 +11,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public DeleteUserCommand()
-        {
-
-        }
-
         public DeleteUserCommand(IdRequest data)
         {
             this.Data = data;

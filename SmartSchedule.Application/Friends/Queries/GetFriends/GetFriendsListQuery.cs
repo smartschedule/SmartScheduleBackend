@@ -14,11 +14,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetFriendsListQuery()
-        {
-
-        }
-
         public GetFriendsListQuery(IdRequest data)
         {
             this.Data = data;

@@ -11,11 +11,6 @@
     {
         public SendFriendInvitationRequest Data { get; set; }
 
-        public SendFriendInvitationCommand()
-        {
-
-        }
-
         public SendFriendInvitationCommand(SendFriendInvitationRequest data)
         {
             this.Data = data;

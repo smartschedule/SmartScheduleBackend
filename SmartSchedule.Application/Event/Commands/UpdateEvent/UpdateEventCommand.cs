@@ -12,11 +12,6 @@ namespace SmartSchedule.Application.Event.Commands.UpdateEvent
     {
         public UpdateEventRequest Data { get; set; }
 
-        public UpdateEventCommand()
-        {
-
-        }
-
         public UpdateEventCommand(UpdateEventRequest data)
         {
             this.Data = data;

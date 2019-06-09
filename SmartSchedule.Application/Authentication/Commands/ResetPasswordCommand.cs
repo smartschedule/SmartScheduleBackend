@@ -13,6 +13,12 @@
         public string Token { get; set; }
         public string Password { get; set; }
 
+        public ResetPasswordCommand(string token, string password)
+        {
+            Token = token;
+            Password = password;
+        }
+
         public class Handler : IRequestHandler<ResetPasswordCommand>
         {
             private IUnitOfWork _uow;

@@ -11,11 +11,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public DeleteEventsFromCalendarCommand()
-        {
-
-        }
-
         public DeleteEventsFromCalendarCommand(IdRequest data)
         {
             this.Data = data;

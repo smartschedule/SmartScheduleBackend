@@ -1,16 +1,5 @@
 ﻿namespace SmartSchedule.Test.Users
 {
-    using System.Threading.Tasks;
-    using Microsoft.AspNetCore.Mvc;
-    using Microsoft.Extensions.Options;
-    using Shouldly;
-    using SmartSchedule.Application.DAL.Interfaces;
-    using SmartSchedule.Application.DTO.Authentication;
-    using SmartSchedule.Application.Exceptions;
-    using SmartSchedule.Application.User.Queries.Authentication;
-    using SmartSchedule.Infrastucture.Authentication;
-    using SmartSchedule.Persistence;
-    using SmartSchedule.Test.Infrastructure;
     using Xunit;
 
     [Collection("TestCollection")]

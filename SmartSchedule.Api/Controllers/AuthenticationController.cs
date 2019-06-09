@@ -24,7 +24,7 @@
         [HttpPost("/api/resetPassword/{token}")]
         public async Task<IActionResult> ResetPassword(string token, [FromBody]string password)
         {
-            return Ok(await Mediator.Send(new ResetPasswordCommand { Token = token, Password = password }));
+            return Ok(await Mediator.Send(new ResetPasswordCommand(token, password)));
         }
     }
 }

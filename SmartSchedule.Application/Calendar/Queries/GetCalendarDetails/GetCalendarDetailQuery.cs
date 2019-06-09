@@ -12,11 +12,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetCalendarDetailQuery()
-        {
-
-        }
-
         public GetCalendarDetailQuery(IdRequest data)
         {
             this.Data = data;

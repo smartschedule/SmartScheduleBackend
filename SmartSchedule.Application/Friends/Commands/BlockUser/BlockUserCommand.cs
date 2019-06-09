@@ -11,10 +11,6 @@
     {
         public BlockUserRequest Data { get; set; }
 
-        public BlockUserCommand()
-        {
-
-        }
 
         public BlockUserCommand(BlockUserRequest data)
         {

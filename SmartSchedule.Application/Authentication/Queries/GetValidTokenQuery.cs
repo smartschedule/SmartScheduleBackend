@@ -18,6 +18,7 @@
         {
             Login = login;
         }
+
         public class Handler : IRequestHandler<GetValidTokenQuery, JwtTokenModel>
         {
             private IUnitOfWork _uow;

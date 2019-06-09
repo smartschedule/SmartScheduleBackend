@@ -11,11 +11,6 @@ namespace SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar
     {
         public AddFriendToCalendarRequest Data { get; set; }
 
-        public AddFriendToCalendarCommand()
-        {
-
-        }
-
         public AddFriendToCalendarCommand(AddFriendToCalendarRequest data)
         {
             this.Data = data;

@@ -11,11 +11,6 @@ namespace SmartSchedule.Application.Friends.Commands.UnblockUser
     {
         public UnblockUserRequest Data { get; set; }
 
-        public UnblockUserCommand()
-        {
-
-        }
-
         public UnblockUserCommand(UnblockUserRequest data)
         {
             this.Data = data;

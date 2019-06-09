@@ -1,17 +1,26 @@
-﻿namespace SmartSchedule.Application.Calendar.Queries.GetUserCalendarList
+﻿namespace SmartSchedule.Application.Calendar.Queries.GetUserCalendars
 {
     using System.Threading;
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
-    using SmartSchedule.Application.Calendar.Queries.GetCalendarList;
+    using SmartSchedule.Application.Calendar.Queries.GetCalendars;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
+    using SmartSchedule.Application.DTO.Common;
     using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
 
-    public class GetUserCalendarsListQuery : IRequest<GetCalendarListResponse>
+    //TODO
+    public class GetUserCalendarsQuery : IRequest<GetCalendarListResponse>
     {
-        public class Handler : IRequestHandler<GetCalendarsListQuery, GetCalendarListResponse>
+        public IdRequest Data { get; set; }
+
+        public GetUserCalendarsQuery(IdRequest data)
+        {
+            this.Data = data;
+        }
+
+        public class Handler : IRequestHandler<GetCalendarsQuery, GetCalendarListResponse>
         {
             private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
@@ -22,7 +31,7 @@
                 _mapper = mapper;
             }
 
-            public async Task<GetCalendarListResponse> Handle(GetCalendarsListQuery request, CancellationToken cancellationToken)
+            public async Task<GetCalendarListResponse> Handle(GetCalendarsQuery request, CancellationToken cancellationToken)
             {
                 return new GetCalendarListResponse
                 {

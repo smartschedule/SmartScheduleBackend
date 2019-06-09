@@ -12,11 +12,6 @@
     {
         public IdRequest Data { get; set; }
 
-        public GetEventDetailQuery()
-        {
-
-        }
-
         public GetEventDetailQuery(IdRequest data)
         {
             this.Data = data;

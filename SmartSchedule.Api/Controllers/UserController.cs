@@ -9,7 +9,7 @@
     using SmartSchedule.Application.User.Commands.CreateUser;
     using SmartSchedule.Application.User.Commands.UpdateUser;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
-    using SmartSchedule.Application.User.Queries.GetUserList;
+    using SmartSchedule.Application.User.Queries.GetUsers;
 
     public class UserController : BaseController
     {
@@ -67,7 +67,7 @@
         [HttpGet("/api/users")]
         public async Task<IActionResult> GetUsersList()
         {
-            return Ok(await Mediator.Send(new GetUsersListQuery()));
+            return Ok(await Mediator.Send(new GetUsersQuery()));
         }
         #endregion
     }
