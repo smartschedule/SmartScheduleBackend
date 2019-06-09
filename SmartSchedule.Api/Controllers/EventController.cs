@@ -1,5 +1,6 @@
 namespace SmartSchedule.Api.Controllers
 {
+    using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
@@ -8,8 +9,10 @@ namespace SmartSchedule.Api.Controllers
     using SmartSchedule.Application.Event.Commands.CreateEvent;
     using SmartSchedule.Application.Event.Commands.DeleteEvent;
     using SmartSchedule.Application.Event.Commands.UpdateEvent;
+    using SmartSchedule.Application.Event.Queries.GetCalendarEvents;
     using SmartSchedule.Application.Event.Queries.GetEventDetails;
     using SmartSchedule.Application.Event.Queries.GetEvents;
+    using SmartSchedule.Application.Event.Queries.GetUserEvents;
 
     public class EventController : BaseController
     {
@@ -37,9 +40,19 @@ namespace SmartSchedule.Api.Controllers
 
         [Authorize]
         [HttpGet("/api/events")]
-        public async Task<IActionResult> GetEventsList()
+        public async Task<IActionResult> GetUserEvents()
         {
-            return Ok(await Mediator.Send(new GetEventsQuery()));
+            var identity = HttpContext.User.Identity as ClaimsIdentity;
+            var data = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
+
+            return Ok(await Mediator.Send(new GetUserEventsQuery(data)));
+        }
+
+        [Authorize]
+        [HttpGet("/api/calendar/events")]
+        public async Task<IActionResult> GetCalendarEvents([FromBody]IdRequest eventRequest)
+        {
+            return Ok(await Mediator.Send(new GetCalendarEventsQuery(eventRequest)));
         }
 
         [Authorize]
@@ -48,6 +61,22 @@ namespace SmartSchedule.Api.Controllers
         {
             var query = new GetEventDetailQuery(new IdRequest(id));
             return Ok(await Mediator.Send(query));
+        }
+        #endregion
+
+        #region Admin
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/api/admin/events")]
+        public async Task<IActionResult> AdminGetEvents()
+        {
+            return Ok(await Mediator.Send(new GetEventsQuery()));
+        }
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/api/admin/user/events")]
+        public async Task<IActionResult> AdminGetUserEvents([FromBody]IdRequest eventRequest)
+        {
+            return Ok(await Mediator.Send(new GetUserEventsQuery(eventRequest)));
         }
         #endregion
     }

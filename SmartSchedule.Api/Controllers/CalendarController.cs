@@ -1,6 +1,5 @@
 ﻿namespace SmartSchedule.Api.Controllers
 {
-    using System;
     using System.Security.Claims;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Authorization;
@@ -73,7 +72,7 @@
 
         [Authorize]
         [HttpGet("/api/calendars")]
-        public async Task<IActionResult> GetCalendarsList()
+        public async Task<IActionResult> GetCalendars()
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var userId = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
@@ -101,18 +100,16 @@
 
         [Authorize(Roles = "Admin")]
         [HttpGet("/api/admin/calendars")]
-        public async Task<IActionResult> AdminGetAllCalendarsList()
+        public async Task<IActionResult> AdminGetAllCalendars()
         {
             return Ok(await Mediator.Send(new GetCalendarsQuery()));
         }
 
         [Authorize(Roles = "Admin")]
         [HttpGet("/api/admin/user/calendars")]
-        public async Task<IActionResult> AdminGetUserCalendarsList([FromBody]IdRequest user)
+        public async Task<IActionResult> AdminGetUserCalendars([FromBody]IdRequest user)
         {
-            //TODO
-            throw new NotImplementedException();
-            return Ok(await Mediator.Send(new GetCalendarsQuery()));
+            return Ok(await Mediator.Send(new GetUserCalendarsQuery(user)));
         }
         #endregion
     }

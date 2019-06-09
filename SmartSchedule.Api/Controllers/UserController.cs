@@ -40,9 +40,8 @@
         {
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var data = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
-            var query = new GetUserDetailQuery(data);
 
-            return Ok(await Mediator.Send(query));
+            return Ok(await Mediator.Send(new GetUserDetailQuery(data)));
         }
 
         [Authorize]
