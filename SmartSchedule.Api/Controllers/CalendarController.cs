@@ -99,8 +99,6 @@
         [HttpGet("/api/admin/calendars")]
         public async Task<IActionResult> AdminGetAllCalendarsList()
         {
-            //TODO
-            throw new NotImplementedException();
             return Ok(await Mediator.Send(new GetCalendarsListQuery()));
         }
 
