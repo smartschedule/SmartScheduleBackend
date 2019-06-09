@@ -15,7 +15,7 @@ variables:
 steps:
 - script: dotnet tool install --global dotnet-sonarscanner
   displayName: 'Install sonarscanner'
-- script: %USERPROFILE%\.dotnet\tools\dotnet-sonarscanner begin /k:"adambajguz_SmartScheduleBackend" /o:"adambajguz-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="706c2a89d52059f9c0c70ffb2741e9263bcf39a4" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="/home/vsts/work/1/s/lcov.opencover.xml"
+- script: dotnet-sonarscanner begin /k:"adambajguz_SmartScheduleBackend" /o:"adambajguz-github" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.login="706c2a89d52059f9c0c70ffb2741e9263bcf39a4" /d:sonar.sourceEncoding="UTF-8" /d:sonar.language="cs" /d:sonar.exclusions="**/bin/**/*,**/obj/**/*" /d:sonar.cs.opencover.reportsPaths="/home/vsts/work/1/s/lcov.opencover.xml"
   displayName: 'Begin sonar scan'
 - script: dotnet restore
   displayName: 'Restore nuGet packages'
