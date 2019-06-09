@@ -41,7 +41,7 @@
             var identity = HttpContext.User.Identity as ClaimsIdentity;
             var data = new IdRequest(int.Parse(identity.FindFirst(ClaimTypes.UserData).Value));
 
-            return Ok(await Mediator.Send(new GetUserDetailQuery(data)));
+            return Ok(await Mediator.Send(new GetUserDetailsQuery(data)));
         }
 
         [Authorize]
@@ -57,7 +57,7 @@
         [HttpGet("/api/admin/user/details/{id}")]
         public async Task<IActionResult> GetFriendDetails(int id)
         {
-            var query = new GetUserDetailQuery(new IdRequest(id));
+            var query = new GetUserDetailsQuery(new IdRequest(id));
 
             return Ok(await Mediator.Send(query));
         }

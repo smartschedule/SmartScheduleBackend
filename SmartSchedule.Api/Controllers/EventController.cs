@@ -59,7 +59,7 @@ namespace SmartSchedule.Api.Controllers
         [HttpGet("/api/event/details/{id}")]
         public async Task<IActionResult> GetEventDetails(int id)
         {
-            var query = new GetEventDetailQuery(new IdRequest(id));
+            var query = new GetEventDetailsQuery(new IdRequest(id));
             return Ok(await Mediator.Send(query));
         }
         #endregion
@@ -77,6 +77,14 @@ namespace SmartSchedule.Api.Controllers
         public async Task<IActionResult> AdminGetUserEvents([FromBody]IdRequest eventRequest)
         {
             return Ok(await Mediator.Send(new GetUserEventsQuery(eventRequest)));
+        }
+
+
+        [Authorize(Roles = "Admin")]
+        [HttpGet("/api/admin/calendar/events")]
+        public async Task<IActionResult> AdminGetCalendarEvents([FromBody]IdRequest eventRequest)
+        {
+            return Ok(await Mediator.Send(new GetCalendarEventsQuery(eventRequest)));
         }
         #endregion
     }
