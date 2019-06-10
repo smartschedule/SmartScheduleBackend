@@ -49,46 +49,54 @@
             });
 
             //Mediator
-            services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
+            {
+                services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //jwt authentication configuration
             var jwtSettingsSection = Configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
 
-            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
-            services.AddAuthentication(x =>
+            //jwt authentication configuration
             {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
-                {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
+                var jwtSettingsSection = Configuration.GetSection("JwtSettings");
+                services.Configure<JwtSettings>(jwtSettingsSection);
 
+                var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+                var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
+                services.AddAuthentication(x =>
+                {
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            }
 
             //Database connection
-            services.AddDbContext<SmartScheduleDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
+            {
+                services.AddDbContext<SmartScheduleDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
-            services.AddTransient<IJwtService, JwtService>();
-            services.AddScoped<ISmartScheduleDbContext, SmartScheduleDbContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IEmailService, EmailService>();
+                services.AddTransient<IJwtService, JwtService>();
+                services.AddScoped<DbContext, SmartScheduleDbContext>();
+                services.AddScoped<IUnitOfWork, UnitOfWork>();
+                services.AddTransient<IEmailService, EmailService>();
 
-            services.AddHttpContextAccessor();
+                services.AddHttpContextAccessor();
+            }
 
             //Cors
             services.AddCors(options => //TODO: Change cors only to our server
@@ -104,6 +112,7 @@
                     });
             });
 
+            //swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info
