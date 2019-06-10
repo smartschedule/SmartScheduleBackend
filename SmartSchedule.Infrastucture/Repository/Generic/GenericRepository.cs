@@ -4,12 +4,13 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities.Base;
 
     public class GenericRepository<TEntity, TId> : GenericReadOnlyRepository<TEntity, TId>, IGenericRepository<TEntity, TId>
         where TEntity : class, IBaseEntity<TId> where TId : IComparable
     {
-        public GenericRepository(DbContext context) : base(context)
+        public GenericRepository(ISmartScheduleDbContext context) : base(context)
         {
 
         }
@@ -30,7 +31,7 @@
             entity.Modified = DateTime.UtcNow;
 
             _dbSet.Attach(entity);
-            _context.Entry(entity).State = EntityState.Modified;
+            ((DbContext)_context).Entry(entity).State = EntityState.Modified;
         }
 
         public virtual async Task Remove(TId id)
@@ -41,7 +42,7 @@
 
         public virtual void Remove(TEntity entity)
         {
-            if (_context.Entry(entity).State == EntityState.Detached)
+            if (((DbContext)_context).Entry(entity).State == EntityState.Detached)
             {
                 _dbSet.Attach(entity);
             }
@@ -51,7 +52,7 @@
 
         public virtual Task SaveAsync()
         {
-            return _context.SaveChangesAsync();
+            return ((DbContext)_context).SaveChangesAsync();
         }
     }
 }
