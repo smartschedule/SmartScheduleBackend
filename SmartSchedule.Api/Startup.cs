@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Reflection;
-    using System.Security.Claims;
     using System.Text;
     using AutoMapper;
     using MediatR;
@@ -50,45 +49,51 @@
             });
 
             //Mediator
-            services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
+            {
+                services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
 
-            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-            .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            }
+
             //jwt authentication configuration
-            var jwtSettingsSection = Configuration.GetSection("JwtSettings");
-            services.Configure<JwtSettings>(jwtSettingsSection);
+            {
+                var jwtSettingsSection = Configuration.GetSection("JwtSettings");
+                services.Configure<JwtSettings>(jwtSettingsSection);
 
-            var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-            var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
-            services.AddAuthentication(x =>
-            {
-                x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-                x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-            })
-            .AddJwtBearer(x =>
-            {
-                x.RequireHttpsMetadata = false;
-                x.SaveToken = true;
-                x.TokenValidationParameters = new TokenValidationParameters
+                var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
+                var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
+                services.AddAuthentication(x =>
                 {
-                    ValidateIssuerSigningKey = true,
-                    IssuerSigningKey = new SymmetricSecurityKey(key),
-                    ValidateIssuer = false,
-                    ValidateAudience = false
-                };
-            });
-
+                    x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                    x.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+                })
+                .AddJwtBearer(x =>
+                {
+                    x.RequireHttpsMetadata = false;
+                    x.SaveToken = true;
+                    x.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuerSigningKey = true,
+                        IssuerSigningKey = new SymmetricSecurityKey(key),
+                        ValidateIssuer = false,
+                        ValidateAudience = false
+                    };
+                });
+            }
 
             //Database connection
-            services.AddDbContext<SmartScheduleDbContext>(options =>
-                options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
+            {
+                services.AddDbContext<SmartScheduleDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
-            services.AddTransient<IJwtService, JwtService>();
-            services.AddScoped<DbContext, SmartScheduleDbContext>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
-            services.AddTransient<IEmailService, EmailService>();
+                services.AddTransient<IJwtService, JwtService>();
+                services.AddScoped<DbContext, SmartScheduleDbContext>();
+                services.AddScoped<IUnitOfWork, UnitOfWork>();
+                services.AddTransient<IEmailService, EmailService>();
 
-            services.AddHttpContextAccessor();
+                services.AddHttpContextAccessor();
+            }
 
             //Cors
             services.AddCors(options => //TODO: Change cors only to our server
@@ -104,6 +109,7 @@
                     });
             });
 
+            //swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info

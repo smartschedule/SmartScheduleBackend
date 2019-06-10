@@ -4,7 +4,6 @@
     using System.IdentityModel.Tokens.Jwt;
     using System.Linq;
     using System.Security.Claims;
-    using System.Text;
     using Microsoft.Extensions.Options;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Application.DTO.Authentication;
@@ -20,8 +19,7 @@
         {
             _settings = settings;
             _handler = new JwtSecurityTokenHandler();
-            _key = Encoding.ASCII.GetBytes(_settings.Value.Key);
-
+            _key = Base64UrlEncoder.DecodeBytes(_settings.Value.Key);
         }
 
         public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin = false, bool isReset = false)
@@ -50,7 +48,7 @@
                 Subject = claims,
                 Expires = DateTime.UtcNow.AddMinutes(20),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(_key),
-                SecurityAlgorithms.HmacSha256Signature)
+                SecurityAlgorithms.HmacSha512Signature)
             };
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var result = _handler.CreateToken(tokenDescriptor);
@@ -88,7 +86,7 @@
             var jwtToken = _handler.ReadJwtToken(token);
             var claim = jwtToken.Claims.Where(x => x.Type.Equals("role") || x.Type.Equals(ClaimTypes.Role)).ToList();
 
-            return claim.FirstOrDefault(x => x.Value.Equals("ResetPassword")) != null;           
+            return claim.FirstOrDefault(x => x.Value.Equals("ResetPassword")) != null;
         }
     }
 }
