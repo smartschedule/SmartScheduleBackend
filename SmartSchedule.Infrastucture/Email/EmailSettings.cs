@@ -1,6 +1,6 @@
 ﻿namespace SmartSchedule.Infrastucture.Email
 {
-    public class EmailSettings
+    public sealed class EmailSettings
     {
         public string SmtpClient { get; set; }
         public string EmailAddress { get; set; }
