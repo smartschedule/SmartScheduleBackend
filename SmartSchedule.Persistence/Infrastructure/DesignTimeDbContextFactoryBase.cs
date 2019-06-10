@@ -25,8 +25,7 @@
         private TContext Create(string basePath, string environmentName)
         {
 
-            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder()
-                .SetBasePath(basePath);
+            IConfigurationBuilder configurationBuilder = new ConfigurationBuilder().SetBasePath(basePath);
 
 #pragma warning disable CS0162 // Unreachable code detected
             if (GlobalConfig.DEV_MODE)
