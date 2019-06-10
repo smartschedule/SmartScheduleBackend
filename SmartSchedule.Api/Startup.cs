@@ -56,6 +56,12 @@
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             }
 
+            //email configruation
+            {
+                var emailSettings = Configuration.GetSection("EmailSettings");
+                services.Configure<EmailSettings>(emailSettings);
+            }
+
             //jwt authentication configuration
             {
                 var jwtSettingsSection = Configuration.GetSection("JwtSettings");
