@@ -19,6 +19,7 @@ steps:
   enabled: "true"
   inputs:
     packageType: 'sdk'
+    version: 2.2.300
 
 - script: dotnet tool install --global dotnet-sonarscanner
   displayName: 'Install sonarscanner'
