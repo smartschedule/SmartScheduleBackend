@@ -105,7 +105,7 @@
                                rollingInterval: RollingInterval.Day,
                                rollOnFileSizeLimit: true,
                                flushToDiskInterval: TimeSpan.FromSeconds(loggerSettigns.FlushIntervalInSeconds),
-                               retainedFileCountLimit: 64,
+                               retainedFileCountLimit: loggerSettigns.RetainedFileCountLimit,
                                shared: true);
         }
 
