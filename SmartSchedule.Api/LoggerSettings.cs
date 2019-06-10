@@ -14,5 +14,6 @@
 
         public string ConsoleOutputTemplate { get; set; }
 
+        public bool LogEverythingInDev { get; set; }
     }
 }

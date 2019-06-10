@@ -39,7 +39,7 @@
 #pragma warning disable CS0162 // Unreachable code detected
             if (GlobalConfig.DEV_MODE)
             {
-                if (GlobalConfig.LOG_EVERYTHING_IN_DEV)
+                if (loggerSettigns.LogEverythingInDev)
                     loggerConfiguration.MinimumLevel.Verbose();
                 else
                     loggerConfiguration.MinimumLevel.Information();
@@ -52,7 +52,6 @@
             }
 #pragma warning restore CS0162 // Unreachable code detected
 
-
             Log.Logger = loggerConfiguration.WriteTo.Async(WriteToFile(loggerSettigns))
                                             .CreateLogger();
 
@@ -62,7 +61,7 @@
                 if (GlobalConfig.DEV_MODE)
                 {
                     Log.Warning("DEVelopment mode enabled!");
-                    if (GlobalConfig.LOG_EVERYTHING_IN_DEV)
+                    if (loggerSettigns.LogEverythingInDev)
                         Log.Warning("Verbose logging mode enabled!");
                 }
                 else
