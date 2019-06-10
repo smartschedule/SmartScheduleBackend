@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Reflection;
-    using System.Security.Claims;
     using System.Text;
     using AutoMapper;
     using MediatR;
@@ -54,6 +53,7 @@
 
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
             //jwt authentication configuration
             var jwtSettingsSection = Configuration.GetSection("JwtSettings");
             services.Configure<JwtSettings>(jwtSettingsSection);
@@ -84,7 +84,7 @@
                 options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
             services.AddTransient<IJwtService, JwtService>();
-            services.AddScoped<DbContext, SmartScheduleDbContext>();
+            services.AddScoped<ISmartScheduleDbContext, SmartScheduleDbContext>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddTransient<IEmailService, EmailService>();
 
