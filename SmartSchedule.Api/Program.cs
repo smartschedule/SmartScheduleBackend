@@ -26,10 +26,7 @@
                     configuration.AddJsonFile("appsettings.json");
 #pragma warning restore CS0162 // Unreachable code detected
 
-                var buildedConfiguration = configuration.AddEnvironmentVariables()
-                                                        .Build();
-
-                loggerSettigns = buildedConfiguration.GetSection("LoggerSettings").Get<LoggerSettings>();
+                loggerSettigns = configuration.Build().GetSection("LoggerSettings").Get<LoggerSettings>();
             }
 
             var loggerConfiguration = new LoggerConfiguration()
