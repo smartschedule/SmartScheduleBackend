@@ -1,6 +1,6 @@
 ﻿namespace SmartSchedule.Api
 {
-    public class LoggerSettings
+    public sealed class LoggerSettings
     {
         public string FilePath { get; set; }
         public string FileNameTemplate { get; set; }

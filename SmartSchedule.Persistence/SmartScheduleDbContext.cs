@@ -8,6 +8,7 @@
     {
         public SmartScheduleDbContext(DbContextOptions<SmartScheduleDbContext> options) : base(options)
         {
+
         }
 
         public virtual DbSet<User> Users { get; set; }

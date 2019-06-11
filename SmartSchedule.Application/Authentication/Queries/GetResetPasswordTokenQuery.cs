@@ -8,6 +8,7 @@
     using SmartSchedule.Application.DAL.Interfaces.UoW;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Common;
 
     public class GetResetPasswordTokenQuery : IRequest<string>
     {
@@ -39,7 +40,12 @@
                 string token = _jwt.GenerateJwtToken(user.Email, user.Id, false, true).Token;
                 await _email.SendEmail(user.Email, "Reset Password", uri.AbsoluteUri + "/" + token);
 
-                return uri.AbsoluteUri + "/" + token;
+#pragma warning disable CS0162 // Unreachable code detected
+                if (GlobalConfig.DEV_MODE)
+                    return uri.AbsoluteUri + "/" + token;
+
+                return "e-mail sent";
+#pragma warning restore CS0162 // Unreachable code detected
             }
 
             private Uri GetAbsoluteUri()

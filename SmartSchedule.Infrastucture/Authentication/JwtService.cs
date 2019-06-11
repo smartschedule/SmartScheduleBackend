@@ -11,15 +11,15 @@
 
     public class JwtService : IJwtService
     {
-        private readonly IOptions<JwtSettings> _settings;
+        private readonly JwtSettings _settings;
+        private readonly byte[] _key;
         private JwtSecurityTokenHandler _handler;
-        private byte[] _key;
 
         public JwtService(IOptions<JwtSettings> settings)
         {
-            _settings = settings;
+            _settings = settings.Value;
+            _key = Base64UrlEncoder.DecodeBytes(_settings.Key);
             _handler = new JwtSecurityTokenHandler();
-            _key = Base64UrlEncoder.DecodeBytes(_settings.Value.Key);
         }
 
         public JwtTokenModel GenerateJwtToken(string email, int id, bool isAdmin = false, bool isReset = false)
@@ -53,7 +53,6 @@
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var result = _handler.CreateToken(tokenDescriptor);
 
-
             return new JwtTokenModel { Token = _handler.WriteToken(result), ValidTo = result.ValidTo };
         }
 
@@ -66,9 +65,8 @@
                 ValidateIssuer = false,
                 IssuerSigningKey = new SymmetricSecurityKey(_key)
             };
-            SecurityToken securityToken;
 
-            _handler.ValidateToken(token, parameters, out securityToken);
+            _handler.ValidateToken(token, parameters, out _);
 
             return true;
         }
