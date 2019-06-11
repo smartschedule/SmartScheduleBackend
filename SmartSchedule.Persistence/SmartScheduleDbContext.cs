@@ -7,6 +7,7 @@
     {
         public SmartScheduleDbContext(DbContextOptions<SmartScheduleDbContext> options) : base(options)
         {
+
         }
 
         public virtual DbSet<Event> Events { get; set; }

@@ -26,7 +26,6 @@
             }
             else
             {
-
                 var code = HttpStatusCode.InternalServerError;
 
                 if (context.Exception is NotFoundException)
@@ -42,7 +41,6 @@
                     stackTrace = context.Exception.StackTrace
                 });
             }
-
         }
     }
 }

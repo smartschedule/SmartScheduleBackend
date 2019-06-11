@@ -53,7 +53,6 @@
             JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
             var result = _handler.CreateToken(tokenDescriptor);
 
-
             return new JwtTokenModel { Token = _handler.WriteToken(result), ValidTo = result.ValidTo };
         }
 
