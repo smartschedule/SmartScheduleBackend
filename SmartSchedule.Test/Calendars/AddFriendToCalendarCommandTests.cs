@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Commands.AddFriendToCalendar;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Test.Infrastructure;

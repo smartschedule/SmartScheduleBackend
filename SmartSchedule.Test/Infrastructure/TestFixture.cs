@@ -3,7 +3,7 @@
     using System;
     using AutoMapper;
     using Microsoft.Extensions.Options;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Persistence;

@@ -4,7 +4,7 @@ namespace SmartSchedule.Test.Events
     using System.Threading.Tasks;
     using AutoMapper;
     using Shouldly;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Queries;
     using SmartSchedule.Application.Event.Queries.GetEvents;
     using SmartSchedule.Test.Infrastructure;

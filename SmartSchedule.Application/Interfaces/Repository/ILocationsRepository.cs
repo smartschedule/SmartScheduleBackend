@@ -1,6 +1,6 @@
-﻿namespace SmartSchedule.Application.DAL.Interfaces.Repository
+﻿namespace SmartSchedule.Application.Interfaces.Repository
 {
-    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities;
 
     public interface ILocationsRepository : IGenericRepository<Location, int>

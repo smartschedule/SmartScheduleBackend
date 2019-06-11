@@ -1,4 +1,4 @@
-﻿namespace SmartSchedule.Application.DAL.Interfaces.Repository.Generic
+﻿namespace SmartSchedule.Application.Interfaces.Repository.Generic
 {
     using System;
     using System.Collections.Generic;

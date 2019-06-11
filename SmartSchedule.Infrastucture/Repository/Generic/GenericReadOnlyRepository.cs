@@ -9,7 +9,7 @@
     using AutoMapper;
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities.Base;
 
     public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>, IDisposable

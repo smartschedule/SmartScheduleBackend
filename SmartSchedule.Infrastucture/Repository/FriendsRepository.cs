@@ -5,7 +5,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using SmartSchedule.Application.Interfaces.Repository;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Infrastructure.Repository.Generic;
 

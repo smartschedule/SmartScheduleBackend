@@ -4,7 +4,7 @@ namespace SmartSchedule.Application.Calendar.Commands.CreateCalendar
     using System.Threading.Tasks;
     using FluentValidation;
     using MediatR;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Commands;
 
     public class CreateCalendarCommand : IRequest
