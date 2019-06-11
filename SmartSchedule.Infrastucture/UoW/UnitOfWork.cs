@@ -5,10 +5,9 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
-    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
-    using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Application.Interfaces.Repository;
+    using SmartSchedule.Application.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
     using SmartSchedule.Infrastructure.Repository;

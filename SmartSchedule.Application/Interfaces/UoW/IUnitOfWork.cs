@@ -1,10 +1,10 @@
-﻿namespace SmartSchedule.Application.DAL.Interfaces.UoW
+﻿namespace SmartSchedule.Application.Interfaces.UoW
 {
     using System;
     using System.Threading;
     using System.Threading.Tasks;
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
-    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces.Repository;
+    using SmartSchedule.Application.Interfaces.Repository.Generic;
     using SmartSchedule.Domain.Entities.Base;
 
     public interface IUnitOfWork : IDisposable

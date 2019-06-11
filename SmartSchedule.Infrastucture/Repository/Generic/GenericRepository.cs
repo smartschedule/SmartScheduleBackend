@@ -3,7 +3,7 @@
     using System;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
-    using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces.Repository.Generic;
     using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities.Base;
 

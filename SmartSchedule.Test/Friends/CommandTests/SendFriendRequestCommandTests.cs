@@ -3,7 +3,7 @@
     using System.Threading;
     using System.Threading.Tasks;
     using Shouldly;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Friends.Commands.SendFriendInvitation;

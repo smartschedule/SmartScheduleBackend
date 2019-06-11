@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
     using FluentValidation;
     using Shouldly;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Friends.Commands;
     using SmartSchedule.Application.Friends.Commands.RejectFriendRequest;
     using SmartSchedule.Test.Infrastructure;

@@ -1,7 +1,7 @@
 ﻿namespace SmartSchedule.Application.User.Commands.CreateUser
 {
     using FluentValidation;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.User.Commands;
 
     public class CreateUserCommandValidator : AbstractValidator<CreateUserRequest>

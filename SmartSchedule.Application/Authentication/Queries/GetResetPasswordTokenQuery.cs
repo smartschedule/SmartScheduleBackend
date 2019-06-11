@@ -5,7 +5,7 @@
     using System.Threading.Tasks;
     using MediatR;
     using Microsoft.AspNetCore.Http;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.Exceptions;
     using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Common;

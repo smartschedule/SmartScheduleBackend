@@ -5,7 +5,7 @@ namespace SmartSchedule.Test.Calendars
     using AutoMapper;
     using Shouldly;
     using SmartSchedule.Application.Calendar.Queries.GetCalendars;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Test.Infrastructure;
     using Xunit;

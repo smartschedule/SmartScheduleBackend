@@ -1,7 +1,7 @@
 ﻿namespace SmartSchedule.Application.Event.Commands.CreateEvent
 {
     using FluentValidation;
-    using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Event.Commands;
     using SmartSchedule.Application.Helpers;
 

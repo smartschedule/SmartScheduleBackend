@@ -1,6 +1,7 @@
 ﻿namespace SmartSchedule.Infrastructure.Repository
 {
-    using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using Microsoft.EntityFrameworkCore;
+    using SmartSchedule.Application.Interfaces.Repository;
     using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Infrastructure.Repository.Generic;
