@@ -3,7 +3,6 @@
     using System.Collections.Generic;
     using System.Net;
     using System.Reflection;
-    using System.Text;
     using AutoMapper;
     using MediatR;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -16,10 +15,10 @@
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.IdentityModel.Tokens;
     using SmartSchedule.Api.Filters;
-    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Authentication;
     using SmartSchedule.Application.Infrastructure.AutoMapper;
     using SmartSchedule.Application.Interfaces;
+    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
     using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Infrastucture.Authentication;
@@ -66,7 +65,7 @@
                 services.Configure<JwtSettings>(jwtSettingsSection);
 
                 var jwtSettings = jwtSettingsSection.Get<JwtSettings>();
-                var key = Encoding.ASCII.GetBytes(jwtSettings.Key);
+                var key = Base64UrlEncoder.DecodeBytes(jwtSettings.Key);
                 services.AddAuthentication(x =>
                 {
                     x.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -92,7 +91,7 @@
                     options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
 
                 services.AddTransient<IJwtService, JwtService>();
-                services.AddScoped<DbContext, SmartScheduleDbContext>();
+                services.AddScoped<ISmartScheduleDbContext, SmartScheduleDbContext>();
                 services.AddScoped<IUnitOfWork, UnitOfWork>();
                 services.AddTransient<IEmailService, EmailService>();
 
