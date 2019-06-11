@@ -4,10 +4,9 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
-    using SmartSchedule.Application.Calendar.Queries.GetCalendars;
-    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Calendar.Queries;
     using SmartSchedule.Application.DTO.Common;
+    using SmartSchedule.Application.Interfaces.UoW;
     using static SmartSchedule.Application.DTO.Calendar.Queries.GetCalendarListResponse;
 
     //TODO
@@ -20,7 +19,7 @@
             this.Data = data;
         }
 
-        public class Handler : IRequestHandler<GetCalendarsQuery, GetCalendarListResponse>
+        public class Handler : IRequestHandler<GetUserCalendarsQuery, GetCalendarListResponse>
         {
             private readonly IUnitOfWork _uow;
             private readonly IMapper _mapper;
@@ -31,7 +30,7 @@
                 _mapper = mapper;
             }
 
-            public async Task<GetCalendarListResponse> Handle(GetCalendarsQuery request, CancellationToken cancellationToken)
+            public async Task<GetCalendarListResponse> Handle(GetUserCalendarsQuery request, CancellationToken cancellationToken)
             {
                 return new GetCalendarListResponse
                 {

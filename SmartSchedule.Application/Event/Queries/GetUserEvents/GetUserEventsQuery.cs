@@ -4,9 +4,9 @@
     using System.Threading.Tasks;
     using AutoMapper;
     using MediatR;
-    using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.DTO.Common;
     using SmartSchedule.Application.DTO.Event.Queries;
+    using SmartSchedule.Application.Interfaces.UoW;
     using static SmartSchedule.Application.DTO.Event.Queries.GetEventListResponse;
 
     //TODO
