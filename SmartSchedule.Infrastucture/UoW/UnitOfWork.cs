@@ -8,6 +8,7 @@
     using SmartSchedule.Application.DAL.Interfaces.Repository;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
     using SmartSchedule.Application.DAL.Interfaces.UoW;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Domain.Entities.Base;
     using SmartSchedule.Infrastructure.Repository;
@@ -50,9 +51,9 @@
 
         private Hashtable _repositories;
 
-        public UnitOfWork(DbContext context) //IDbContext do napisania w Application i implementacja w Persistance
+        public UnitOfWork(ISmartScheduleDbContext context)
         {
-            _context = context;
+            _context = ((DbContext)context);
         }
 
         public void Dispose()
@@ -65,7 +66,7 @@
         {
             if (!_disposed && disposing)
             {
-                _context.Dispose();
+                ((DbContext)_context).Dispose();
                 if (_repositories != null)
                 {
                     foreach (IDisposable repository in _repositories.Values)

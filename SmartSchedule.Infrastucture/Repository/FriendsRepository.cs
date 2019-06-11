@@ -6,12 +6,13 @@
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities;
     using SmartSchedule.Infrastructure.Repository.Generic;
 
     public class FriendsRepository : GenericRepository<Friends, int>, IFriendsRepository
     {
-        public FriendsRepository(DbContext context) : base(context)
+        public FriendsRepository(ISmartScheduleDbContext context) : base(context)
         {
 
         }

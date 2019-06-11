@@ -49,12 +49,10 @@
             });
 
             //Mediator
-            {
-                services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
+            services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
 
-                services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-            }
+            services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
+                    .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
             //jwt authentication configuration
             {

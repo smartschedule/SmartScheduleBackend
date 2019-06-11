@@ -10,19 +10,20 @@
     using AutoMapper.QueryableExtensions;
     using Microsoft.EntityFrameworkCore;
     using SmartSchedule.Application.DAL.Interfaces.Repository.Generic;
+    using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Domain.Entities.Base;
 
     public class GenericReadOnlyRepository<TEntity, TId> : IGenericReadOnlyRepository<TEntity, TId>, IDisposable
         where TEntity : class, IBaseEntity<TId>
         where TId : IComparable
     {
-        protected readonly DbContext _context;
+        protected readonly ISmartScheduleDbContext _context;
         protected readonly DbSet<TEntity> _dbSet;
 
-        public GenericReadOnlyRepository(DbContext context)
+        public GenericReadOnlyRepository(ISmartScheduleDbContext context)
         {
             this._context = context;
-            this._dbSet = context.Set<TEntity>();
+            this._dbSet = ((DbContext)context).Set<TEntity>();
         }
 
         protected virtual IQueryable<TEntity> GetQueryable(
