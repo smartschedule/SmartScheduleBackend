@@ -50,6 +50,7 @@
             //Mediator
             services.AddMediatR(typeof(GetUserDetailsQuery.Handler).GetTypeInfo().Assembly);
 
+            //Mvc
             services.AddMvc(options => options.Filters.Add(typeof(CustomExceptionFilterAttribute)))
                     .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
