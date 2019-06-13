@@ -1,7 +1,7 @@
 ﻿namespace SmartSchedule.Application.Infrastructure.AutoMapper
 {
-    using System.Reflection;
     using global::AutoMapper;
+    using SmartSchedule.Application.DTO.Interfaces.Mapping;
 
     public class AutoMapperProfile : Profile
     {
@@ -13,7 +13,7 @@
 
         private void LoadStandardMappings()
         {
-            var mapsFrom = MapperProfileHelper.LoadStandardMappings(Assembly.GetExecutingAssembly());
+            var mapsFrom = MapperProfileHelper.LoadStandardMappings(typeof(IHaveCustomMapping).Assembly);
 
             foreach (var map in mapsFrom)
             {
@@ -23,7 +23,7 @@
 
         private void LoadCustomMappings()
         {
-            var mapsFrom = MapperProfileHelper.LoadCustomMappings(Assembly.GetExecutingAssembly());
+            var mapsFrom = MapperProfileHelper.LoadCustomMappings(typeof(IHaveCustomMapping).Assembly);
 
             foreach (var map in mapsFrom)
             {
