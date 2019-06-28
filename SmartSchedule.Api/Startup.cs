@@ -20,6 +20,7 @@
     using SmartSchedule.Application.Interfaces;
     using SmartSchedule.Application.Interfaces.UoW;
     using SmartSchedule.Application.User.Queries.GetUserDetails;
+    using SmartSchedule.Common;
     using SmartSchedule.Infrastructure.UoW;
     using SmartSchedule.Infrastucture.Authentication;
     using SmartSchedule.Infrastucture.Email;
@@ -89,7 +90,7 @@
             //Database connection
             {
                 services.AddDbContext<SmartScheduleDbContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("SmartScheduleDatabase")));
+                    options.UseSqlServer(Configuration.GetConnectionString(GlobalConfig.CONNECTION_STRING_NAME)));
 
                 services.AddTransient<IJwtService, JwtService>();
                 services.AddScoped<ISmartScheduleDbContext, SmartScheduleDbContext>();

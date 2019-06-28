@@ -13,12 +13,7 @@
             var configuration = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory());
 
-#pragma warning disable CS0162 // Unreachable code detected
-            if (GlobalConfig.DEV_MODE)
-                configuration.AddJsonFile("appsettings.Development.json");
-            else
-                configuration.AddJsonFile("appsettings.json");
-#pragma warning restore CS0162 // Unreachable code detected
+            configuration.AddJsonFile(GlobalConfig.CONNECTION_STRING_NAME);
 
             var buildedConfiguration = configuration.AddEnvironmentVariables()
                                                     .Build();
